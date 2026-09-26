@@ -1,0 +1,475 @@
+{
+  "paquete": "paquete-001",
+  "novedad": {
+    "version": "contenido-001",
+    "titulo": "Nuevas lecturas",
+    "cuerpo": "Llegaron 5 lecturas nuevas con 30 preguntas: un ensayo, un texto de divulgación, un relato, dos posturas enfrentadas y una infografía."
+  },
+  "textos": [
+    {
+      "codigo": "P001-T01",
+      "titulo": "La atención como territorio",
+      "tipologia": "ensayo",
+      "fuente": "Texto original para práctica.",
+      "contenido": "Durante siglos, la escasez que ordenó la vida intelectual fue la de la información: los libros eran caros, las bibliotecas quedaban lejos y el saber circulaba con lentitud. Hoy la situación se ha invertido. La información sobra; lo que escasea es la atención capaz de detenerse en ella. Por eso no resulta exagerado afirmar que la atención se ha convertido en un territorio en disputa, y que numerosas empresas diseñan sus productos con el propósito explícito de ocuparlo el mayor tiempo posible.\n\nSin embargo, sería ingenuo culpar solamente a las pantallas. La dispersión no es una invención digital: Séneca ya se quejaba de quienes saltaban de un libro a otro sin detenerse en ninguno, y comparaba esa costumbre con la del viajero que, por conocer muchas posadas, no tiene ningún amigo. Lo nuevo no es la tentación de distraerse, sino su escala y su método: nunca antes la interrupción había sido calculada con tanta precisión.\n\nDe ahí que la lectura sostenida adquiera un valor casi político. Quien lee un texto largo de principio a fin no solo obtiene datos; ejercita la capacidad de seguir un argumento, de tolerar la ambigüedad y de posponer el juicio hasta haber escuchado todas las razones. Esa capacidad, que no se hereda sino que se entrena, es precisamente la que una conversación pública apresurada más necesita y la que menos cultiva.\n\nConviene, pues, pensar la lectura no como un refugio nostálgico frente al presente, sino como una forma de resistencia activa. No se trata de abandonar las pantallas, lo cual sería tan improbable como inútil, sino de recuperar el derecho a decidir dónde ponemos los ojos.",
+      "preguntas": [
+        {
+          "codigo": "P001-T01-01",
+          "categoria": "literal",
+          "dificultad": 1,
+          "enunciado": "Según el texto, lo que escasea en la actualidad es:",
+          "opciones": [
+            "El acceso a las bibliotecas y a los libros.",
+            "La información disponible sobre casi cualquier tema.",
+            "La tecnología para organizar el saber.",
+            "La atención capaz de detenerse en la información."
+          ],
+          "correcta": 3,
+          "explicacion": "El primer párrafo lo dice de forma explícita: «La información sobra; lo que escasea es la atención». La opción sobre la información invierte lo que dice el texto."
+        },
+        {
+          "codigo": "P001-T01-02",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "La comparación de Séneca con el viajero que conoce muchas posadas pero no tiene ningún amigo sugiere que:",
+          "opciones": [
+            "Viajar mucho impide dedicarse a la lectura.",
+            "Leer de manera dispersa permite tocar muchos textos sin establecer una relación profunda con ninguno.",
+            "En la Antigüedad la gente leía más que hoy.",
+            "Los libros son más valiosos que las amistades."
+          ],
+          "correcta": 1,
+          "explicacion": "Las posadas son los libros y el amigo es el vínculo profundo: saltar de uno a otro da cantidad sin profundidad. Las demás opciones toman la imagen al pie de la letra o sacan conclusiones que el texto no plantea."
+        },
+        {
+          "codigo": "P001-T01-03",
+          "categoria": "cohesion",
+          "dificultad": 2,
+          "enunciado": "En la frase «Sin embargo, sería ingenuo culpar solamente a las pantallas», el conector introduce:",
+          "opciones": [
+            "Una matización que limita el alcance de lo dicho en el párrafo anterior.",
+            "Un ejemplo que confirma la tesis inicial.",
+            "La conclusión general del texto.",
+            "Una consecuencia de lo dicho en el primer párrafo."
+          ],
+          "correcta": 0,
+          "explicacion": "«Sin embargo» es adversativo: no niega lo anterior, lo corrige en parte. El autor acaba de hablar de empresas que capturan la atención y ahora aclara que la culpa no es solo de las pantallas."
+        },
+        {
+          "codigo": "P001-T01-04",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "¿Cuál de los siguientes hallazgos debilitaría más el argumento del autor sobre lo que la distracción actual tiene de nuevo?",
+          "opciones": [
+            "Una encuesta según la cual muchos jóvenes leen textos largos en formato digital.",
+            "Un informe en el que las empresas tecnológicas describen sus métodos de diseño.",
+            "Un estudio que muestre que en el siglo XIX ya existían técnicas publicitarias diseñadas para interrumpir la lectura con una precisión comparable a la de las aplicaciones actuales.",
+            "Un documento que confirme que Séneca escribió sobre la lectura dispersa en el siglo I."
+          ],
+          "correcta": 2,
+          "explicacion": "El autor afirma que lo nuevo es «la escala y el método»: una interrupción calculada con precisión inédita. Si esa precisión ya existía antes, se cae justamente lo que él presenta como novedad. La opción sobre Séneca, en cambio, refuerza el texto."
+        },
+        {
+          "codigo": "P001-T01-05",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "Cuando el autor dice que la lectura sostenida adquiere «un valor casi político», quiere decir que:",
+          "opciones": [
+            "Entrena capacidades que la deliberación pública necesita, como seguir argumentos y posponer el juicio.",
+            "La lectura sirve para formar partidos y movimientos.",
+            "Los políticos deberían leer más textos largos.",
+            "Leer debería ser una obligación establecida por el Estado."
+          ],
+          "correcta": 0,
+          "explicacion": "El mismo párrafo explica el sentido: leer de principio a fin ejercita capacidades que «una conversación pública apresurada» necesita. «Político» se usa en el sentido amplio de vida en común, no de partidos o gobiernos."
+        },
+        {
+          "codigo": "P001-T01-06",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "En el último párrafo el autor aclara que «no se trata de abandonar las pantallas». Con esta aclaración busca principalmente:",
+          "opciones": [
+            "Invitar al lector a usar más las pantallas.",
+            "Contradecir lo que afirmó sobre Séneca.",
+            "Anticiparse a la objeción de que su propuesta es un rechazo nostálgico de la tecnología.",
+            "Reconocer que su tesis central es falsa."
+          ],
+          "correcta": 2,
+          "explicacion": "Es una estrategia argumentativa: el autor prevé que alguien lo acuse de nostálgico o tecnófobo y lo desactiva antes. No abandona su tesis; la precisa."
+        }
+      ]
+    },
+    {
+      "codigo": "P001-T02",
+      "titulo": "Lo que el cerebro hace mientras dormimos",
+      "tipologia": "divulgacion",
+      "fuente": "Texto original de divulgación para práctica.",
+      "contenido": "Durante mucho tiempo se pensó que el sueño era un simple estado de reposo, una especie de pausa en la que el cerebro se apagaba para recuperar energía. Las investigaciones de las últimas décadas han desmentido esa imagen. Mientras dormimos, el cerebro trabaja de otra manera: selecciona, ordena y fortalece parte de lo que aprendimos durante el día.\n\nEl proceso ocurre, sobre todo, en dos momentos. En el sueño profundo, llamado también de ondas lentas, el hipocampo —una estructura que funciona como almacén temporal de recuerdos recientes— «reproduce» la actividad registrada durante la vigilia y la transfiere a la corteza, donde los recuerdos pueden conservarse a largo plazo. Más tarde, en la fase de movimientos oculares rápidos (MOR), el cerebro parece establecer conexiones entre informaciones que antes estaban aisladas, lo cual explicaría por qué a veces despertamos con la solución de un problema que la noche anterior parecía imposible.\n\nEstos hallazgos tienen consecuencias prácticas. En un experimento, un grupo de estudiantes que durmió ocho horas después de estudiar recordó significativamente más que otro que estudió el mismo tiempo pero durmió cuatro. En otras palabras, trasnochar para repasar puede ser una estrategia contraproducente: se gana tiempo de estudio, pero se pierde el tiempo en que lo estudiado se consolida.\n\nCon todo, el sueño no hace milagros. No fija aquello que nunca se comprendió ni sustituye la práctica. Su función es la de un editor cuidadoso, no la de un autor: trabaja sobre el material que le entregamos.",
+      "preguntas": [
+        {
+          "codigo": "P001-T02-01",
+          "categoria": "literal",
+          "dificultad": 1,
+          "enunciado": "Según el texto, el hipocampo:",
+          "opciones": [
+            "Conserva los recuerdos a largo plazo.",
+            "Reemplaza a la corteza durante el sueño.",
+            "Produce los movimientos oculares rápidos.",
+            "Funciona como almacén temporal de los recuerdos recientes."
+          ],
+          "correcta": 3,
+          "explicacion": "El texto lo define entre rayas: «una estructura que funciona como almacén temporal de recuerdos recientes». Quien conserva a largo plazo es la corteza."
+        },
+        {
+          "codigo": "P001-T02-02",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "¿En qué orden presenta el texto los procesos que ocurren durante el sueño?",
+          "opciones": [
+            "Primero el reposo del cerebro; después, la fase de movimientos oculares rápidos.",
+            "Primero la transferencia de recuerdos del hipocampo a la corteza; después, la conexión entre informaciones aisladas.",
+            "Ambos procesos ocurren al mismo tiempo durante el sueño profundo.",
+            "Primero la conexión entre informaciones aisladas; después, la transferencia a la corteza."
+          ],
+          "correcta": 1,
+          "explicacion": "El segundo párrafo marca la secuencia con «En el sueño profundo…» y luego «Más tarde, en la fase MOR…». La idea del cerebro en reposo es justamente la que el texto desmiente."
+        },
+        {
+          "codigo": "P001-T02-03",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "A partir del texto, se puede concluir que un estudiante que trasnocha repasando antes de un examen:",
+          "opciones": [
+            "Recordará más, porque estudió más horas.",
+            "Podría recordar menos, porque reduce el tiempo en que se consolida lo aprendido.",
+            "Solo necesita la fase MOR para compensar las horas perdidas.",
+            "No recordará nada de lo que estudió."
+          ],
+          "correcta": 1,
+          "explicacion": "El tercer párrafo lo sugiere: se gana tiempo de estudio pero se pierde consolidación. «No recordará nada» es una exageración que el texto no sostiene."
+        },
+        {
+          "codigo": "P001-T02-04",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "La expresión «su función es la de un editor cuidadoso, no la de un autor» significa que el sueño:",
+          "opciones": [
+            "Escribe de nuevo los recuerdos que olvidamos.",
+            "Crea conocimientos nuevos a partir de la nada.",
+            "Organiza y fortalece lo aprendido, pero no produce el aprendizaje original.",
+            "Corrige los errores que cometemos al escribir."
+          ],
+          "correcta": 2,
+          "explicacion": "Es una metáfora: el editor trabaja sobre un texto que ya existe; el autor lo crea. El sueño mejora lo que estudiamos, pero no reemplaza el estudio. La frase siguiente lo confirma: «trabaja sobre el material que le entregamos»."
+        },
+        {
+          "codigo": "P001-T02-05",
+          "categoria": "cohesion",
+          "dificultad": 2,
+          "enunciado": "En «Con todo, el sueño no hace milagros», la expresión «con todo» podría reemplazarse, sin cambiar el sentido, por:",
+          "opciones": [
+            "Por lo tanto,",
+            "Además,",
+            "Es decir,",
+            "No obstante,"
+          ],
+          "correcta": 3,
+          "explicacion": "«Con todo» tiene valor adversativo-concesivo: después de enumerar beneficios, pone un límite. «Por lo tanto» sería consecutivo, «además» aditivo y «es decir» explicativo."
+        },
+        {
+          "codigo": "P001-T02-06",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "¿Qué información adicional haría más sólida la conclusión que el texto extrae del experimento con los dos grupos de estudiantes?",
+          "opciones": [
+            "Que los dos grupos tenían edades y conocimientos previos semejantes.",
+            "Que el experimento se hizo en una universidad reconocida.",
+            "Que los investigadores también estudian el sueño en animales.",
+            "Que los estudiantes preferían dormir ocho horas."
+          ],
+          "correcta": 0,
+          "explicacion": "Para atribuir la diferencia al sueño hay que descartar otras explicaciones: si un grupo ya sabía más, el resultado no probaría nada. El prestigio de la universidad no fortalece la lógica del argumento."
+        }
+      ]
+    },
+    {
+      "codigo": "P001-T03",
+      "titulo": "El afinador",
+      "tipologia": "literario",
+      "fuente": "Relato original para práctica.",
+      "contenido": "Don Aurelio llegaba al pueblo cada seis meses, siempre en el bus de las siete, con un maletín de cuero que nadie le había visto abrir fuera de una sala. Afinaba el único piano de la escuela, el de la parroquia y, cuando la viuda Restrepo se lo permitía, el vertical que dormía en su comedor bajo una manta de encaje.\n\nA mí me dejaban mirarlo. Él golpeaba una tecla, escuchaba con los ojos cerrados y giraba una clavija apenas lo que tarda un suspiro. «El piano no se desafina de un día para otro», me explicó una vez. «Se va yendo despacito, como la gente. Por eso nadie se da cuenta hasta que suena feo».\n\nAquel año el piano de la viuda tenía tres teclas mudas. Don Aurelio las revisó una por una, sacó del fondo del instrumento un sobre amarillento y se lo entregó a ella sin leerlo. La viuda lo guardó en el delantal y, por primera vez en años, se sentó a tocar. Tocó mal, con los dedos rígidos, pero nadie en el comedor se atrevió a decírselo.\n\n—Ya quedó —dijo don Aurelio, aunque no había girado ni una sola clavija.\n\nEsa tarde entendí que su oficio no consistía en arreglar pianos, o no solamente. Y comprendí también por qué, cuando el bus de las siete dejó de traerlo, el pueblo entero empezó a sonar un poco peor.",
+      "preguntas": [
+        {
+          "codigo": "P001-T03-01",
+          "categoria": "literal",
+          "dificultad": 1,
+          "enunciado": "Según el narrador, ¿qué sacó don Aurelio del fondo del piano de la viuda?",
+          "opciones": [
+            "Una clavija rota.",
+            "Una manta de encaje.",
+            "Tres teclas nuevas.",
+            "Un sobre amarillento."
+          ],
+          "correcta": 3,
+          "explicacion": "Está dicho de forma explícita en el tercer párrafo. La manta de encaje cubría el piano; no estaba adentro."
+        },
+        {
+          "codigo": "P001-T03-02",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "La frase «se va yendo despacito, como la gente» establece una comparación que sugiere que:",
+          "opciones": [
+            "Las personas también se deterioran o cambian de forma gradual, sin que se note enseguida.",
+            "Los pianos son más frágiles que las personas.",
+            "Don Aurelio prefería los pianos a las personas.",
+            "La gente del pueblo no sabía tocar el piano."
+          ],
+          "correcta": 0,
+          "explicacion": "La comparación traslada al ser humano lo que se dice del piano: el desgaste lento que nadie percibe «hasta que suena feo». Esta idea prepara el final del relato."
+        },
+        {
+          "codigo": "P001-T03-03",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "Cuando don Aurelio dice «Ya quedó» sin haber girado ninguna clavija, se puede inferir que:",
+          "opciones": [
+            "Quería engañar a la viuda para cobrarle el trabajo.",
+            "El piano no tenía ningún problema desde el principio.",
+            "Consideraba que lo que necesitaba arreglo no era el instrumento, sino algo en la vida de la viuda.",
+            "Se equivocó y dejó el piano desafinado."
+          ],
+          "correcta": 2,
+          "explicacion": "Las teclas mudas se explican por el sobre, y lo que cambia después es la viuda: vuelve a tocar «por primera vez en años». El narrador lo confirma: el oficio de don Aurelio «no consistía en arreglar pianos, o no solamente»."
+        },
+        {
+          "codigo": "P001-T03-04",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "La última frase, «el pueblo entero empezó a sonar un poco peor», debe entenderse en sentido:",
+          "opciones": [
+            "Técnico: el bus de las siete hacía más ruido al llegar.",
+            "Doble: alude a los pianos sin afinar y, a la vez, a una pérdida de armonía en la vida del pueblo.",
+            "Solo literal: los pianos se desafinaron por falta de mantenimiento.",
+            "Irónico: el pueblo mejoró cuando don Aurelio dejó de ir."
+          ],
+          "correcta": 1,
+          "explicacion": "El relato ya advirtió que el oficio no era «solamente» arreglar pianos. Por eso la frase funciona en dos planos: el sonido de los instrumentos y el de la vida comunitaria. Quedarse solo con el sentido literal pierde la mitad."
+        },
+        {
+          "codigo": "P001-T03-05",
+          "categoria": "cohesion",
+          "dificultad": 2,
+          "enunciado": "En la frase «se lo entregó a ella sin leerlo», los pronombres «lo» de «se lo entregó» y de «leerlo» se refieren, respectivamente, a:",
+          "opciones": [
+            "El piano y el sobre.",
+            "La viuda y la carta.",
+            "El maletín y el sobre.",
+            "El sobre y el sobre."
+          ],
+          "correcta": 3,
+          "explicacion": "Ambos «lo» son pronombres anafóricos que retoman «un sobre amarillento». «Ella» es quien se refiere a la viuda; por eso la última opción confunde los referentes."
+        },
+        {
+          "codigo": "P001-T03-06",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "¿Qué rasgo del narrador es clave para el efecto del relato?",
+          "opciones": [
+            "Es el propio don Aurelio contando su oficio.",
+            "Es la viuda Restrepo recordando a su esposo.",
+            "Es alguien que recuerda un episodio de su infancia y lo comprende tiempo después.",
+            "Es un narrador omnisciente que conoce lo que dice el sobre."
+          ],
+          "correcta": 2,
+          "explicacion": "El narrador era un niño al que «dejaban mirar», y la comprensión llega después («Esa tarde entendí…»). Como no sabe qué dice el sobre, el lector tampoco lo sabe, y eso sostiene el misterio."
+        }
+      ]
+    },
+    {
+      "codigo": "P001-T04",
+      "titulo": "El celular en el aula: dos posturas",
+      "tipologia": "intertextual",
+      "fuente": "Textos originales para práctica.",
+      "contenido": "### Texto A\n\nProhibir el celular en el aula no es un gesto autoritario, sino una medida de cuidado. Diversos estudios han mostrado que la simple presencia del teléfono sobre el pupitre, incluso apagado, reduce el rendimiento en tareas que exigen concentración. Si aceptamos que la escuela tiene la misión de proteger las condiciones del aprendizaje, debemos aceptar también que algunas herramientas, por útiles que sean fuera de ella, deben quedarse en la puerta. Nadie diría que prohibir la pelota durante la clase de química es un ataque contra el deporte.\n\n### Texto B\n\nProhibir el celular equivale a renunciar a educar sobre él. Los estudiantes pasarán la mayor parte de su vida adulta rodeados de pantallas, y la escuela es quizá el único lugar donde alguien puede enseñarles a usarlas con criterio: a contrastar fuentes, a reconocer la manipulación y a decidir cuándo apagar. Una prohibición total traslada el problema fuera del aula, donde nadie acompaña. Lo que necesitamos no es un muro, sino un pacto: reglas claras sobre cuándo el teléfono se usa como herramienta y cuándo se guarda.",
+      "preguntas": [
+        {
+          "codigo": "P001-T04-01",
+          "categoria": "literal",
+          "dificultad": 1,
+          "enunciado": "Según el texto A, la presencia del teléfono sobre el pupitre:",
+          "opciones": [
+            "Reduce el rendimiento en tareas de concentración, incluso si está apagado.",
+            "Mejora la concentración si se usa como herramienta.",
+            "Solo afecta a los estudiantes cuando está encendido.",
+            "No tiene efectos comprobados en el aprendizaje."
+          ],
+          "correcta": 0,
+          "explicacion": "El texto A lo dice de forma explícita, e insiste en el detalle «incluso apagado»."
+        },
+        {
+          "codigo": "P001-T04-02",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "La comparación con la pelota en la clase de química, en el texto A, busca mostrar que:",
+          "opciones": [
+            "El deporte y la química son igual de importantes.",
+            "Restringir un objeto en un contexto no implica rechazarlo en general.",
+            "Los estudiantes prefieren el deporte a las ciencias.",
+            "La escuela también debería prohibir las pelotas."
+          ],
+          "correcta": 1,
+          "explicacion": "Es una analogía: así como nadie ve en esa prohibición un ataque al deporte, prohibir el celular en clase no sería un ataque a la tecnología."
+        },
+        {
+          "codigo": "P001-T04-03",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "¿En qué coinciden los dos textos?",
+          "opciones": [
+            "En que el teléfono no afecta la concentración.",
+            "En que el teléfono debe prohibirse por completo.",
+            "En que el uso del teléfono en el aula requiere algún tipo de regulación.",
+            "En que los estudiantes deben decidir libremente cuándo usarlo."
+          ],
+          "correcta": 2,
+          "explicacion": "A propone prohibirlo; B propone «reglas claras sobre cuándo se usa y cuándo se guarda». Difieren en el tipo de regulación, pero ninguno defiende el uso libre."
+        },
+        {
+          "codigo": "P001-T04-04",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "Desde la perspectiva del texto B, la principal debilidad de la propuesta del texto A es que:",
+          "opciones": [
+            "Protege la concentración en clase, pero no prepara a los estudiantes para usar el teléfono con criterio.",
+            "Se basa en estudios que son falsos.",
+            "Permite el uso del teléfono en algunas clases.",
+            "Exige demasiado trabajo a los docentes."
+          ],
+          "correcta": 0,
+          "explicacion": "B sostiene que prohibir «traslada el problema fuera del aula, donde nadie acompaña». No discute los estudios de A; discute que la prohibición deja sin educar el uso."
+        },
+        {
+          "codigo": "P001-T04-05",
+          "categoria": "cohesion",
+          "dificultad": 3,
+          "enunciado": "En el texto A, la expresión «por útiles que sean fuera de ella» tiene un valor:",
+          "opciones": [
+            "Consecutivo: equivale a «de modo que son útiles fuera de ella».",
+            "Concesivo: equivale a «aunque sean útiles fuera de ella».",
+            "Condicional: equivale a «si son útiles fuera de ella».",
+            "Causal: equivale a «porque son útiles fuera de ella»."
+          ],
+          "correcta": 1,
+          "explicacion": "La construcción «por + adjetivo + que» es concesiva: admite una objeción (son útiles) sin que cambie la conclusión (deben quedarse en la puerta). Además, «ella» remite a la escuela."
+        },
+        {
+          "codigo": "P001-T04-06",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "En el texto B, la oposición entre «un muro» y «un pacto» representa:",
+          "opciones": [
+            "La tecnología del pasado frente a la del futuro.",
+            "La postura de los estudiantes frente a la de los padres.",
+            "Una construcción física frente a un documento legal.",
+            "Una prohibición impuesta frente a un acuerdo con reglas compartidas."
+          ],
+          "correcta": 3,
+          "explicacion": "Son metáforas: el muro separa y se impone; el pacto se construye entre partes. Leerlas de forma literal es el error que proponen dos de los distractores."
+        }
+      ]
+    },
+    {
+      "codigo": "P001-T05",
+      "titulo": "¿Cómo leen los jóvenes?",
+      "tipologia": "discontinuo",
+      "fuente": "Infografía con datos ficticios, elaborada para práctica.",
+      "contenido": "### Infografía: hábitos de lectura de jóvenes de 14 a 18 años\nEncuesta a 1.200 estudiantes de una ciudad colombiana. Datos ficticios, elaborados para práctica.\n\n**Leen por gusto al menos un libro al año:** 58 %\n**Leen por gusto al menos un libro al mes:** 17 %\n\n**Formato preferido para leer por gusto**\n- Pantalla del celular: 46 %\n- Libro impreso: 38 %\n- Tableta o computador: 11 %\n- Audiolibro: 5 %\n\n**Tiempo diario de lectura (cualquier texto, incluidas redes sociales)**\n- Menos de 30 minutos: 22 %\n- Entre 30 minutos y 2 horas: 49 %\n- Más de 2 horas: 29 %\n\n**Principal razón para no leer más libros**\n- «No tengo tiempo»: 41 %\n- «Me aburro rápido»: 27 %\n- «No sé qué leer»: 19 %\n- «Los libros son caros»: 13 %\n\n*Nota: el 71 % de quienes leen al menos un libro al mes dijo que un familiar o un docente le recomienda libros con frecuencia.*",
+      "preguntas": [
+        {
+          "codigo": "P001-T05-01",
+          "categoria": "literal",
+          "dificultad": 1,
+          "enunciado": "Según la infografía, el formato preferido por más jóvenes para leer por gusto es:",
+          "opciones": [
+            "La tableta o el computador.",
+            "La pantalla del celular.",
+            "El audiolibro.",
+            "El libro impreso."
+          ],
+          "correcta": 1,
+          "explicacion": "Pantalla del celular: 46 %, el porcentaje más alto de ese bloque."
+        },
+        {
+          "codigo": "P001-T05-02",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "De los 1.200 estudiantes encuestados, ¿aproximadamente cuántos leen por gusto al menos un libro al mes?",
+          "opciones": [
+            "696",
+            "580",
+            "204",
+            "170"
+          ],
+          "correcta": 2,
+          "explicacion": "El 17 % de 1.200 es 204. La cifra 696 corresponde al 58 % (un libro al año): confundir las dos filas es el error más común."
+        },
+        {
+          "codigo": "P001-T05-03",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "¿Cuál de las siguientes afirmaciones se deduce correctamente de la infografía?",
+          "opciones": [
+            "Más de la mitad de los encuestados prefiere leer por gusto en algún formato digital.",
+            "La mayoría de los encuestados lee más de dos horas diarias.",
+            "La mitad de los encuestados lee un libro al mes.",
+            "El precio de los libros es la principal razón para no leer más."
+          ],
+          "correcta": 0,
+          "explicacion": "Celular (46 %) más tableta o computador (11 %) suman 57 %, más de la mitad. Las demás afirmaciones contradicen los datos."
+        },
+        {
+          "codigo": "P001-T05-04",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "¿Cuál de las siguientes conclusiones NO puede sostenerse con los datos de la infografía?",
+          "opciones": [
+            "Menos de uno de cada cinco encuestados lee un libro al mes.",
+            "La falta de tiempo es la razón más mencionada para no leer más libros.",
+            "Parte del tiempo diario de lectura corresponde a redes sociales.",
+            "Las recomendaciones de familiares y docentes hacen que los jóvenes lean más."
+          ],
+          "correcta": 3,
+          "explicacion": "La nota muestra que dos cosas aparecen juntas, no que una cause la otra: quizá quienes ya leen mucho buscan más recomendaciones. Confundir correlación con causa es un error crítico frecuente."
+        },
+        {
+          "codigo": "P001-T05-05",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "Un periódico tituló una nota sobre esta encuesta: «Los jóvenes ya no leen». Según la infografía, ese titular es:",
+          "opciones": [
+            "Correcto, porque el 41 % dice no tener tiempo.",
+            "Inexacto, porque la mayoría lee al menos un libro al año y casi todos leen algún texto a diario.",
+            "Correcto, porque solo el 17 % lee un libro al mes.",
+            "Inexacto, porque todos los encuestados leen más de dos horas diarias."
+          ],
+          "correcta": 1,
+          "explicacion": "El titular generaliza a partir de un solo dato. El 58 % lee al menos un libro al año y el 78 % lee más de 30 minutos diarios. La última opción también dice «inexacto», pero con una razón falsa."
+        },
+        {
+          "codigo": "P001-T05-06",
+          "categoria": "cohesion",
+          "dificultad": 2,
+          "enunciado": "En la nota final, la expresión «de quienes leen al menos un libro al mes» indica que el 71 % se calcula sobre:",
+          "opciones": [
+            "El total de los 1.200 encuestados.",
+            "Quienes prefieren el libro impreso.",
+            "Quienes leen más de dos horas diarias.",
+            "Solo el grupo que lee al menos un libro al mes."
+          ],
+          "correcta": 3,
+          "explicacion": "La expresión delimita el grupo de referencia: el 71 % es de ese 17 %, no del total. Leer mal a qué remite una expresión cambia por completo el dato."
+        }
+      ]
+    }
+  ]
+}

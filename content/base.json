@@ -1,0 +1,445 @@
+{
+  "paquete": "base-v1",
+  "config": {
+    "distribucion": {
+      "literal": 0.2,
+      "inferencial": 0.35,
+      "critico": 0.3,
+      "cohesion": 0.15
+    },
+    "categorias": {
+      "literal": {
+        "nombre": "Literal",
+        "color": "cian",
+        "descripcion": "Datos explícitos, secuencias y causas que el texto dice directamente."
+      },
+      "inferencial": {
+        "nombre": "Inferencial",
+        "color": "rosa",
+        "descripcion": "Sentido global, premisas implícitas, propósito del autor, figuras y palabras en contexto."
+      },
+      "critico": {
+        "nombre": "Crítico",
+        "color": "amarillo",
+        "descripcion": "Solidez de los argumentos, sesgos y comparación entre textos."
+      },
+      "cohesion": {
+        "nombre": "Cohesión",
+        "color": "menta",
+        "descripcion": "Conectores, referencias entre palabras y valor de la puntuación."
+      }
+    },
+    "retos": {
+      "repaso": 0.2,
+      "opciones": [
+        {
+          "n": 5,
+          "nombre": "Canción",
+          "minutos": 8,
+          "descripcion": "Un calentamiento corto para no romper la racha."
+        },
+        {
+          "n": 10,
+          "nombre": "EP",
+          "minutos": 16,
+          "descripcion": "La sesión de todos los días."
+        },
+        {
+          "n": 15,
+          "nombre": "Álbum",
+          "minutos": 25,
+          "descripcion": "Para los días con tiempo y ganas."
+        }
+      ]
+    },
+    "simulacros": {
+      "inicial": {
+        "nombre": "Inicial",
+        "preguntas": 30,
+        "minutos": 65,
+        "dificultad": 1.6,
+        "descripcion": "Textos más accesibles. Para medir el punto de partida."
+      },
+      "avanzado": {
+        "nombre": "Avanzado",
+        "preguntas": 40,
+        "minutos": 90,
+        "dificultad": 2.1,
+        "descripcion": "Igual al bloque de lectura del examen real: 40 preguntas."
+      },
+      "experto": {
+        "nombre": "Experto",
+        "preguntas": 50,
+        "minutos": 110,
+        "dificultad": 2.5,
+        "descripcion": "Más preguntas y más difíciles, con el mismo ritmo por pregunta."
+      }
+    },
+    "xp": {
+      "por_acierto": 10,
+      "por_intento": 2,
+      "bono_ritmo": 5,
+      "segundos_bono": 120,
+      "reto_completo": 20,
+      "reto_perfecto": 30,
+      "mision": 40,
+      "simulacro_acierto": 12,
+      "simulacro_completo": 60
+    },
+    "rangos": [
+      {
+        "nombre": "Demo",
+        "xp": 0
+      },
+      {
+        "nombre": "Maqueta",
+        "xp": 300
+      },
+      {
+        "nombre": "Disco de oro",
+        "xp": 1000
+      },
+      {
+        "nombre": "Platino",
+        "xp": 2500
+      },
+      {
+        "nombre": "Diamante",
+        "xp": 5000
+      },
+      {
+        "nombre": "Leyenda UdeA",
+        "xp": 9000
+      }
+    ],
+    "referencias": [
+      {
+        "programa": "Medicina y programas de corte muy alto",
+        "porcentaje": 85,
+        "detalle": "34 a 37 aciertos de 40 en Competencia Lectora"
+      },
+      {
+        "programa": "Derecho, Ingeniería Civil y programas intermedios",
+        "porcentaje": 70,
+        "detalle": "28 a 33 aciertos de 40"
+      },
+      {
+        "programa": "Programas regionales",
+        "porcentaje": 55,
+        "detalle": "Referencia aproximada"
+      }
+    ],
+    "alertas": {
+      "dias_inactividad": 3,
+      "caida_puntos": 15,
+      "minimo_respuestas": 5
+    },
+    "avatares": [
+      "🎧",
+      "🎸",
+      "🎹",
+      "🥁",
+      "🎤",
+      "🎮",
+      "👾",
+      "🕹️",
+      "🦊",
+      "🐉",
+      "🌙",
+      "⚡",
+      "🔮",
+      "🪐",
+      "🌈",
+      "🦄"
+    ]
+  },
+  "insignias": [
+    {
+      "codigo": "primera-nota",
+      "nombre": "Primera nota",
+      "descripcion": "Respondiste tu primera pregunta.",
+      "icono": "🎵",
+      "color": "cian",
+      "orden": 1,
+      "regla": {
+        "tipo": "respuestas",
+        "valor": 1
+      }
+    },
+    {
+      "codigo": "racha-3",
+      "nombre": "Tres en fila",
+      "descripcion": "Tres días seguidos practicando.",
+      "icono": "🔥",
+      "color": "rosa",
+      "orden": 10,
+      "regla": {
+        "tipo": "racha",
+        "valor": 3
+      }
+    },
+    {
+      "codigo": "racha-7",
+      "nombre": "Semana en loop",
+      "descripcion": "Siete días seguidos practicando.",
+      "icono": "🔁",
+      "color": "rosa",
+      "orden": 11,
+      "regla": {
+        "tipo": "racha",
+        "valor": 7
+      }
+    },
+    {
+      "codigo": "racha-30",
+      "nombre": "Mes sin pausa",
+      "descripcion": "Treinta días seguidos practicando.",
+      "icono": "📅",
+      "color": "rosa",
+      "orden": 12,
+      "regla": {
+        "tipo": "racha",
+        "valor": 30
+      }
+    },
+    {
+      "codigo": "aciertos-50",
+      "nombre": "50 aciertos",
+      "descripcion": "Llevas 50 respuestas correctas.",
+      "icono": "🎯",
+      "color": "amarillo",
+      "orden": 20,
+      "regla": {
+        "tipo": "aciertos",
+        "valor": 50
+      }
+    },
+    {
+      "codigo": "aciertos-250",
+      "nombre": "250 aciertos",
+      "descripcion": "Llevas 250 respuestas correctas.",
+      "icono": "💿",
+      "color": "amarillo",
+      "orden": 21,
+      "regla": {
+        "tipo": "aciertos",
+        "valor": 250
+      }
+    },
+    {
+      "codigo": "aciertos-1000",
+      "nombre": "Mil aciertos",
+      "descripcion": "Llevas 1.000 respuestas correctas.",
+      "icono": "🏆",
+      "color": "amarillo",
+      "orden": 22,
+      "regla": {
+        "tipo": "aciertos",
+        "valor": 1000
+      }
+    },
+    {
+      "codigo": "retos-10",
+      "nombre": "Diez retos",
+      "descripcion": "Terminaste 10 retos diarios.",
+      "icono": "🎶",
+      "color": "cian",
+      "orden": 30,
+      "regla": {
+        "tipo": "retos",
+        "valor": 10
+      }
+    },
+    {
+      "codigo": "retos-50",
+      "nombre": "Cincuenta retos",
+      "descripcion": "Terminaste 50 retos diarios.",
+      "icono": "📀",
+      "color": "cian",
+      "orden": 31,
+      "regla": {
+        "tipo": "retos",
+        "valor": 50
+      }
+    },
+    {
+      "codigo": "ep-perfecto",
+      "nombre": "EP perfecto",
+      "descripcion": "Un reto de 10 preguntas sin un solo error.",
+      "icono": "✨",
+      "color": "menta",
+      "orden": 40,
+      "regla": {
+        "tipo": "reto_perfecto",
+        "valor": 10
+      }
+    },
+    {
+      "codigo": "album-perfecto",
+      "nombre": "Álbum perfecto",
+      "descripcion": "Un reto de 15 preguntas sin un solo error.",
+      "icono": "💎",
+      "color": "menta",
+      "orden": 41,
+      "regla": {
+        "tipo": "reto_perfecto",
+        "valor": 15
+      }
+    },
+    {
+      "codigo": "remontada",
+      "nombre": "Remontada",
+      "descripcion": "Un reto con 80 % o más justo después de uno por debajo de 50 %.",
+      "icono": "🚀",
+      "color": "violeta",
+      "orden": 45,
+      "regla": {
+        "tipo": "remontada"
+      }
+    },
+    {
+      "codigo": "dominio-literal",
+      "nombre": "Ojo de lince",
+      "descripcion": "Dominio de 80 en el nivel literal.",
+      "icono": "👁️",
+      "color": "cian",
+      "orden": 50,
+      "regla": {
+        "tipo": "dominio",
+        "categoria": "literal",
+        "valor": 80
+      }
+    },
+    {
+      "codigo": "dominio-inferencial",
+      "nombre": "Entre líneas",
+      "descripcion": "Dominio de 80 en el nivel inferencial.",
+      "icono": "🔮",
+      "color": "rosa",
+      "orden": 51,
+      "regla": {
+        "tipo": "dominio",
+        "categoria": "inferencial",
+        "valor": 80
+      }
+    },
+    {
+      "codigo": "dominio-critico",
+      "nombre": "Voz crítica",
+      "descripcion": "Dominio de 80 en el nivel crítico.",
+      "icono": "⚖️",
+      "color": "amarillo",
+      "orden": 52,
+      "regla": {
+        "tipo": "dominio",
+        "categoria": "critico",
+        "valor": 80
+      }
+    },
+    {
+      "codigo": "dominio-cohesion",
+      "nombre": "Conectora",
+      "descripcion": "Dominio de 80 en cohesión y conectores.",
+      "icono": "🔗",
+      "color": "menta",
+      "orden": 53,
+      "regla": {
+        "tipo": "dominio",
+        "categoria": "cohesion",
+        "valor": 80
+      }
+    },
+    {
+      "codigo": "sim-inicial",
+      "nombre": "Primer simulacro",
+      "descripcion": "Terminaste un simulacro inicial.",
+      "icono": "🎟️",
+      "color": "violeta",
+      "orden": 60,
+      "regla": {
+        "tipo": "simulacro",
+        "nivel": "inicial",
+        "valor": 0
+      }
+    },
+    {
+      "codigo": "sim-avanzado-70",
+      "nombre": "Avanzado al 70",
+      "descripcion": "70 % o más en un simulacro avanzado.",
+      "icono": "🎚️",
+      "color": "violeta",
+      "orden": 61,
+      "regla": {
+        "tipo": "simulacro",
+        "nivel": "avanzado",
+        "valor": 70
+      }
+    },
+    {
+      "codigo": "sim-experto-85",
+      "nombre": "Nivel Medicina",
+      "descripcion": "85 % o más en un simulacro experto.",
+      "icono": "🩺",
+      "color": "violeta",
+      "orden": 62,
+      "regla": {
+        "tipo": "simulacro",
+        "nivel": "experto",
+        "valor": 85
+      }
+    },
+    {
+      "codigo": "horas-10",
+      "nombre": "Diez horas",
+      "descripcion": "Diez horas de estudio acumuladas.",
+      "icono": "⏱️",
+      "color": "cian",
+      "orden": 70,
+      "regla": {
+        "tipo": "minutos",
+        "valor": 600
+      }
+    },
+    {
+      "codigo": "horas-50",
+      "nombre": "Cincuenta horas",
+      "descripcion": "Cincuenta horas de estudio acumuladas.",
+      "icono": "⌛",
+      "color": "cian",
+      "orden": 71,
+      "regla": {
+        "tipo": "minutos",
+        "valor": 3000
+      }
+    },
+    {
+      "codigo": "mision-1",
+      "nombre": "Misión cumplida",
+      "descripcion": "Completaste una misión de tu tutor.",
+      "icono": "📨",
+      "color": "rosa",
+      "orden": 80,
+      "regla": {
+        "tipo": "misiones",
+        "valor": 1
+      }
+    },
+    {
+      "codigo": "mision-5",
+      "nombre": "Equipo",
+      "descripcion": "Completaste cinco misiones de tu tutor.",
+      "icono": "🤝",
+      "color": "rosa",
+      "orden": 81,
+      "regla": {
+        "tipo": "misiones",
+        "valor": 5
+      }
+    }
+  ],
+  "novedad": {
+    "version": "1.0",
+    "titulo": "Bienvenida",
+    "cuerpo": "Esta es tu sala de práctica para la prueba de Competencia Lectora de la UdeA. Cada día puedes elegir un reto de 5, 10 o 15 preguntas; cuando quieras medirte en serio, entra a Simulacro. Tu tutor ve tu avance y te dejará mensajes y misiones por aquí."
+  }
+}

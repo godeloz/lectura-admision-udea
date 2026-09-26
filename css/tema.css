@@ -1,0 +1,41 @@
+/* =====================================================================
+   ENTRELÍNEAS · TEMA
+   Cambiar la estética de la app = cambiar este archivo.
+   ===================================================================== */
+:root {
+  /* Fondo: noche violeta, no negro. */
+  --noche:      #1A1238;
+  --noche-2:    #221847;
+  --superficie: #2C2160;
+  --superficie-2: #372A74;
+  --borde:      #45388C;
+
+  --texto:   #F4EFFF;
+  --texto-2: #C3B8EC;
+  --tenue:   #948AC6;
+
+  /* Acentos: uno por categoría + uno para XP. */
+  --rosa:     #FF4FA3;   /* inferencial · acción principal */
+  --cian:     #3FD8F2;   /* literal */
+  --amarillo: #FFCB3D;   /* crítico · XP y rangos */
+  --menta:    #6BF0A6;   /* cohesión · aciertos */
+  --violeta:  #AE93FF;   /* simulacros */
+  --coral:    #FF6E6E;   /* errores y tiempo agotándose */
+
+  /* La lectura vive en papel: modo serio dentro del modo juego. */
+  --papel:  #FBF8FF;
+  --tinta:  #251D44;
+  --tinta-2:#5A5180;
+
+  --f-display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --f-ui:      "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-lectura: "Literata", Georgia, "Times New Roman", serif;
+
+  --r-s: 8px;
+  --r-m: 14px;
+  --r-l: 24px;
+  --r-pill: 999px;
+
+  --sombra: 0 10px 30px -12px rgba(8, 4, 30, .7);
+  --ancho: 1120px;
+}

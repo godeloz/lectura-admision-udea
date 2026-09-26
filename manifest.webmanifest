@@ -1,0 +1,11 @@
+{
+  "name": "Entrelíneas · Lectura UdeA",
+  "short_name": "Entrelíneas",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1A1238",
+  "theme_color": "#1A1238",
+  "lang": "es",
+  "icons": [{ "src": "icono.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

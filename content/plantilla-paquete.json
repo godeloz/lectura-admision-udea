@@ -1,0 +1,48 @@
+{
+  "paquete": "paquete-002",
+  "novedad": {
+    "version": "contenido-002",
+    "titulo": "Lecturas nuevas",
+    "cuerpo": "Llegó una lectura nueva con preguntas de nivel crítico."
+  },
+  "textos": [
+    {
+      "codigo": "P002-T01",
+      "titulo": "Título de la lectura",
+      "tipologia": "argumentativo",
+      "fuente": "Texto original para práctica.",
+      "contenido": "Primer párrafo de la lectura.\n\nSegundo párrafo. Deja una línea en blanco entre párrafos.\n\n### Un subtítulo, si hace falta\n\n- Una lista\n- se escribe así",
+      "preguntas": [
+        {
+          "codigo": "P002-T01-01",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "Del texto se puede concluir que:",
+          "opciones": ["Opción A", "Opción B", "Opción C", "Opción D"],
+          "correcta": 1,
+          "explicacion": "Por qué la B es la correcta y en qué se equivocan las demás."
+        },
+        {
+          "codigo": "P002-T01-02",
+          "categoria": "cohesion",
+          "dificultad": 1,
+          "enunciado": "En el segundo párrafo, el conector «sin embargo» introduce:",
+          "opciones": ["Una oposición", "Una causa", "Una consecuencia", "Un ejemplo"],
+          "correcta": 0,
+          "explicacion": "«Sin embargo» es adversativo."
+        }
+      ]
+    }
+  ],
+  "insignias": [
+    {
+      "codigo": "racha-14",
+      "nombre": "Dos semanas",
+      "descripcion": "Catorce días seguidos practicando.",
+      "icono": "🎼",
+      "color": "rosa",
+      "orden": 13,
+      "regla": { "tipo": "racha", "valor": 14 }
+    }
+  ]
+}

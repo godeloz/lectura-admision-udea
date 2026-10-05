@@ -1,0 +1,433 @@
+{
+  "paquete": "paquete-005",
+  "novedad": {
+    "version": "contenido-005",
+    "titulo": "Lecturas nuevas",
+    "cuerpo": "Llegaron 5 lecturas con 27 preguntas: un ensayo sobre cómo cambian las lenguas, una noticia, una columna en defensa del aburrimiento, un relato y una ficha de talleres. El banco ya tiene 150 preguntas."
+  },
+  "textos": [
+    {
+      "codigo": "P005-T01",
+      "titulo": "La lengua, esa obra sin terminar",
+      "tipologia": "ensayo",
+      "fuente": "Texto original para práctica.",
+      "contenido": "Cada generación está convencida de que la siguiente habla peor. La queja es tan constante que podría pasar por una ley de la naturaleza: los jóvenes abrevian, mezclan idiomas, ignoran el subjuntivo, y con ellos la lengua —se dice— va camino de la ruina. Lo curioso es que esa ruina lleva anunciándose más de dos mil años sin que acabe de llegar.\n\nSe conserva una lista de la Antigüedad tardía, conocida como *Appendix Probi*, en la que un maestro anónimo corrige los errores que oía a su alrededor. «*Auris*, no *oricla*», advierte; «*oculus*, no *oclus*»; «*vetulus*, no *veclus*». El maestro perdió la batalla de manera tan completa que su lista se ha vuelto, sin que él lo quisiera, un acta de nacimiento: de *oricla* viene «oreja»; de *oclus*, «ojo»; de *veclus*, «viejo». Lo que para él era latín mal hablado es, para nosotros, el castellano. Toda lengua que hoy se defiende como patrimonio fue alguna vez la corrupción de otra.\n\nDe ahí no se sigue, como pretenden algunos entusiastas, que todo valga. Que el cambio sea inevitable no significa que cada cambio sea una ganancia, ni que dé lo mismo escribir con cuidado que sin él. Una lengua no es solo un organismo que evoluciona; es también un acuerdo, y los acuerdos se sostienen porque alguien los enseña. Quien no domina la variedad que se usa en los tribunales, en los contratos y en los exámenes queda a merced de quienes sí la dominan. Por eso resulta engañoso el argumento de que corregir es siempre una forma de desprecio: a veces es la única manera de entregar una llave.\n\nEl error del purista no está, entonces, en enseñar la norma, sino en confundirla con la naturaleza. Cree que defiende la lengua cuando defiende, en realidad, la lengua de su infancia: el estado en que la encontró y que toma, por costumbre, por el único posible. Su nostalgia tiene fecha, aunque él no la vea. Es probable que el maestro del *Appendix* añorara un latín que a los escritores de varios siglos antes ya les habría parecido descuidado.\n\nQuizá la actitud más sensata sea la del jardinero, que no confunde podar con detener el crecimiento. Sabe que el árbol no terminará de hacerse nunca y, sin embargo, cada temporada decide qué rama conviene guiar y cuál dejar. No se pregunta si el árbol está «bien» o «mal», sino para qué sirve hoy su sombra y a quién le toca.",
+      "preguntas": [
+        {
+          "codigo": "P005-T01-01",
+          "categoria": "literal",
+          "dificultad": 3,
+          "enunciado": "Según el segundo párrafo, la lista del maestro anónimo terminó siendo «un acta de nacimiento» porque:",
+          "opciones": [
+            "Las formas que censuraba dieron origen a palabras del castellano.",
+            "Es el primer documento que se escribió en lengua castellana.",
+            "Sirvió para que los jóvenes de su tiempo corrigieran su manera de hablar.",
+            "Registra con exactitud la fecha en que el latín dejó de hablarse."
+          ],
+          "correcta": 0,
+          "explicacion": "El texto lo explica enseguida con tres ejemplos: las formas que el maestro censuraba son las que dieron «oreja», «ojo» y «viejo». La lista quería enterrarlas y terminó dejando constancia de cómo nacían. No es un documento en castellano: está en latín y corrige latín. Y no sirvió para corregir a nadie: el maestro «perdió la batalla»."
+        },
+        {
+          "codigo": "P005-T01-02",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "En el tercer párrafo, «entregar una llave» significa:",
+          "opciones": [
+            "Guardar la lengua bajo custodia para que no cambie.",
+            "Permitir que cada persona hable como mejor le parezca en cada momento.",
+            "Premiar a quien logra escribir sin cometer errores.",
+            "Dar a alguien una forma de hablar que le abre puertas."
+          ],
+          "correcta": 3,
+          "explicacion": "La llave es la variedad de la lengua que se usa en tribunales, contratos y exámenes: quien la domina puede entrar donde se decide; quien no, queda a merced de otros. Corregir, entonces, puede ser una manera de dar acceso. La imagen no habla de encerrar la lengua, que es lo que haría un purista."
+        },
+        {
+          "codigo": "P005-T01-03",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "La frase «Su nostalgia tiene fecha, aunque él no la vea» da a entender que el purista:",
+          "opciones": [
+            "Sabe que la lengua cambia, pero prefiere ocultárselo a los demás.",
+            "Toma por eterna una forma de la lengua que pertenece solo a su época.",
+            "Añora una lengua perfecta que en realidad nunca llegó a existir.",
+            "Recuerda con precisión el día en que aprendió las reglas de la gramática."
+          ],
+          "correcta": 1,
+          "explicacion": "Tener fecha es pertenecer a un momento: lo que el purista defiende es «la lengua de su infancia», el estado en que la encontró. No lo sabe («aunque él no la vea»), y por eso no puede estar ocultándolo. La opción de la lengua que nunca existió va demasiado lejos: esa lengua existió, solo que fue una etapa entre muchas."
+        },
+        {
+          "codigo": "P005-T01-04",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "La actitud del jardinero que propone el último párrafo se parece más a la de un profesor que:",
+          "opciones": [
+            "Deja que cada estudiante escriba a su manera, pues todo cambio es natural.",
+            "Corrige toda desviación para que la lengua se conserve tal como la recibió.",
+            "Enseña la norma como una herramienta útil y acepta que con el tiempo cambiará.",
+            "Evita pronunciarse sobre el lenguaje para no incomodar a ninguno de sus alumnos."
+          ],
+          "correcta": 2,
+          "explicacion": "El jardinero «no confunde podar con detener el crecimiento»: interviene, pero no pretende que el árbol deje de cambiar. El profesor que deja hacer no poda; el que corrige todo quiere detener el crecimiento. La analogía pide las dos cosas a la vez: cuidar la norma y saber que es provisional."
+        },
+        {
+          "codigo": "P005-T01-05",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "¿Contra quiénes argumenta el autor a lo largo del texto?",
+          "opciones": [
+            "Contra los maestros que enseñan la norma culta en las escuelas.",
+            "Únicamente contra los puristas que se oponen a cualquier cambio en el idioma.",
+            "Contra los puristas y también contra quienes creen que todo vale.",
+            "Contra los jóvenes que abrevian las palabras y mezclan idiomas."
+          ],
+          "correcta": 2,
+          "explicacion": "El texto tiene dos frentes. Casi todo discute con el purista; el tercer párrafo, con los «entusiastas» que del cambio inevitable concluyen que cualquier cosa da igual. Ver solo el primer frente es leer la mitad. El autor no ataca a los maestros: dice que el error del purista no está «en enseñar la norma»."
+        },
+        {
+          "codigo": "P005-T01-06",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "El autor afirma que «Toda lengua que hoy se defiende como patrimonio fue alguna vez la corrupción de otra» y se apoya en el caso de la lista latina. Desde una lectura crítica, ese apoyo:",
+          "opciones": [
+            "Ilustra la idea, pero un solo caso no basta para probar que valga para toda lengua.",
+            "La demuestra por completo, pues el latín es el origen de todos los idiomas.",
+            "La contradice, porque el maestro consiguió que sus correcciones se respetaran.",
+            "No guarda relación con ella, pues se ocupa del latín antiguo y no de las lenguas que se hablan hoy."
+          ],
+          "correcta": 0,
+          "explicacion": "Un ejemplo bien elegido persuade, pero no prueba una afirmación universal: «toda lengua» exigiría muchos casos más. Detectar el salto de un caso a una ley es una de las tareas de la lectura crítica, incluso cuando la conclusión parece razonable. Tampoco es cierto que el latín sea el origen de todos los idiomas: lo es solo de las lenguas romances."
+        },
+        {
+          "codigo": "P005-T01-07",
+          "categoria": "cohesion",
+          "dificultad": 2,
+          "enunciado": "El tercer párrafo comienza con «De ahí no se sigue». Esa expresión sirve para:",
+          "opciones": [
+            "Presentar la consecuencia lógica de lo dicho en el párrafo anterior.",
+            "Cambiar de tema y dejar atrás el ejemplo de la lista en latín.",
+            "Repetir con otras palabras la tesis planteada al comienzo.",
+            "Impedir que de lo anterior se saque una conclusión equivocada."
+          ],
+          "correcta": 3,
+          "explicacion": "«De ahí» recoge lo anterior, y «no se sigue» niega una consecuencia posible: que si la lengua siempre cambia, entonces cualquier cosa es aceptable. Sin el «no», la expresión introduciría una consecuencia; con él, la bloquea. Leer el conector completo, con su negación, evita el error."
+        }
+      ]
+    },
+    {
+      "codigo": "P005-T02",
+      "titulo": "Una biblioteca de barrio presta instrumentos",
+      "tipologia": "periodistico",
+      "fuente": "Noticia ficticia, elaborada para práctica.",
+      "contenido": "La Biblioteca Comunitaria La Ceiba presta, desde el lunes pasado, algo más que libros. Con el carné de lector, cualquier vecino mayor de doce años puede llevarse a su casa durante quince días una guitarra, un ukelele, un teclado o un juego de tamboras, del mismo modo que se lleva una novela.\n\nEl programa, llamado «Suena en casa», arrancó con 34 instrumentos donados por familias del sector y por dos tiendas de música. En tres días ya no quedaba ninguno en los estantes y había una lista de espera de 23 personas, casi todas para guitarra.\n\n«Calculábamos que tardaríamos un mes en prestar la mitad», dijo Rosalba Henao, coordinadora de la biblioteca. Según Henao, la idea surgió al comprobar que muchos jóvenes asistían a los talleres gratuitos de música y no podían practicar entre clase y clase porque no tenían instrumento.\n\nNo todos comparten el entusiasmo. Hernán Ossa, que durante años reparó instrumentos en el barrio, cree que el programa «durará lo que duren las cuerdas»: sin dinero para mantenimiento, dice, en seis meses la mitad de los instrumentos estará fuera de servicio. La biblioteca reconoce que no tiene un rubro para reparaciones y que, por ahora, depende de voluntarios.\n\nQuien pide un instrumento firma un compromiso de cuidado y recibe una cartilla con ejercicios básicos. Si lo devuelve en buen estado, puede renovar el préstamo una vez, siempre que nadie esté esperando ese mismo instrumento. Los menores de edad necesitan la firma de un adulto.\n\nLa Ceiba es la primera biblioteca del municipio que ensaya un programa de este tipo. La Secretaría de Cultura anunció que evaluará los resultados en diciembre antes de decidir si lo extiende a otras sedes.",
+      "preguntas": [
+        {
+          "codigo": "P005-T02-01",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "Según la noticia, ¿en qué caso puede renovarse el préstamo de un instrumento?",
+          "opciones": [
+            "Si el lector es mayor de edad y lleva un año inscrito.",
+            "Si se devuelve en buen estado y nadie lo espera.",
+            "Si el lector asiste a los talleres gratuitos de música.",
+            "Si un adulto firma un nuevo compromiso de cuidado."
+          ],
+          "correcta": 1,
+          "explicacion": "El quinto párrafo pone dos condiciones juntas: devolverlo «en buen estado» y que «nadie esté esperando ese mismo instrumento». La firma de un adulto también aparece en el texto, pero es un requisito para que los menores pidan el préstamo, no para renovarlo."
+        },
+        {
+          "codigo": "P005-T02-02",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "De las palabras de Rosalba Henao se deduce que la acogida del programa fue:",
+          "opciones": [
+            "Menor de lo previsto, salvo en el caso de las guitarras.",
+            "Parecida a la que la biblioteca había calculado.",
+            "Mucho mayor de lo que la biblioteca esperaba.",
+            "Imposible de medir durante los primeros días."
+          ],
+          "correcta": 2,
+          "explicacion": "La biblioteca calculaba un mes para prestar la mitad, y en tres días había prestado todos y tenía lista de espera. La comparación entre lo previsto y lo ocurrido no está dicha con esas palabras, pero se saca juntando la cita de Henao con el dato del párrafo anterior."
+        },
+        {
+          "codigo": "P005-T02-03",
+          "categoria": "critico",
+          "dificultad": 1,
+          "enunciado": "¿Cuál de las siguientes afirmaciones de la noticia es una opinión y no un hecho comprobable?",
+          "opciones": [
+            "Que el programa arrancó con 34 instrumentos donados.",
+            "Que los menores necesitan la firma de un adulto.",
+            "Que había una lista de espera de 23 personas.",
+            "Que el programa «durará lo que duren las cuerdas»."
+          ],
+          "correcta": 3,
+          "explicacion": "Un hecho se puede verificar: contar los instrumentos, revisar la lista, leer el reglamento. La frase de Hernán Ossa es un pronóstico: dice lo que él cree que pasará. Una noticia bien escrita marca esa diferencia con verbos como «cree» o «dice» y con las comillas."
+        },
+        {
+          "codigo": "P005-T02-04",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "¿Cuál de los siguientes titulares sería más fiel al contenido de la noticia?",
+          "opciones": [
+            "Secretaría de Cultura extiende préstamo de instrumentos a todo el municipio",
+            "Biblioteca de barrio agota en tres días sus instrumentos en préstamo",
+            "Fracasa préstamo de instrumentos por falta de mantenimiento",
+            "Jóvenes abandonan talleres de música por no tener instrumento"
+          ],
+          "correcta": 1,
+          "explicacion": "Un titular fiel dice lo que ocurrió, no lo que podría ocurrir. El programa no ha fracasado: alguien teme que fracase. La Secretaría no lo ha extendido: lo evaluará en diciembre. Y los jóvenes no abandonaron los talleres: no podían practicar en casa. Los tres titulares falsos convierten una posibilidad o un detalle en el hecho principal."
+        },
+        {
+          "codigo": "P005-T02-05",
+          "categoria": "cohesion",
+          "dificultad": 1,
+          "enunciado": "En el cuarto párrafo, la oración «No todos comparten el entusiasmo» cumple la función de:",
+          "opciones": [
+            "Anunciar que enseguida viene una opinión contraria.",
+            "Resumir lo que acaba de decir la coordinadora.",
+            "Corregir un dato de los párrafos anteriores.",
+            "Cerrar la noticia con una conclusión general."
+          ],
+          "correcta": 0,
+          "explicacion": "Es una oración de transición: avisa al lector que el texto cambia de voz. Hasta ahí habló la biblioteca; ahora hablará alguien que duda. Reconocer estas bisagras ayuda a seguir un texto que presenta más de una postura."
+        }
+      ]
+    },
+    {
+      "codigo": "P005-T03",
+      "titulo": "En defensa del aburrimiento",
+      "tipologia": "argumentativo",
+      "fuente": "Columna de opinión original, escrita para práctica.",
+      "contenido": "Mi abuela decía que el aburrimiento es la antesala de las travesuras, y lo decía como advertencia. Con los años he llegado a creer que acertaba en la imagen y se equivocaba en el tono: el aburrimiento es, en efecto, una antesala, pero de ella no solo salen travesuras. Salen también los juegos inventados, las preguntas raras, los dibujos al margen del cuaderno; sale, en una palabra, casi todo lo que un niño hace por su cuenta.\n\nHoy esa antesala está clausurada. Un niño que espera en un consultorio, que viaja en bus o que se queda diez minutos sin tarea tiene en la mano una pantalla que le promete que no se aburrirá jamás. La promesa se cumple, y ese es el problema. Aburrirse es incómodo, y de la incomodidad nace la necesidad de hacer algo con ella. Quien nunca se aburre nunca llega a esa necesidad: consume lo que otros hicieron para llenarle el rato.\n\nSe me dirá que exagero, que los niños de ahora también crean, y que muchos lo hacen precisamente con sus aparatos: editan videos, componen canciones, diseñan mundos enteros. Es verdad, y me alegra. Pero basta mirar con atención para advertir que esos niños son los que usan la pantalla como herramienta y no como relleno; la diferencia entre ambos usos es justamente la que hay entre hacer y esperar a que pase el tiempo.\n\nNo hace falta, por lo demás, acudir a los estudios. Todos los grandes inventos de la humanidad nacieron de una tarde vacía: Newton estaba ocioso bajo un manzano y Arquímedes, metido en la bañera. Y yo mismo, que no he inventado nada, les debo a las siestas interminables en la finca de mis tíos la costumbre de leer.\n\nNo propongo prohibir nada. Propongo algo más modesto y más difícil: que los adultos dejemos de tratar el aburrimiento de los niños como una emergencia. La próxima vez que uno diga «estoy aburrido», quizá la mejor respuesta no sea alcanzarle un aparato, sino contestar, como mi abuela: «Pues algo se te ocurrirá».",
+      "preguntas": [
+        {
+          "codigo": "P005-T03-01",
+          "categoria": "literal",
+          "dificultad": 3,
+          "enunciado": "Según el segundo párrafo, ¿por qué es un problema que la pantalla cumpla su promesa?",
+          "opciones": [
+            "Porque las pantallas terminan aburriendo más que cualquier sala de espera.",
+            "Porque, al evitar la incomodidad, quita la necesidad de inventar algo.",
+            "Porque lo que muestran las pantallas fue hecho por personas poco creativas.",
+            "Porque los niños dejan de ir al consultorio y de viajar en bus con sus padres."
+          ],
+          "correcta": 1,
+          "explicacion": "El párrafo encadena tres pasos: aburrirse incomoda; de la incomodidad «nace la necesidad de hacer algo»; quien nunca se aburre «nunca llega a esa necesidad». La promesa cumplida corta la cadena en el primer eslabón. El autor no dice que las pantallas aburran ni juzga a quienes hacen sus contenidos."
+        },
+        {
+          "codigo": "P005-T03-02",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "De la distinción entre usar la pantalla «como herramienta» y «como relleno» se deduce que, para el autor, el problema de fondo es:",
+          "opciones": [
+            "La pasividad con que se llena el tiempo, no el aparato.",
+            "El exceso de tareas, que no deja tiempo para jugar.",
+            "La falta de talento de quienes no editan ni componen.",
+            "La tecnología, que debería mantenerse lejos de los niños."
+          ],
+          "correcta": 0,
+          "explicacion": "Si el mismo aparato sirve para crear y para matar el tiempo, el problema no puede ser el aparato. Lo que el autor opone es «hacer» y «esperar a que pase el tiempo». Leer la columna como un ataque a la tecnología es quedarse con el segundo párrafo y pasar por alto la concesión del tercero."
+        },
+        {
+          "codigo": "P005-T03-03",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "¿A quién se dirige principalmente la columna?",
+          "opciones": [
+            "A los investigadores que estudian la infancia.",
+            "A los niños que se aburren con facilidad.",
+            "A los adultos que tienen niños a su cargo.",
+            "A los fabricantes de aparatos electrónicos."
+          ],
+          "correcta": 2,
+          "explicacion": "La propuesta final lo revela: «que los adultos dejemos de tratar el aburrimiento de los niños como una emergencia». El autor se incluye («dejemos») y habla de los niños en tercera persona. Saber a quién le habla un texto ayuda a entender qué quiere conseguir: aquí, cambiar una reacción de los mayores."
+        },
+        {
+          "codigo": "P005-T03-04",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "¿Cuál de los argumentos del autor es el más débil desde el punto de vista lógico?",
+          "opciones": [
+            "Que muchos adultos tratan el aburrimiento como una emergencia.",
+            "Que algunos niños usan la pantalla para crear cosas.",
+            "Que la incomodidad de aburrirse empuja a hacer algo.",
+            "Que todos los grandes inventos nacieron de una tarde vacía."
+          ],
+          "correcta": 3,
+          "explicacion": "Es una generalización absoluta («todos») sostenida en dos anécdotas legendarias y en un recuerdo personal. Bastaría un invento nacido del trabajo en equipo o de la urgencia para desmentirla. Las palabras «todos», «siempre» y «nunca» merecen sospecha: prometen más de lo que dos ejemplos pueden pagar. Además, el autor acaba de decir que no hace falta acudir a los estudios, que es justo donde habría evidencia."
+        },
+        {
+          "codigo": "P005-T03-05",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "El autor escribe en el último párrafo: «No propongo prohibir nada». ¿Es coherente esa afirmación con el resto de la columna?",
+          "opciones": [
+            "Sí: critica un uso de la pantalla y pide a los adultos cambiar de actitud, no una prohibición.",
+            "No: en el tercer párrafo condena a los niños que editan videos y componen canciones.",
+            "Sí: porque a lo largo del texto defiende que los niños pasen más tiempo con sus aparatos.",
+            "No: en el segundo párrafo exige retirar las pantallas de los consultorios y de los buses."
+          ],
+          "correcta": 0,
+          "explicacion": "Para evaluar la coherencia hay que volver sobre cada párrafo. El segundo describe un problema, no pide retirar nada; el tercero celebra a los niños que crean («Es verdad, y me alegra»); el último propone un cambio en los adultos. La afirmación es coherente, pero no porque el autor defienda más pantallas: la razón importa tanto como el «sí»."
+        },
+        {
+          "codigo": "P005-T03-06",
+          "categoria": "cohesion",
+          "dificultad": 3,
+          "enunciado": "En el tercer párrafo, la secuencia «Se me dirá que exagero… Es verdad, y me alegra. Pero basta mirar con atención…» tiene una estructura de:",
+          "opciones": [
+            "Enumeración de tres razones a favor de una misma idea.",
+            "Error reconocido y cambio de tesis.",
+            "Objeción prevista, concesión y restricción.",
+            "Causa, consecuencia y conclusión final."
+          ],
+          "correcta": 2,
+          "explicacion": "Son tres movimientos enlazados: el autor anticipa lo que le replicarán («Se me dirá»), lo admite («Es verdad») y luego limita su alcance («Pero»). El «pero» no borra la concesión; la deja en pie y le pone un borde. No hay cambio de tesis: la columna termina defendiendo lo mismo que empezó."
+        }
+      ]
+    },
+    {
+      "codigo": "P005-T04",
+      "titulo": "Letras de aviso",
+      "tipologia": "literario",
+      "fuente": "Relato original para práctica.",
+      "contenido": "En la casa había cuatro bocas y un solo sueldo, de modo que el papel era un lujo. Yo dibujaba en el revés de las facturas de la tienda, con el lápiz de apuntar los fiados, y escondía los dibujos debajo de la registradora.\n\nEl que los encontró fue don Efraín, que venía todas las tardes por un tinto y medio pan. Había pintado, decían, la mitad de los avisos del pueblo, hasta que llegaron los letreros de plástico. Sacó los papeles uno por uno, los miró del derecho y del revés, y no dijo si eran buenos o malos.\n\n—¿Esta es tu mamá? —preguntó por fin.\n\nAsentí. La había dibujado de espaldas, alcanzando un tarro en la repisa más alta.\n\n—Le hiciste los brazos muy largos, niña.\n\n—Es que ella alcanza todo —dije.\n\nDon Efraín se rio sin ruido, con los hombros. Luego pidió prestado el lápiz y, en una esquina de la factura, trazó tres rayas: un brazo, nada más, doblado apenas en el codo. No se parecía al mío. Era más corto y, no sé cómo, llegaba más lejos.\n\n—El brazo no alcanza porque sea largo —dijo—. Alcanza porque el cuerpo entero se empina.\n\nAl día siguiente no vino, ni al otro. El sábado mi mamá encontró junto a la puerta una caja de cartón con mi nombre escrito en letras de aviso, rojas, con sombra. Adentro había un bloc sin estrenar y un lápiz tan corto que apenas se podía agarrar.\n\nTodavía lo tengo. Nunca le he sacado punta.",
+      "preguntas": [
+        {
+          "codigo": "P005-T04-01",
+          "categoria": "literal",
+          "dificultad": 1,
+          "enunciado": "¿Dónde dibujaba la narradora cuando era niña?",
+          "opciones": [
+            "En los cuadernos que le daban en la escuela.",
+            "En un bloc que le había regalado su mamá.",
+            "En los avisos de plástico del pueblo.",
+            "En el revés de las facturas de la tienda."
+          ],
+          "correcta": 3,
+          "explicacion": "El primer párrafo lo dice: «Yo dibujaba en el revés de las facturas de la tienda». El bloc aparece solo al final, y no se lo regala la mamá."
+        },
+        {
+          "codigo": "P005-T04-02",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "¿Qué detalle permite saber quién dejó la caja junto a la puerta?",
+          "opciones": [
+            "El bloc sin estrenar que venía adentro.",
+            "El nombre escrito en letras de aviso.",
+            "El cartón del que estaba hecha la caja.",
+            "El hecho de que la caja apareciera un sábado."
+          ],
+          "correcta": 1,
+          "explicacion": "El relato no nombra a quien dejó la caja, pero deja una firma: las letras de aviso son las del oficio de don Efraín, que había pintado «la mitad de los avisos del pueblo». En los relatos, un detalle que parece decorativo suele estar ahí para que el lector saque la conclusión."
+        },
+        {
+          "codigo": "P005-T04-03",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "En «había cuatro bocas y un solo sueldo», el uso de «bocas» para referirse a las personas de la casa es:",
+          "opciones": [
+            "Un símil",
+            "Una hipérbole",
+            "Una antítesis",
+            "Una sinécdoque"
+          ],
+          "correcta": 3,
+          "explicacion": "La sinécdoque nombra el todo por una de sus partes: aquí, las personas por sus bocas, que es la parte que importa cuando se habla de alimentar una casa. No hay comparación con «como» (símil) ni exageración (hipérbole). La frase opone «cuatro» a «un solo», pero la pregunta es por la palabra «bocas», no por ese contraste."
+        },
+        {
+          "codigo": "P005-T04-04",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "El lápiz que aparece en la caja es «tan corto que apenas se podía agarrar». Lo más razonable es inferir que:",
+          "opciones": [
+            "Don Efraín se equivocó de lápiz en el momento de armar la caja.",
+            "Don Efraín no tenía dinero suficiente para comprarle a la niña un lápiz nuevo.",
+            "Era su propio lápiz de trabajo, y al darlo le entrega algo de su oficio.",
+            "Don Efraín quería que la niña se cansara pronto y dejara de dibujar."
+          ],
+          "correcta": 2,
+          "explicacion": "El bloc es nuevo y el lápiz no: si don Efraín pudo comprar lo más caro, el lápiz gastado no es cuestión de dinero. Un rotulista que ya no pinta avisos le deja a una niña que dibuja la herramienta con la que trabajó. El relato no lo dice; pone juntos los dos objetos y confía en el lector."
+        },
+        {
+          "codigo": "P005-T04-05",
+          "categoria": "critico",
+          "dificultad": 1,
+          "enunciado": "¿Desde qué momento cuenta la historia la narradora?",
+          "opciones": [
+            "Desde el punto de vista de don Efraín, ya viejo.",
+            "Desde la adultez, recordando un episodio de su infancia.",
+            "Desde el punto de vista de su mamá, en la tienda.",
+            "Desde la infancia, mientras ocurren los hechos."
+          ],
+          "correcta": 1,
+          "explicacion": "Todo el relato está en pasado y en primera persona, y la última línea salta al presente: «Todavía lo tengo». Ese «todavía» mide la distancia entre la niña que recibió el lápiz y la adulta que lo cuenta."
+        }
+      ]
+    },
+    {
+      "codigo": "P005-T05",
+      "titulo": "Talleres de vacaciones: ficha comparativa",
+      "tipologia": "discontinuo",
+      "fuente": "Ficha ficticia, elaborada para práctica.",
+      "contenido": "### Casa de la Cultura · Talleres de vacaciones\n\n**Grabado**\n- Edad mínima: 14 años\n- Sesiones: 8 (martes y jueves, de 2:00 a 4:00 p. m.)\n- Valor: 120.000 pesos, materiales incluidos\n- Cupo: 12 personas\n\n**Fotografía con celular**\n- Edad mínima: 12 años\n- Sesiones: 4 (sábados, de 9:00 a. m. a 12:00 m.)\n- Valor: gratuito. Cada participante lleva su celular\n- Cupo: 25 personas\n\n**Cerámica**\n- Edad mínima: 16 años\n- Sesiones: 10 (lunes, miércoles y viernes, de 5:00 a 7:00 p. m.)\n- Valor: 180.000 pesos. La arcilla se paga aparte: 40.000 pesos\n- Cupo: 10 personas\n\n**Condiciones**\n- Los estudiantes de colegios públicos tienen un descuento del 20 % en el valor del taller. El descuento no cubre los materiales que se pagan aparte.\n- Si un taller no alcanza la mitad de su cupo, se cancelará; en ese caso se devolverá el dinero completo.\n- Se entrega certificado a quien asista por lo menos al 80 % de las sesiones.",
+      "preguntas": [
+        {
+          "codigo": "P005-T05-01",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "¿Cuál de los talleres tiene más sesiones y cuál tiene menos, en ese orden?",
+          "opciones": [
+            "Cerámica y fotografía",
+            "Cerámica y grabado",
+            "Grabado y fotografía",
+            "Fotografía y cerámica"
+          ],
+          "correcta": 0,
+          "explicacion": "Cerámica tiene 10 sesiones, grabado 8 y fotografía 4. La pregunta pide dos datos y en un orden: primero el mayor, después el menor. La opción que los trae invertidos acierta en los talleres y falla en el orden."
+        },
+        {
+          "codigo": "P005-T05-02",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "Una estudiante de 15 años busca un taller por el que no tenga que pagar. ¿Cuál puede tomar?",
+          "opciones": [
+            "Solo grabado",
+            "Solo fotografía con celular",
+            "Grabado o fotografía con celular",
+            "Cualquiera de los tres talleres"
+          ],
+          "correcta": 1,
+          "explicacion": "Hay que cruzar dos condiciones: la edad y el valor. Por edad puede entrar a grabado y a fotografía (cerámica exige 16 años); de esos dos, solo fotografía es gratuito."
+        },
+        {
+          "codigo": "P005-T05-03",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "Un estudiante de colegio público calcula que el taller de cerámica le costará en total 176.000 pesos, «el 80 % de 220.000». Su cálculo es:",
+          "opciones": [
+            "Incorrecto, porque el descuento no cubre la arcilla.",
+            "Correcto, porque la arcilla ya viene incluida.",
+            "Correcto, porque el descuento cubre taller y arcilla.",
+            "Incorrecto, porque cerámica no tiene descuento."
+          ],
+          "correcta": 0,
+          "explicacion": "El estudiante sumó taller y arcilla (220.000) y aplicó el descuento a todo. Pero la ficha dice que el descuento «no cubre los materiales que se pagan aparte»: se descuenta solo sobre los 180.000 del taller, que quedan en 144.000, y la arcilla se paga completa. El total es 184.000. Un razonamiento puede tener bien las cuentas y mal la regla."
+        },
+        {
+          "codigo": "P005-T05-04",
+          "categoria": "cohesion",
+          "dificultad": 2,
+          "enunciado": "En la segunda condición, la expresión «en ese caso» se refiere a:",
+          "opciones": [
+            "Que el estudiante falte a varias de las sesiones.",
+            "Que el taller complete todo su cupo.",
+            "Que el taller se cancele por pocos inscritos.",
+            "Que el estudiante pida el descuento."
+          ],
+          "correcta": 2,
+          "explicacion": "«Ese caso» retoma la situación que se acaba de plantear en la misma oración: que el taller no alcance la mitad de su cupo y se cancele. Las expresiones como «en ese caso», «por eso» o «de ahí» no remiten a una palabra sino a una idea completa; hay que buscarla justo antes."
+        }
+      ]
+    }
+  ]
+}

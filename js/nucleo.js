@@ -5,7 +5,7 @@
 window.LE = {
   cfg: window.LE_CONFIG,
   api: null,
-  estado: { perfil: null, config: {}, insignias: [], sesion: null },
+  estado: { perfil: null, config: {}, insignias: [], tecnicas: [], sesion: null },
   acciones: {},
   rutas: []
 };
@@ -17,26 +17,114 @@ window.LE = {
 
   LE.esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-  // Markdown mínimo para lecturas: ### títulos, - listas, **negrita**, *cursiva*
+  // Markdown mínimo para lecturas y enunciados: ### títulos, - listas, **negrita**, *cursiva*
+  // y cuadros: filas que empiezan y terminan con «|». La primera fila es el encabezado.
   LE.md = (texto) => {
     const inline = (s) => LE.esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>");
+    const celdas = (l) => l.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
     return String(texto || "").trim().split(/\n\s*\n/).map((bloque) => {
-      let html = "", parrafo = [], lista = [];
+      let html = "", parrafo = [], lista = [], tabla = [];
       const cerrar = () => { if (parrafo.length) html += "<p>" + parrafo.map(inline).join("<br>") + "</p>"; parrafo = []; };
       const cerrarLista = () => { if (lista.length) html += "<ul>" + lista.map((l) => "<li>" + inline(l) + "</li>").join("") + "</ul>"; lista = []; };
+      const cerrarTabla = () => {
+        if (!tabla.length) return;
+        const [cab, ...filas] = tabla;
+        html += `<div class="scroll-x"><table class="cuadro"><thead><tr>${cab.map((c) => "<th>" + inline(c) + "</th>").join("")}</tr></thead><tbody>${filas.map((f) => "<tr>" + f.map((c, k) => (k === 0 ? "<th>" : "<td>") + inline(c) + (k === 0 ? "</th>" : "</td>")).join("") + "</tr>").join("")}</tbody></table></div>`;
+        tabla = [];
+      };
       for (const l of bloque.split("\n")) {
+        if (/^\s*\|.*\|\s*$/.test(l)) { cerrar(); cerrarLista(); if (!/^[\s|:-]+$/.test(l)) tabla.push(celdas(l)); continue; }
+        cerrarTabla();
         if (/^###\s+/.test(l)) { cerrar(); cerrarLista(); html += "<h3>" + inline(l.replace(/^###\s+/, "")) + "</h3>"; }
         else if (/^\s*-\s+/.test(l)) { cerrar(); lista.push(l.replace(/^\s*-\s+/, "")); }
         else { cerrarLista(); parrafo.push(l); }
       }
-      cerrar(); cerrarLista();
+      cerrar(); cerrarLista(); cerrarTabla();
       return html;
     }).join("");
   };
 
-  LE.CATS = ["literal", "inferencial", "critico", "cohesion"];
-  LE.cat = (c) => (LE.estado.config.categorias || {})[c] || { nombre: c, color: "cian", descripcion: "" };
-  LE.TIPOS = { ensayo: "Ensayo", divulgacion: "Divulgación científica", literario: "Texto literario", discontinuo: "Texto discontinuo", intertextual: "Dos textos en diálogo", argumentativo: "Texto argumentativo", periodistico: "Texto periodístico", otro: "Lectura" };
+  // Un enunciado en una sola línea, sin marcas: para resúmenes, citas y títulos plegados.
+  LE.plano = (texto, max = 0) => {
+    const t = String(texto || "").split("\n").filter((l) => !/^\s*\|.*\|\s*$/.test(l)).join(" ")
+      .replace(/\*\*?|###\s*/g, "").replace(/\s+-\s+/g, " · ").replace(/\s+/g, " ").trim();
+    return max && t.length > max ? t.slice(0, max).replace(/\s+\S*$/, "") + "…" : t;
+  };
+
+  // Figuras: SVG que llega de la base de datos. Nunca se inserta tal cual:
+  // se reconstruye dejando pasar solo formas, textos y atributos de dibujo.
+  const FIG_TAGS = new Set(["svg", "g", "path", "rect", "circle", "ellipse", "line", "polyline", "polygon", "text", "tspan", "title", "defs", "pattern", "marker"]);
+  const FIG_ATTRS = new Set(["viewBox", "width", "height", "x", "y", "x1", "y1", "x2", "y2", "cx", "cy", "r", "rx", "ry", "d", "points", "fill", "stroke", "stroke-width", "stroke-dasharray", "stroke-linecap", "stroke-linejoin", "opacity", "fill-opacity", "stroke-opacity", "transform", "font-size", "font-weight", "font-style", "text-anchor", "dominant-baseline", "dx", "dy", "id", "patternUnits", "markerWidth", "markerHeight", "refX", "refY", "orient", "marker-end", "marker-start", "preserveAspectRatio"]);
+  const limpiarSVG = (n) => {
+    if (n.nodeType === 3) return LE.esc(n.nodeValue);
+    if (n.nodeType !== 1 || !FIG_TAGS.has(n.nodeName)) return "";
+    let at = "";
+    for (const a of [...n.attributes]) {
+      const v = a.value;
+      if (!FIG_ATTRS.has(a.name)) continue;
+      if (/javascript:|data:|expression|@import|<|>/i.test(v)) continue;
+      if (/url\s*\(/i.test(v) && !/^url\(#[\w-]+\)$/.test(v.trim())) continue;
+      at += ` ${a.name}="${LE.esc(v)}"`;
+    }
+    return `<${n.nodeName}${at}>${[...n.childNodes].map(limpiarSVG).join("")}</${n.nodeName}>`;
+  };
+  LE.figura = (svg, descripcion = "") => {
+    if (!svg || !/<svg[\s>]/i.test(svg)) return "";
+    try {
+      const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+      const raiz = doc.documentElement;
+      if (!raiz || raiz.nodeName !== "svg" || doc.getElementsByTagName("parsererror").length) return "";
+      const limpio = limpiarSVG(raiz).replace(/^<svg/, `<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${LE.esc(descripcion || raiz.getAttribute("aria-label") || "Figura del problema")}"`);
+      return `<figure class="figura">${limpio}</figure>`;
+    } catch (e) { return ""; }
+  };
+
+  // Los dos componentes del examen. Comparten XP, racha y tiempo de estudio;
+  // cada uno tiene sus retos, su dominio y sus simulacros, y nunca se mezclan.
+  LE.COMP = {
+    lectura: { nombre: "Lectura", largo: "Competencia Lectora", icono: "📖", color: "rosa", ruta: "#/inicio", cats: ["literal", "inferencial", "critico", "cohesion"] },
+    logica: { nombre: "Lógica", largo: "Razonamiento Lógico", icono: "🧩", color: "cian", ruta: "#/logica", cats: ["deductivo", "proporcional", "abstracto", "geometrico"] }
+  };
+  LE.CATS = LE.COMP.lectura.cats;
+  LE.CATS_LOGICA = LE.COMP.logica.cats;
+  LE.CATS_TODAS = [...LE.CATS, ...LE.CATS_LOGICA];
+  LE.compDe = (cat) => (LE.CATS_LOGICA.includes(cat) ? "logica" : "lectura");
+  const CAT_BASE = {
+    deductivo: { nombre: "Deducción", color: "violeta", descripcion: "Condicionales, negaciones, quién dice la verdad, cuadros de descarte y ordenamientos." },
+    proporcional: { nombre: "Proporciones", color: "amarillo", descripcion: "Fracciones, porcentajes, razones, promedios, conteo y probabilidad." },
+    abstracto: { nombre: "Patrones", color: "rosa", descripcion: "Series, operadores inventados, ciclos y claves." },
+    geometrico: { nombre: "Geometría", color: "menta", descripcion: "Áreas, perímetros, volúmenes, escalas y vistas." }
+  };
+  LE.cat = (c) => (LE.estado.config.categorias || {})[c] || CAT_BASE[c] || { nombre: c, color: "cian", descripcion: "" };
+  // Lógica aparece en la app solo cuando el tutor cargó su paquete base (logica-base).
+  LE.logicaActiva = () => !!LE.estado.config.retos_logica;
+  // Clave de configuración según el componente: «retos» o «retos_logica».
+  LE.cfgDe = (clave, comp) => LE.estado.config[comp === "logica" ? clave + "_logica" : clave];
+  // Componente en el que la estudiante estuvo por última vez (para volver ahí).
+  LE.compActual = (nuevo) => {
+    try {
+      if (nuevo) localStorage.setItem("le-componente", nuevo);
+      const c = nuevo || localStorage.getItem("le-componente");
+      return c === "logica" && LE.logicaActiva() ? "logica" : "lectura";
+    } catch (e) { return nuevo === "logica" && LE.logicaActiva() ? "logica" : "lectura"; }
+  };
+
+  // Tipos de error: cada opción incorrecta de una pregunta de lógica nace de uno.
+  const ERR_BASE = {
+    enunciado: { nombre: "Leíste otra pregunta", consejo: "Antes de calcular, di con tus palabras qué te piden y en qué unidades. Al terminar, vuelve a leer la pregunta." },
+    planteamiento: { nombre: "Planteamiento", consejo: "Traduce el enunciado frase por frase antes de operar: qué es el todo, qué es la parte, qué se compara con qué." },
+    regla: { nombre: "Regla equivocada", consejo: "Antes de aplicar una regla, comprueba que el problema cumple sus condiciones. Abre la ficha de la técnica y mira su trampa típica." },
+    incompleto: { nombre: "A mitad de camino", consejo: "Tu cuenta iba bien, pero paraste un paso antes. Cuando tengas un número, pregúntate si eso es lo que pedían." },
+    calculo: { nombre: "Cuenta", consejo: "El camino era el correcto y falló una operación. Estima el resultado antes de calcular y compara al final." },
+    inferencia: { nombre: "Salto lógico", consejo: "Concluiste más de lo que las premisas permiten. Busca un caso que cumpla todo lo dicho y haga falsa tu opción." }
+  };
+  LE.tipoError = (t) => (LE.estado.config.tipos_error || {})[t] || ERR_BASE[t] || { nombre: t || "Error", consejo: "" };
+  LE.TIPOS_ERROR = () => Object.keys({ ...ERR_BASE, ...(LE.estado.config.tipos_error || {}) });
+  LE.tecnica = (codigo) => (LE.estado.tecnicas || []).find((t) => t.codigo === codigo) || null;
+  // Una técnica se da por dominada con 3 aciertos o más y al menos 75 % de aciertos.
+  LE.estadoTecnica = (x) => (!x || !x.intentos ? "nueva" : x.aciertos >= 3 && x.aciertos >= 0.75 * x.intentos ? "dominada" : "proceso");
+
+  LE.TIPOS = { ensayo: "Ensayo", divulgacion: "Divulgación científica", literario: "Texto literario", discontinuo: "Texto discontinuo", intertextual: "Dos textos en diálogo", argumentativo: "Texto argumentativo", periodistico: "Texto periodístico", otro: "Lectura", situacion: "Situación" };
   LE.LETRAS = ["A", "B", "C", "D"];
 
   LE.minutos = (m) => {
@@ -72,7 +160,7 @@ window.LE = {
 
   LE.ruta = (patron, fn, opciones = {}) => LE.rutas.push({ re: new RegExp("^" + patron.replace(/:(\w+)/g, "(?<$1>[^/]+)") + "$"), fn, ...opciones });
   LE.ir = (hash) => { if (location.hash === hash) LE.navegar(); else location.hash = hash; };
-  LE.inicioPorRol = () => (LE.esTutor() ? "#/tutor" : "#/inicio");
+  LE.inicioPorRol = () => (LE.esTutor() ? "#/tutor" : LE.COMP[LE.compActual()].ruta);
   LE.navegar = async () => {
     const h = location.hash.replace(/^#/, "") || LE.inicioPorRol().slice(1);
     for (const r of LE.rutas) {
@@ -142,9 +230,9 @@ window.LE = {
   };
 
   // ---------- Componentes compartidos ----------
-  LE.ecualizador = (dominio, { vivo = false, detalle = true } = {}) => {
+  LE.ecualizador = (dominio, { vivo = false, detalle = true, cats = LE.CATS } = {}) => {
     const mapa = Object.fromEntries((dominio || []).map((d) => [d.categoria, d]));
-    return `<div class="eq ${vivo ? "vivo" : ""}" role="list">` + LE.CATS.map((c) => {
+    return `<div class="eq ${vivo ? "vivo" : ""}" role="list">` + cats.map((c) => {
       const d = mapa[c] || { dominio: 0, respondidas: 0 };
       const on = Math.round((d.dominio || 0) / 5);
       const segs = Array.from({ length: 20 }, (_, i) => `<i class="eq-seg ${i < on ? "on" : ""} ${i === on - 1 ? "pico" : ""}" style="--i:${i}"></i>`).join("");
@@ -172,13 +260,58 @@ window.LE = {
   };
 
   LE.lecturaHTML = (t, plegable = true) => t ? `
-    <article class="lectura ${plegable ? "plegada" : ""}" id="lectura">
+    <article class="lectura ${plegable ? "plegada" : ""} ${t.tipologia === "situacion" ? "situacion" : ""}" id="lectura">
       <span class="tipo">${LE.esc(LE.TIPOS[t.tipologia] || "Lectura")}</span>
       <h2>${LE.esc(t.titulo)}</h2>
       ${LE.md(t.contenido)}
+      ${LE.figura(t.figura, "Figura de la situación")}
       ${t.fuente ? `<p class="fuente">${LE.esc(t.fuente)}</p>` : ""}
     </article>
     ${plegable ? `<button class="btn suave chico plegar-lectura" data-accion="plegar">Mostrar lectura completa</button>` : ""}` : "";
+
+  // ---------- Lógica: solución, diagnóstico del error y fichas ----------
+  // Lo que se muestra después de responder una pregunta de lógica (en un reto,
+  // en la revisión de un simulacro o en el cuaderno de errores).
+  LE.diagnosticoError = (error) => {
+    if (!error || !error.tipo) return "";
+    const t = LE.tipoError(error.tipo);
+    return `<div class="diag-error">
+      <span class="etq-error">Qué pasó · ${LE.esc(t.nombre)}</span>
+      ${error.nota ? `<p>${LE.esc(error.nota)}</p>` : ""}
+      ${t.consejo ? `<p class="consejo">${LE.esc(t.consejo)}</p>` : ""}
+    </div>`;
+  };
+  LE.pasosHTML = (pasos, { abierto = true, titulo = "Solución paso a paso" } = {}) => {
+    if (!Array.isArray(pasos) || !pasos.length) return "";
+    return `<details class="solucion" ${abierto ? "open" : ""}><summary>${LE.esc(titulo)}</summary><ol class="pasos">${pasos.map((p) => `<li>${LE.md(p)}</li>`).join("")}</ol></details>`;
+  };
+  LE.enlaceTecnica = (codigo) => {
+    const t = LE.tecnica(codigo);
+    return t ? `<button class="enlace pequeno tecnica-enlace" data-accion="verTecnica" data-cod="${LE.esc(t.codigo)}">Técnica: ${LE.esc(t.nombre)} · ver ficha</button>` : "";
+  };
+  LE.fichaHTML = (t) => `
+    <article class="ficha cr-${LE.esc(t.categoria)}">
+      <span class="etq">${LE.esc(LE.cat(t.categoria).nombre)}</span>
+      <h2>${LE.esc(t.nombre)}</h2>
+      ${t.cuando ? `<p class="sub"><b>Cuándo se usa.</b> ${LE.esc(t.cuando)}</p>` : ""}
+      ${Array.isArray(t.pasos) && t.pasos.length ? `<div><h3>El procedimiento</h3><ol class="pasos">${t.pasos.map((p) => `<li>${LE.md(p)}</li>`).join("")}</ol></div>` : ""}
+      ${t.ejemplo ? `<div class="ejemplo"><h3>Ejemplo resuelto</h3>${LE.md(t.ejemplo)}</div>` : ""}
+      ${t.trampa ? `<div class="trampa"><h3>La trampa típica</h3><p>${LE.esc(t.trampa)}</p></div>` : ""}
+    </article>`;
+  LE.acciones.verTecnica = (b) => {
+    const t = LE.tecnica(b.dataset.cod);
+    if (t) LE.dialogo(`${LE.fichaHTML(t)}<div class="acciones" style="margin-top:1rem"><button class="btn" data-valor="ok">Cerrar</button></div>`);
+  };
+  // Barras con el reparto de errores por tipo. perfil = {tipo: cantidad}
+  LE.perfilErrores = (perfil = {}) => {
+    const filas = Object.entries(perfil).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]);
+    const total = filas.reduce((a, [, n]) => a + n, 0);
+    if (!total) return "";
+    return `<div class="perfil-errores">${filas.map(([t, n]) => `
+      <div class="pe-fila"><span class="pe-nombre">${LE.esc(LE.tipoError(t).nombre)}</span>
+        <span class="pe-barra"><span style="width:${Math.round((100 * n) / total)}%"></span></span>
+        <span class="pe-n">${n}</span></div>`).join("")}</div>`;
+  };
 
   LE.acciones.plegar = (b) => {
     const l = $("#lectura");

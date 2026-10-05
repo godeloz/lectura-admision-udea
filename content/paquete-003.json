@@ -1,0 +1,503 @@
+{
+  "paquete": "paquete-003",
+  "novedad": {
+    "version": "contenido-003",
+    "titulo": "Lecturas más exigentes",
+    "cuerpo": "Llegaron 5 lecturas con 32 preguntas, más largas y más difíciles: un ensayo sobre los archivos, por qué atrapan los videojuegos, el reloj de un pueblo, dos posturas sobre los algoritmos de música y una línea de tiempo."
+  },
+  "textos": [
+    {
+      "codigo": "P003-T01",
+      "titulo": "Lo que los archivos callan",
+      "tipologia": "ensayo",
+      "fuente": "Texto original para práctica.",
+      "contenido": "Se dice que la historia la escriben los vencedores. La sentencia, a fuerza de repetirse, ha adquirido el brillo engañoso de las verdades que ya nadie examina. Más exacto sería decir que la historia la escriben los que escriben: quienes dejaron actas, cartas, inventarios y sentencias, y quienes tuvieron, además, la fortuna de que alguien juzgara esos papeles dignos de guardarse. El historiador no trabaja con el pasado, que es por definición inaccesible, sino con sus residuos; y los residuos, como bien sabe cualquiera que haya vaciado la casa de un muerto, no se conservan según su importancia sino según su suerte.\n\nDe ahí que todo archivo sea, a la vez, un depósito y un filtro. Guarda la voz del notario, del párroco, del funcionario que cobra un impuesto, y solo de manera oblicua —como acusados, como deudores, como cifras en un censo— la de quienes no sabían o no podían escribir. Una campesina del siglo XVIII comparece ante nosotros casi siempre en el momento en que tropieza con el poder: cuando la demandan, cuando la bautizan, cuando la entierran. De sus días corrientes, que fueron casi todos, no queda renglón. Sería un error confundir ese silencio con una ausencia: que alguien no figure en los documentos no significa que no haya existido, sino que nadie con una pluma en la mano tuvo motivos para registrarlo.\n\nEl oficio ha respondido a esta dificultad de dos maneras. La primera, más antigua, consiste en ignorarla: se narra lo que los papeles permiten y se llama a eso «la» historia, con un artículo que promete más de lo que cumple. La segunda, más paciente, aprende a leer los documentos a contrapelo, es decir, a preguntarles lo que no se proponían decir. El expediente de un juicio fue redactado para condenar o absolver; pero, leído con otra intención, deja ver cómo hablaba la gente, qué temía, qué consideraba justo. El escribano no quería contarnos nada de eso, y precisamente por ello su testimonio es valioso: nadie miente sobre aquello en lo que no repara.\n\nNada de esto autoriza, sin embargo, a rellenar los vacíos con la imaginación y presentar el resultado como conocimiento. Entre el historiador que solo oye a los poderosos y el que hace hablar a los mudos diciendo lo que a él le conviene hay menos distancia de la que parece: ambos sustituyen la escucha por el monólogo. La honradez del oficio consiste en algo más modesto y más difícil: señalar con exactitud dónde termina lo que sabemos y admitir que, a partir de ese borde, el silencio también forma parte del documento.",
+      "preguntas": [
+        {
+          "codigo": "P003-T01-01",
+          "categoria": "literal",
+          "dificultad": 3,
+          "enunciado": "Según el tercer párrafo, el testimonio del escribano resulta valioso porque:",
+          "opciones": [
+            "Deja ver, sin habérselo propuesto, cosas que no tenía interés en falsear.",
+            "Fue redactado con la intención de condenar o de absolver a un acusado.",
+            "El escribano conocía de cerca la vida cotidiana de quienes eran juzgados.",
+            "Los expedientes judiciales eran los únicos papeles que se conservaban."
+          ],
+          "correcta": 0,
+          "explicacion": "La clave está en la última frase del párrafo: «nadie miente sobre aquello en lo que no repara». El escribano quería condenar o absolver; lo demás (cómo hablaba la gente, qué temía) quedó escrito sin intención, y por eso es fiable. Que el expediente se redactó para condenar o absolver es cierto, pero no es la razón de su valor: es el dato correcto puesto en el lugar equivocado."
+        },
+        {
+          "codigo": "P003-T01-02",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "En el segundo párrafo, la expresión «de manera oblicua» indica que la voz de quienes no escribían llega al archivo:",
+          "opciones": [
+            "En contadas ocasiones, aunque siempre con sus propias palabras.",
+            "De forma torcida, porque los funcionarios mentían acerca de ellos.",
+            "De modo indirecto, a través de lo que otros anotaron sobre ellos.",
+            "Con claridad, pero únicamente en documentos de poca importancia."
+          ],
+          "correcta": 2,
+          "explicacion": "«Oblicuo» es lo que no va de frente. Las rayas que siguen lo aclaran: esas personas aparecen «como acusados, como deudores, como cifras en un censo», es decir, nombradas por otros. «Torcida» puede ser sinónimo de «oblicua» en otros contextos, pero el texto no dice que los funcionarios mintieran."
+        },
+        {
+          "codigo": "P003-T01-03",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "En el tercer párrafo, el autor escribe «la» historia, con el artículo entre comillas, para:",
+          "opciones": [
+            "Advertir que se refiere a la historia de una nación determinada.",
+            "Poner en duda que un relato hecho con fuentes parciales sea el único posible.",
+            "Citar el título de una obra que se menciona unas líneas más adelante.",
+            "Subrayar que la historia es una disciplina más exacta que las demás ciencias."
+          ],
+          "correcta": 1,
+          "explicacion": "Las comillas marcan distancia: el autor no se hace cargo de ese artículo. Él mismo lo explica al decir que es «un artículo que promete más de lo que cumple»: promete la historia completa y entrega solo la que permiten los papeles. Cuando una palabra aparece entre comillas sin ser una cita, casi siempre hay ironía o reserva."
+        },
+        {
+          "codigo": "P003-T01-04",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "Una actitud semejante a la de quien lee los documentos «a contrapelo» es la de:",
+          "opciones": [
+            "Un juez que solo acepta como prueba aquello que consta en un documento firmado.",
+            "Un periodista que transcribe el comunicado oficial sin añadirle una palabra.",
+            "Un novelista que inventa los diálogos de un personaje del que nada se sabe.",
+            "Un médico que, mientras el paciente habla de su trabajo, observa cómo respira."
+          ],
+          "correcta": 3,
+          "explicacion": "Leer a contrapelo es preguntarle a una fuente «lo que no se proponían decir». El médico hace eso: obtiene información de algo que el paciente no pretendía comunicar. El juez y el periodista se quedan con lo que el documento quiso decir; el novelista ya no lee: inventa."
+        },
+        {
+          "codigo": "P003-T01-05",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "¿Cuál de las siguientes afirmaciones recoge mejor la posición del autor frente a los silencios del archivo?",
+          "opciones": [
+            "Demuestran que la historia es una ficción y que cualquier versión vale lo que otra.",
+            "Hay que reconocerlos y delimitarlos, sin pasarlos por alto ni llenarlos con invenciones.",
+            "Carecen de interés, porque el historiador solo puede ocuparse de lo que está escrito.",
+            "Hay que llenarlos con imaginación, pues de otro modo los excluidos seguirían sin voz."
+          ],
+          "correcta": 1,
+          "explicacion": "El autor descarta dos salidas: ignorar el silencio, que es la primera manera, y rellenarlo con la imaginación. Lo que propone está al final: señalar «dónde termina lo que sabemos». La opción de la imaginación tienta porque suena generosa con los excluidos, pero el texto dice que quien la practica también sustituye «la escucha por el monólogo»."
+        },
+        {
+          "codigo": "P003-T01-06",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "La mención de la campesina del siglo XVIII cumple en el texto la función de:",
+          "opciones": [
+            "Demostrar que las mujeres del campo no tuvieron ninguna participación en la historia de su tiempo.",
+            "Denunciar los abusos que cometía la justicia en los tiempos de la Colonia.",
+            "Presentar una fuente inédita que el autor encontró en sus investigaciones.",
+            "Mostrar que el archivo registra a ciertas personas solo cuando se cruzan con el poder."
+          ],
+          "correcta": 3,
+          "explicacion": "Es un ejemplo al servicio de la tesis del párrafo: el archivo es «un depósito y un filtro». La campesina aparece cuando la demandan, la bautizan o la entierran, es decir, cuando una institución tiene motivos para anotarla. Concluir que no participó en la historia es justo el error que el párrafo advierte: confundir el silencio con la ausencia."
+        },
+        {
+          "codigo": "P003-T01-07",
+          "categoria": "cohesion",
+          "dificultad": 3,
+          "enunciado": "El último párrafo comienza así: «Nada de esto autoriza, sin embargo, a rellenar los vacíos con la imaginación». Con ese comienzo, el autor:",
+          "opciones": [
+            "Retoma lo expuesto y le pone un límite para evitar una conclusión excesiva.",
+            "Resume lo expuesto y lo presenta como algo que ya quedó demostrado.",
+            "Añade un tercer método a los dos que había descrito en el párrafo anterior.",
+            "Rechaza lo expuesto y regresa a la manera más antigua de hacer historia."
+          ],
+          "correcta": 0,
+          "explicacion": "«Nada de esto» es una anáfora: recoge todo lo anterior (los silencios, la lectura a contrapelo). «Sin embargo» no lo niega; advierte que de ahí no se sigue cualquier cosa. Es un movimiento frecuente en los ensayos: después de defender una idea, el autor la protege de su versión exagerada."
+        }
+      ]
+    },
+    {
+      "codigo": "P003-T02",
+      "titulo": "El punto exacto de la dificultad",
+      "tipologia": "divulgacion",
+      "fuente": "Texto original de divulgación para práctica.",
+      "contenido": "Quien haya jugado un buen videojuego conoce la experiencia: uno se sienta «un rato» y, cuando levanta la vista, han pasado dos horas. El psicólogo Mihály Csíkszentmihályi estudió ese estado mucho antes de que existieran las consolas modernas, observando a pintores, escaladores y ajedrecistas, y lo llamó *flujo*: una concentración tan completa en la tarea que la persona pierde la noción del tiempo y deja, por un momento, de vigilarse a sí misma.\n\nSegún sus investigaciones, el flujo no aparece al azar. Requiere, en primer lugar, metas claras: saber en cada momento qué se intenta lograr. Requiere, además, una respuesta inmediata, de modo que cada acción muestre enseguida si fue acertada. Y exige, sobre todo, un equilibrio preciso entre la dificultad del reto y la habilidad de quien lo enfrenta. Si el reto supera con mucho a la habilidad, sobreviene la ansiedad; si la habilidad supera con mucho al reto, llega el aburrimiento. El flujo ocupa el estrecho canal que queda entre ambos.\n\nLos diseñadores de videojuegos han convertido esta teoría en un método. Un juego bien construido enseña sus reglas poco a poco, premia cada avance con una señal visible y, lo que es más importante, se vuelve más difícil al mismo ritmo en que el jugador se vuelve más hábil. Algunos títulos van más lejos y ajustan la dificultad sobre la marcha: si el jugador fracasa varias veces en el mismo punto, los enemigos se vuelven un poco más lentos, sin que nadie se lo anuncie.\n\nConviene, sin embargo, no confundir el flujo con el provecho. El estado descrito por Csíkszentmihályi es el mismo en el cirujano que opera y en quien encadena partidas hasta la madrugada: la teoría explica por qué una actividad absorbe, no si vale la pena. De hecho, el propio investigador advertía que casi cualquier tarea puede producirlo —estudiar, tocar un instrumento, resolver un problema— siempre que cumpla las tres condiciones. La pregunta útil, entonces, no es por qué los videojuegos atrapan, sino por qué tantas otras tareas están diseñadas, sin que nadie se lo proponga, para no hacerlo.",
+      "preguntas": [
+        {
+          "codigo": "P003-T02-01",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "Según el segundo párrafo, ¿qué producen, respectivamente, un reto muy superior a la habilidad y una habilidad muy superior al reto?",
+          "opciones": [
+            "Ansiedad y flujo.",
+            "Flujo y aburrimiento.",
+            "Ansiedad y aburrimiento.",
+            "Aburrimiento y ansiedad."
+          ],
+          "correcta": 2,
+          "explicacion": "El texto lo dice en ese orden: si el reto supera a la habilidad, «sobreviene la ansiedad»; si la habilidad supera al reto, «llega el aburrimiento». La palabra «respectivamente» obliga a respetar el orden de la pregunta: la opción que invierte los términos tiene los datos correctos y aun así es falsa."
+        },
+        {
+          "codigo": "P003-T02-02",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "La expresión «el estrecho canal que queda entre ambos», al final del segundo párrafo, sugiere que el flujo:",
+          "opciones": [
+            "Solo se da en un margen reducido, cuando el reto no sobra ni falta.",
+            "Aparece con frecuencia y sin necesidad de condiciones especiales.",
+            "Es un estado poco deseable, porque restringe la libertad de quien juega.",
+            "Es el punto medio entre la meta clara y la respuesta inmediata."
+          ],
+          "correcta": 0,
+          "explicacion": "«Ambos» son la ansiedad y el aburrimiento; el «canal» es el espacio que queda entre uno y otro, y «estrecho» indica que ese espacio es pequeño: el equilibrio se pierde con facilidad. La opción del punto medio entre meta y respuesta confunde los referentes: esas son condiciones del flujo, no los extremos entre los que se sitúa."
+        },
+        {
+          "codigo": "P003-T02-03",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "Una estudiante resuelve ejercicios que le quedan demasiado fáciles y nota que se distrae. De acuerdo con el texto, lo más indicado para acercarla al flujo sería:",
+          "opciones": [
+            "Aplazar la corrección de los ejercicios hasta el fin de semana.",
+            "Subir la dificultad hasta ponerla a la altura de su habilidad.",
+            "Suprimir las metas para que trabaje sin ninguna presión.",
+            "Bajar la dificultad para que gane confianza en sí misma."
+          ],
+          "correcta": 1,
+          "explicacion": "El texto pide equilibrio entre reto y habilidad. Aquí sobra habilidad, así que hay que subir el reto. Las otras opciones van contra alguna de las condiciones: suprimir las metas elimina la primera, y aplazar la corrección elimina la respuesta inmediata."
+        },
+        {
+          "codigo": "P003-T02-04",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "En el último párrafo, el autor pone juntos al cirujano que opera y a quien «encadena partidas hasta la madrugada» para mostrar que:",
+          "opciones": [
+            "El flujo solo es legítimo cuando se da en una actividad profesional.",
+            "Jugar videojuegos exige tanta destreza como practicar una cirugía.",
+            "Los cirujanos suelen entrenarse con videojuegos antes de operar.",
+            "El flujo explica por qué algo absorbe, no si merece la pena."
+          ],
+          "correcta": 3,
+          "explicacion": "Los dos casos sirven porque son muy distintos en valor y, sin embargo, producen el mismo estado. De ahí la advertencia de «no confundir el flujo con el provecho». El autor no compara destrezas ni dice que el flujo de uno sea más legítimo que el del otro: dice que la teoría no juzga."
+        },
+        {
+          "codigo": "P003-T02-05",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "¿Cuál de las siguientes conclusiones NO puede apoyarse en el texto?",
+          "opciones": [
+            "El flujo puede presentarse en actividades muy distintas entre sí.",
+            "Los buenos videojuegos aplican de manera deliberada las condiciones del flujo.",
+            "Todo juego que ajusta su dificultad sobre la marcha produce flujo en cualquier jugador.",
+            "Una clase con metas confusas y correcciones que llegan tarde difícilmente producirá flujo."
+          ],
+          "correcta": 2,
+          "explicacion": "Las tres conclusiones válidas se apoyan en el texto: las condiciones del flujo, la variedad de actividades que lo producen y el uso deliberado que hacen de ellas los diseñadores. La otra generaliza de más: el ajuste de dificultad atiende una sola de las tres condiciones, y el texto habla de algunos títulos, no de un efecto garantizado en todos los jugadores. Palabras como «todo» y «cualquier» suelen delatar una extrapolación."
+        },
+        {
+          "codigo": "P003-T02-06",
+          "categoria": "cohesion",
+          "dificultad": 2,
+          "enunciado": "En el segundo párrafo, las expresiones «en primer lugar», «además» y «sobre todo» sirven para:",
+          "opciones": [
+            "Indicar que las condiciones se cumplen una después de otra en el tiempo.",
+            "Ordenar las tres condiciones y destacar la última como la principal.",
+            "Contraponer tres teorías distintas acerca del origen del flujo.",
+            "Ofrecer tres ejemplos diferentes de una misma condición."
+          ],
+          "correcta": 1,
+          "explicacion": "Son marcadores que organizan una enumeración: el primero la abre, el segundo suma y el tercero jerarquiza. «Sobre todo» avisa que el equilibrio entre reto y habilidad pesa más que las otras dos condiciones. «En primer lugar» ordena la exposición, no el tiempo: las tres condiciones deben darse a la vez."
+        }
+      ]
+    },
+    {
+      "codigo": "P003-T03",
+      "titulo": "El reloj de Santa Rita",
+      "tipologia": "literario",
+      "fuente": "Relato original para práctica.",
+      "contenido": "El reloj de la torre de Santa Rita atrasaba siete minutos desde que alguien tenía memoria. Nadie en el pueblo lo ignoraba y a nadie le estorbaba, porque los relojes de las casas se ponían en hora con el de la torre: la misa de seis empezaba cuando el reloj daba las seis, el mercado abría cuando daba las ocho, y los novios que se citaban «a las cuatro en la plaza» sabían, sin haberlo acordado nunca, a qué cuatro se referían. El bus de la capital, único forastero puntual, llegaba a las tres menos siete, y los viajeros lo esperaban con la calma de quien conoce las mañas de un pariente.\n\nEl alcalde nuevo había estudiado afuera y traía ideas. La primera fue el reloj. «Un pueblo que vive con siete minutos de atraso —dijo en su discurso— vive siete minutos por detrás del progreso». Mandó traer a un técnico, que subió a la torre con una caja de herramientas, trabajó una mañana entera y bajó asegurando que la máquina quedaba, por fin, exacta como un decreto.\n\nLa primera semana fue un desconcierto. Unos se guiaban por la torre y otros por el reloj de la cocina, que seguía fiel a la hora vieja. Hubo feligreses que llegaron a una misa ya empezada; las vendedoras encontraron el mercado medio vacío o lleno antes de tiempo, según el reloj que siguiera cada cliente; dos noviazgos se rompieron por esperas que nadie se había propuesto causar. Solo el bus siguió llegando como siempre, indiferente a la reforma.\n\nAl mes, los vecinos habían encontrado remedio. Cada cual, por su cuenta y sin comentarlo, volvió a restarle siete minutos a la torre. «Nos vemos a las cuatro», se decían, y acudían cuando el reloj marcaba las cuatro y siete. El pueblo recuperó así su antigua concordia, con una sola diferencia: antes vivía de acuerdo con un reloj equivocado, y ahora, en desacuerdo con uno exacto.\n\nEl alcalde, que no dejaba de mirar la torre desde su despacho, anotó en el informe de fin de año: «Se corrigió el reloj municipal. La ciudadanía ha respondido con entusiasmo».",
+      "preguntas": [
+        {
+          "codigo": "P003-T03-01",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "Según el relato, ¿qué hicieron los vecinos un mes después del arreglo?",
+          "opciones": [
+            "Adelantaron siete minutos los relojes de sus casas para igualarlos con la torre.",
+            "Pidieron al alcalde que devolviera el reloj al estado en que estaba.",
+            "Siguieron, sin acordarlo, guiándose por la hora que tenían antes.",
+            "Dejaron de mirar el reloj y empezaron a guiarse por la llegada del bus."
+          ],
+          "correcta": 2,
+          "explicacion": "El cuarto párrafo dice que cada cual «volvió a restarle siete minutos a la torre»: es decir, siguieron viviendo con la hora de antes, aunque el reloj marcara otra. Nadie le pidió nada al alcalde ni cambió los relojes de la casa; el arreglo fue silencioso y de cada uno."
+        },
+        {
+          "codigo": "P003-T03-02",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "La comparación «con la calma de quien conoce las mañas de un pariente» da a entender que los viajeros:",
+          "opciones": [
+            "Desconfiaban del conductor y de sus malas costumbres.",
+            "Se impacientaban porque el bus nunca llegaba a la hora.",
+            "Tenían familiares que trabajaban en la empresa de buses.",
+            "Estaban tan hechos al desfase que ya no les incomodaba."
+          ],
+          "correcta": 3,
+          "explicacion": "A un pariente se le conocen las manías y se le toleran sin sorpresa: así trataban los viajeros la diferencia entre el bus y el reloj. La comparación habla de costumbre y confianza, no de parentescos reales ni de impaciencia."
+        },
+        {
+          "codigo": "P003-T03-03",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "¿Cuál de los siguientes dichos se aplica mejor a lo que ocurre en el pueblo durante la primera semana?",
+          "opciones": [
+            "El remedio resultó peor que la enfermedad.",
+            "Al que madruga, Dios le ayuda.",
+            "No dejes para mañana lo que puedes hacer hoy.",
+            "Más vale tarde que nunca."
+          ],
+          "correcta": 0,
+          "explicacion": "El atraso del reloj no le causaba problemas a nadie; corregirlo sí los causó. Eso dice el refrán: una solución que hace más daño que el mal que pretendía curar. Los otros tres hablan del tiempo, y por eso tientan, pero ninguno describe una corrección que sale mal."
+        },
+        {
+          "codigo": "P003-T03-04",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "Un título que recoge bien el sentido del relato sería:",
+          "opciones": [
+            "Un pueblo sin relojes",
+            "El arreglo que nadie pidió",
+            "El bus de la capital",
+            "Historia de un técnico relojero"
+          ],
+          "correcta": 1,
+          "explicacion": "El centro del relato es una reforma que resuelve un problema que el pueblo no tenía. El técnico y el bus son detalles, no el asunto; y el pueblo no carece de relojes: tiene uno en la torre y otro en cada cocina. Un buen título nombra lo que el texto entero dice, no una de sus partes."
+        },
+        {
+          "codigo": "P003-T03-05",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "La frase final del informe —«La ciudadanía ha respondido con entusiasmo»— resulta irónica porque:",
+          "opciones": [
+            "Los vecinos celebraron el arreglo del reloj con una fiesta que el relato prefiere no mencionar.",
+            "El alcalde miente a sabiendas con el propósito de conservar su cargo.",
+            "El lector sabe que los vecinos se las arreglaron para seguir con la hora antigua.",
+            "El entusiasmo fue sincero, pero no duró más que la primera semana."
+          ],
+          "correcta": 2,
+          "explicacion": "La ironía nace de la distancia entre lo que el personaje afirma y lo que el lector ha visto. El alcalde mira la torre, no a la gente: ve un reloj exacto y concluye que todo salió bien. El relato no dice que mienta; sugiere algo más incómodo, que no se ha enterado."
+        },
+        {
+          "codigo": "P003-T03-06",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "El relato puede leerse como una crítica a:",
+          "opciones": [
+            "Los técnicos que cobran por trabajos que luego no funcionan.",
+            "La impuntualidad, que el autor considera un defecto de la vida rural.",
+            "Los pueblos que se niegan a aceptar cualquier forma de progreso.",
+            "Las reformas que ignoran los acuerdos tácitos de una comunidad."
+          ],
+          "correcta": 3,
+          "explicacion": "El técnico hizo bien su trabajo y el reloj quedó exacto; lo que falló fue suponer que la hora es solo un asunto de máquinas. El pueblo tenía un acuerdo que funcionaba, y la reforma lo rompió sin saber que existía. El relato no se burla de los vecinos ni defiende la impuntualidad: su blanco es la reforma decidida desde un despacho."
+        },
+        {
+          "codigo": "P003-T03-07",
+          "categoria": "cohesion",
+          "dificultad": 2,
+          "enunciado": "En la oración «antes vivía de acuerdo con un reloj equivocado, y ahora, en desacuerdo con uno exacto», la coma que sigue a «ahora» indica que:",
+          "opciones": [
+            "Se omite un verbo ya dicho: «vivía».",
+            "Comienza una enumeración de varios elementos.",
+            "Se introduce una cita textual de los vecinos.",
+            "El narrador duda de lo que acaba de afirmar."
+          ],
+          "correcta": 0,
+          "explicacion": "Es una coma de elipsis: ocupa el lugar del verbo para no repetirlo (ahora vivía en desacuerdo con uno exacto). Además, «uno» retoma «reloj». La frase gana fuerza con esa economía, porque deja frente a frente las dos mitades: de acuerdo con uno equivocado, en desacuerdo con uno exacto."
+        }
+      ]
+    },
+    {
+      "codigo": "P003-T04",
+      "titulo": "Lo que el algoritmo te pone a oír: dos posturas",
+      "tipologia": "intertextual",
+      "fuente": "Textos originales para práctica.",
+      "contenido": "### Texto A\n\nNunca fue tan fácil encontrar música nueva. Hace treinta años, el oyente dependía de lo que programara la emisora local y de los discos que llegaran a la tienda de su ciudad; hoy, un sistema de recomendación le propone cada semana decenas de canciones que jamás habría buscado por su cuenta. Se objeta que el algoritmo solo ofrece «más de lo mismo», pero la objeción olvida cómo se formaba antes el gusto: por imitación de los amigos, por la radio que sonaba en casa, por el azar de un casete prestado. Ninguno de esos filtros era más libre; simplemente era invisible. La diferencia es que el filtro de ahora tiene acceso a un catálogo casi infinito y aprende de cada elección. Quien desee salir de su círculo puede hacerlo con un gesto; antes, ni siquiera sabía que el círculo existía.\n\n### Texto B\n\nUn sistema de recomendación no adivina lo que nos gustará: calcula lo que se parece a lo que ya nos gustó. Es una distinción que importa. El gusto musical no se forma solo por afinidad, sino también por tropiezo: la canción que al principio irrita y a la décima escucha se vuelve imprescindible, el disco que nos impuso un hermano mayor. El algoritmo, que mide el éxito en segundos de permanencia, tiene buenas razones para evitarnos esas incomodidades, y así nos devuelve, pulida y multiplicada, nuestra propia imagen. Se dirá que el catálogo es inmenso y que nadie nos impide explorarlo. Es cierto, como es cierto que nadie impide al cliente de un supermercado caminar hasta el último estante; pero quien diseña los pasillos sabe muy bien hasta dónde llega la mayoría. La abundancia, sin alguien que nos lleve la contraria, se parece bastante a la monotonía.",
+      "preguntas": [
+        {
+          "codigo": "P003-T04-01",
+          "categoria": "literal",
+          "dificultad": 3,
+          "enunciado": "Según el texto B, el gusto musical se forma, por un lado, ______ y, por el otro, ______.",
+          "opciones": [
+            "por imitación de los amigos / por el azar de un casete que alguien presta",
+            "por la amplitud del catálogo / por el diseño de los pasillos del supermercado",
+            "por afinidad con lo que ya agrada / por los cálculos que hace el sistema",
+            "por afinidad con lo que ya agrada / por el tropiezo con lo que incomoda"
+          ],
+          "correcta": 3,
+          "explicacion": "El texto B dice que el gusto no se forma «solo por afinidad, sino también por tropiezo», y da dos ejemplos de tropiezo: la canción que irrita al principio y el disco impuesto por un hermano. La imitación de los amigos y el casete prestado también hablan de cómo se forma el gusto, pero están en el texto A."
+        },
+        {
+          "codigo": "P003-T04-02",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "De la frase «La abundancia, sin alguien que nos lleve la contraria, se parece bastante a la monotonía» se deduce que, para el autor del texto B:",
+          "opciones": [
+            "Los oyentes deberían discutir de música con quienes piensan distinto.",
+            "Muchas opciones no amplían el gusto si todas confirman lo ya preferido.",
+            "La música que se produce hoy es más monótona que la de hace treinta años.",
+            "Un catálogo pequeño resulta preferible a uno inmenso para educar el oído."
+          ],
+          "correcta": 1,
+          "explicacion": "La frase es una paradoja aparente: lo abundante puede ser monótono si todo se parece. «Llevar la contraria» alude a lo que el texto llamó antes «tropiezo»: lo que no elegimos y nos saca de la costumbre. El autor no pide catálogos pequeños ni juzga la música actual; habla de cómo se elige dentro de la abundancia."
+        },
+        {
+          "codigo": "P003-T04-03",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "¿En qué idea coinciden los dos textos?",
+          "opciones": [
+            "El sistema de recomendación termina ofreciendo al oyente más de lo mismo.",
+            "El oyente de hoy acostumbra recorrer todo el catálogo que tiene a su alcance.",
+            "El gusto siempre se ha formado bajo influencias que el oyente no eligió.",
+            "La radio de antes daba al oyente más libertad que las plataformas actuales."
+          ],
+          "correcta": 2,
+          "explicacion": "A menciona a los amigos, la radio de la casa y el casete prestado; B, el disco «que nos impuso un hermano mayor». Los dos admiten que el gusto nunca se formó en libertad completa. Difieren en lo que sacan de ahí: para A, el filtro de hoy no es peor que los de antes; para B, le falta lo que aquellos tenían, la sorpresa incómoda."
+        },
+        {
+          "codigo": "P003-T04-04",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "En el texto B se lee: «Se dirá que el catálogo es inmenso y que nadie nos impide explorarlo. Es cierto». Con este recurso, el autor:",
+          "opciones": [
+            "Admite una objeción previsible y luego muestra que no basta para refutarlo.",
+            "Reproduce con exactitud las palabras de quien lo contradice.",
+            "Introduce un dato nuevo que acaba debilitando su propia tesis.",
+            "Cambia de postura al final y termina por darle la razón al autor del texto A."
+          ],
+          "correcta": 0,
+          "explicacion": "Es una concesión: el autor se adelanta a lo que le van a responder, lo acepta y enseguida lo neutraliza con la comparación del supermercado. Conceder no es rendirse. La marca está en el «pero» que viene después: lo que sigue a un «pero» es lo que el autor de verdad sostiene."
+        },
+        {
+          "codigo": "P003-T04-05",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "¿Cuál de los siguientes hallazgos debilitaría más el argumento del texto A?",
+          "opciones": [
+            "Que los catálogos de las plataformas incorporan miles de canciones cada día.",
+            "Que muchos oyentes siguen pidiendo recomendaciones a sus amigos.",
+            "Que casi todo lo recomendado es del género que el usuario ya oía.",
+            "Que hace treinta años las emisoras locales programaban muy pocos géneros."
+          ],
+          "correcta": 2,
+          "explicacion": "A sostiene que el sistema propone canciones «que jamás habría buscado por su cuenta» y descarta la objeción de «más de lo mismo». Si se comprobara que casi todo lo recomendado repite lo ya escuchado, esa defensa se cae. Los datos sobre las emisoras de antes y el tamaño del catálogo refuerzan a A en lugar de debilitarlo."
+        },
+        {
+          "codigo": "P003-T04-06",
+          "categoria": "cohesion",
+          "dificultad": 3,
+          "enunciado": "En el texto A, en la oración «Ninguno de esos filtros era más libre; simplemente era invisible», el punto y coma:",
+          "opciones": [
+            "Introduce una causa: podría reemplazarse por «porque».",
+            "Opone dos ideas: podría reemplazarse por «sino que».",
+            "Abre una enumeración de los filtros mencionados.",
+            "Anuncia una consecuencia: equivale a «por lo tanto»."
+          ],
+          "correcta": 1,
+          "explicacion": "La primera parte niega (no eran más libres) y la segunda corrige (lo que pasaba es que no se veían): es la relación de «no… sino…». Leerlo como causa cambia el sentido: el autor no dice que fueran menos libres por ser invisibles, sino que parecían libres porque nadie los notaba."
+        }
+      ]
+    },
+    {
+      "codigo": "P003-T05",
+      "titulo": "Cómo hemos guardado la música",
+      "tipologia": "discontinuo",
+      "fuente": "Línea de tiempo con datos históricos, elaborada para práctica.",
+      "contenido": "### Línea de tiempo: cómo hemos guardado la música\n\n**1877 · Fonógrafo**\nThomas Edison graba y reproduce un sonido por primera vez, en un cilindro cubierto de papel de estaño.\n\n**1948 · Disco de larga duración (LP)**\nUn disco de vinilo que gira más despacio que los anteriores y guarda más de veinte minutos por cada cara. Con él se impone el «álbum»: una obra pensada para oírse entera.\n\n**1963 · Casete**\nUna cinta dentro de una caja de plástico que cabe en un bolsillo. Grabar en casa y armar mezclas propias se vuelve fácil y barato.\n\n**1979 · Reproductor portátil con audífonos**\nLa música sale de la sala y acompaña a quien camina.\n\n**1982 · Disco compacto (CD)**\nEl sonido deja de leerse con una aguja o una cinta y pasa a guardarse como números. Unos 74 minutos por disco.\n\n**1999 · Intercambio de archivos por internet**\nLas canciones circulan sin soporte físico y, casi siempre, sin pago. Las ventas de discos empiezan a caer.\n\n**2001 · Reproductor digital de bolsillo**\n«Mil canciones en el bolsillo», decía la publicidad.\n\n**2008 · Plataformas de streaming**\nYa no se compra la canción: se paga, con dinero o con anuncios, por el acceso a un catálogo.\n\n*Nota: cada fecha corresponde a la presentación del invento, no al momento en que su uso se volvió común.*",
+      "preguntas": [
+        {
+          "codigo": "P003-T05-01",
+          "categoria": "literal",
+          "dificultad": 1,
+          "enunciado": "Según la línea de tiempo, ¿en qué año aparece el disco compacto?",
+          "opciones": [
+            "1982",
+            "1963",
+            "1979",
+            "1999"
+          ],
+          "correcta": 0,
+          "explicacion": "La entrada dice «1982 · Disco compacto (CD)». Las otras fechas corresponden al casete, al reproductor portátil y al intercambio de archivos. En un texto de este tipo, la pregunta literal se responde ubicando la fila exacta."
+        },
+        {
+          "codigo": "P003-T05-02",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "Todos los siguientes cambios aparecen en la línea de tiempo, EXCEPTO:",
+          "opciones": [
+            "La facilidad para grabar mezclas propias en casa.",
+            "El paso del sonido a un registro hecho de números.",
+            "El pago por acceso en lugar de la compra de canciones.",
+            "El regreso del vinilo como objeto de colección."
+          ],
+          "correcta": 3,
+          "explicacion": "El CD guarda el sonido como números, el casete permite «armar mezclas propias» y las plataformas cobran «por el acceso a un catálogo». Del regreso del vinilo el texto no dice nada, aunque sea un hecho conocido: en las preguntas con «EXCEPTO» se marca lo que no está en el texto, no lo que es falso en el mundo."
+        },
+        {
+          "codigo": "P003-T05-03",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "De la secuencia completa se puede deducir que, con el paso del tiempo, la música grabada se volvió:",
+          "opciones": [
+            "Menos escuchada, pues las ventas de discos cayeron.",
+            "Más breve, pues cada soporte guarda menos minutos.",
+            "Más costosa y más difícil de conseguir.",
+            "Más fácil de llevar y menos atada a un objeto."
+          ],
+          "correcta": 3,
+          "explicacion": "La línea va del cilindro a la sala, de la sala al bolsillo y del bolsillo a un catálogo sin soporte físico: cada paso hace la música más portátil y menos material. Que cayeran las ventas de discos no significa que se oyera menos música; significa que dejó de comprarse en ese formato."
+        },
+        {
+          "codigo": "P003-T05-04",
+          "categoria": "critico",
+          "dificultad": 1,
+          "enunciado": "La nota final advierte que las fechas no indican cuándo se volvió común cada invento. Por eso sería un error concluir que:",
+          "opciones": [
+            "El fonógrafo es el invento más antiguo de toda la lista.",
+            "En 1982 casi todo el mundo oía música en CD.",
+            "El casete apareció después del disco de larga duración.",
+            "El disco compacto es anterior al intercambio de archivos."
+          ],
+          "correcta": 1,
+          "explicacion": "Las fechas permiten ordenar los inventos, y por eso las otras tres conclusiones son válidas. Lo que no permiten es saber cuánta gente los usaba: un invento puede tardar años en llegar a la mayoría. Leer la letra pequeña de una gráfica o una tabla evita este tipo de error."
+        },
+        {
+          "codigo": "P003-T05-05",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "Alguien afirma: «El streaming acabó con las ventas de discos». Según la línea de tiempo, esa afirmación es:",
+          "opciones": [
+            "Discutible, porque las ventas ya venían cayendo desde 1999.",
+            "Imposible de valorar, porque el texto no habla de ventas.",
+            "Acertada, porque desde 2008 ya nadie compra canciones.",
+            "Acertada, porque el streaming es anterior al intercambio de archivos."
+          ],
+          "correcta": 0,
+          "explicacion": "Según la entrada de 1999, las ventas empezaron a caer con el intercambio de archivos, nueve años antes de las plataformas. El streaming pudo acelerar la caída, pero no la inició. Antes de aceptar que una cosa causó otra conviene mirar cuál ocurrió primero."
+        },
+        {
+          "codigo": "P003-T05-06",
+          "categoria": "cohesion",
+          "dificultad": 1,
+          "enunciado": "En la entrada de 1948, la expresión «Con él» se refiere a:",
+          "opciones": [
+            "El álbum como obra.",
+            "El fonógrafo de Thomas Edison.",
+            "El disco de larga duración.",
+            "El casete de bolsillo."
+          ],
+          "correcta": 2,
+          "explicacion": "«Él» retoma el sustantivo masculino del que se viene hablando en esa entrada: el disco de larga duración. El álbum no puede ser, porque es justo lo que «se impone» gracias al disco; y el casete aparece en una entrada posterior."
+        }
+      ]
+    }
+  ]
+}

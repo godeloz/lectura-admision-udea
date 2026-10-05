@@ -1,0 +1,489 @@
+{
+  "paquete": "paquete-002",
+  "novedad": {
+    "version": "contenido-002",
+    "titulo": "Lecturas nuevas",
+    "cuerpo": "Llegaron 5 lecturas con 31 preguntas: canciones que se pegan, una convocatoria de arte joven, un ensayo sobre el museo, un relato y dos posturas sobre el grafiti."
+  },
+  "textos": [
+    {
+      "codigo": "P002-T01",
+      "titulo": "La canción que no se va",
+      "tipologia": "divulgacion",
+      "fuente": "Texto original de divulgación para práctica.",
+      "contenido": "A casi todo el mundo le ha pasado: una canción suena en una tienda, uno sigue su camino y, horas después, el estribillo continúa dando vueltas en la cabeza sin que nadie lo haya invitado. Los investigadores llaman a este fenómeno «imaginería musical involuntaria»; en la calle se le conoce como canción pegajosa o, con una expresión tomada del alemán, «gusano de oído».\n\nNo todas las canciones se pegan por igual. Las que más lo logran suelen compartir tres rasgos: un ritmo rápido, una melodía sencilla que se repite y algún giro inesperado —un salto, una pausa— que las distingue de las demás. Son sencillas, pero no tanto como para pasar inadvertidas.\n\nTambién importa el momento. Estos fragmentos aparecen sobre todo cuando la mente tiene poco que hacer: al caminar, al lavar los platos, al esperar el bus. Por eso rara vez nos asaltan en mitad de un examen o de una conversación difícil. Una mente ocupada no les deja espacio.\n\n¿Cómo librarse de ellos? Aunque parezca contradictorio, una de las recomendaciones más repetidas es escuchar la canción completa. Según esta idea, el cerebro insiste porque solo conserva un pedazo, como quien deja una tarea a medias; al oír el final, da el asunto por cerrado. Otra salida es ocuparse en algo que exija una atención moderada, como resolver un crucigrama. Si la tarea es demasiado fácil, la canción vuelve; si es demasiado difícil, la mente se cansa, se distrae, y la canción vuelve también.",
+      "preguntas": [
+        {
+          "codigo": "P002-T01-01",
+          "categoria": "literal",
+          "dificultad": 1,
+          "enunciado": "Según el texto, las canciones pegajosas aparecen sobre todo cuando:",
+          "opciones": [
+            "Sostenemos una conversación difícil.",
+            "Acabamos de oír la canción hasta el final.",
+            "Estamos presentando un examen.",
+            "La mente tiene poco que hacer."
+          ],
+          "correcta": 3,
+          "explicacion": "El tercer párrafo lo dice sin rodeos: aparecen «cuando la mente tiene poco que hacer», y da como ejemplos caminar o lavar los platos. El examen y la conversación difícil son justo los momentos en que, según el texto, rara vez nos asaltan."
+        },
+        {
+          "codigo": "P002-T01-02",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "Por lo que explica el tercer párrafo, ¿en cuál de estas situaciones es más probable que aparezca una canción pegajosa?",
+          "opciones": [
+            "Mientras alguien resuelve una prueba de matemáticas.",
+            "Mientras alguien dobla la ropa recién lavada.",
+            "Mientras alguien discute un asunto delicado con su jefe.",
+            "Mientras alguien aprende a conducir en una avenida llena."
+          ],
+          "correcta": 1,
+          "explicacion": "El texto no menciona la ropa, pero da la regla: estos fragmentos llegan cuando la mente está desocupada. Doblar ropa se parece a lavar los platos; las otras tres situaciones exigen toda la atención. Llevar una idea del texto a un caso nuevo es una inferencia frecuente en el examen."
+        },
+        {
+          "codigo": "P002-T01-03",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "La expresión «sin que nadie lo haya invitado», en el primer párrafo, da a entender que el estribillo:",
+          "opciones": [
+            "Regresa sin que la persona lo decida.",
+            "Solo se escucha dentro de las tiendas.",
+            "Pertenece a una canción que a nadie le gusta.",
+            "Suena en reuniones a las que uno no asistió."
+          ],
+          "correcta": 0,
+          "explicacion": "El autor trata al estribillo como a un visitante que llega sin permiso: es una manera figurada de decir que el fenómeno es involuntario, como confirma el nombre técnico que viene enseguida. Las otras opciones leen la invitación al pie de la letra o añaden datos que el texto no da."
+        },
+        {
+          "codigo": "P002-T01-04",
+          "categoria": "critico",
+          "dificultad": 1,
+          "enunciado": "Por el lenguaje que usa y la forma como explica el tema, el texto parece escrito para:",
+          "opciones": [
+            "Compositores que buscan escribir éxitos.",
+            "Neurólogos que investigan la memoria musical.",
+            "Lectores curiosos, no especialistas.",
+            "Niños que apenas aprenden a leer."
+          ],
+          "correcta": 2,
+          "explicacion": "El texto parte de una experiencia común, traduce el término técnico al habla de la calle y pone ejemplos de la vida diaria: así se escribe la divulgación para un público general. Un texto para especialistas no explicaría lo básico, y uno para niños pequeños no hablaría de «imaginería musical involuntaria»."
+        },
+        {
+          "codigo": "P002-T01-05",
+          "categoria": "cohesion",
+          "dificultad": 1,
+          "enunciado": "En el tercer párrafo, la expresión «Por eso» indica que la oración que sigue es:",
+          "opciones": [
+            "Una objeción a lo dicho antes.",
+            "Un ejemplo sin relación con lo dicho antes.",
+            "Una consecuencia de lo dicho antes.",
+            "Una condición para lo dicho antes."
+          ],
+          "correcta": 2,
+          "explicacion": "«Por eso» es un conector de consecuencia: como estos fragmentos necesitan una mente desocupada, casi nunca aparecen durante un examen. Una objeción llevaría «pero» o «sin embargo»; una condición, «si» o «siempre que»."
+        },
+        {
+          "codigo": "P002-T01-06",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "La comparación «como quien deja una tarea a medias», en el último párrafo, sirve para explicar que:",
+          "opciones": [
+            "Oír música mientras se estudia impide acabar los deberes.",
+            "El cerebro borra de la memoria toda canción que oye completa.",
+            "Las personas desordenadas padecen más este fenómeno.",
+            "El cerebro vuelve al fragmento porque lo siente como algo inconcluso."
+          ],
+          "correcta": 3,
+          "explicacion": "La comparación explica la insistencia: el cerebro guarda solo un pedazo y vuelve sobre él como sobre un pendiente; por eso oír el final cierra el asunto. La opción sobre borrar la canción exagera: el texto dice que el cerebro deja de insistir, no que olvide."
+        }
+      ]
+    },
+    {
+      "codigo": "P002-T02",
+      "titulo": "Convocatoria: Salón de Arte Joven",
+      "tipologia": "discontinuo",
+      "fuente": "Convocatoria ficticia, elaborada para práctica.",
+      "contenido": "### 9.º Salón de Arte Joven\nCasa de la Cultura La Estación\n\n**¿Quiénes pueden participar?**\n- Personas de 15 a 22 años cumplidos al cierre de la convocatoria.\n- Que vivan en el municipio desde hace por lo menos un año.\n- No pueden participar los ganadores de la edición anterior ni los familiares del jurado.\n\n**Categorías**\n- Dibujo y pintura\n- Fotografía\n- Escultura y objeto\n- Video (duración máxima: 5 minutos)\n\nCada participante puede inscribirse en una sola categoría, con una o dos obras. Las obras deben haberse realizado en los últimos dos años y no pueden haber sido premiadas en otro concurso.\n\n**Fechas**\n- Inscripción en línea: del 1 al 20 de marzo\n- Entrega de las obras: 3 y 4 de abril, de 9:00 a. m. a 4:00 p. m.\n- Publicación de las obras seleccionadas: 15 de abril\n- Exposición: del 2 al 30 de mayo\n- Premiación: 30 de mayo, 6:00 p. m.\n\n**Premios**\n- Un primer premio por categoría: 2.000.000 de pesos y una exposición individual el año siguiente.\n- Una mención de honor por categoría: 500.000 pesos.\n- Premio del público, uno solo para todo el Salón: 800.000 pesos. Lo eligen con su voto quienes visiten la exposición.\n\n**Importante**\n- La inscripción no tiene costo.\n- El jurado seleccionará un máximo de 40 obras para la exposición. Inscribirse no garantiza ser seleccionado.\n- Las obras no reclamadas antes del 15 de junio pasarán a ser propiedad de la Casa de la Cultura.",
+      "preguntas": [
+        {
+          "codigo": "P002-T02-01",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "Según la convocatoria, ¿cuál de las siguientes afirmaciones NO es correcta?",
+          "opciones": [
+            "La exposición permanece abierta casi un mes.",
+            "El premio del público se entrega en cada categoría.",
+            "La inscripción se hace en línea y no tiene ningún costo.",
+            "Un video no puede durar más de cinco minutos."
+          ],
+          "correcta": 1,
+          "explicacion": "El premio del público es «uno solo para todo el Salón»; los que se entregan por categoría son el primer premio y la mención de honor. Las otras tres afirmaciones están en el texto. En las preguntas con «NO» conviene verificar una por una y marcar la que falla."
+        },
+        {
+          "codigo": "P002-T02-02",
+          "categoria": "literal",
+          "dificultad": 3,
+          "enunciado": "¿Cuál de las siguientes personas cumple todas las condiciones para participar?",
+          "opciones": [
+            "Una joven de 22 años que vive en el municipio hace tres y presenta dos fotografías.",
+            "Un joven de 20 años, residente hace cinco, que ganó el premio de escultura el año pasado.",
+            "Una joven de 19 años, nacida en el municipio, que presenta una pintura y un video.",
+            "Un joven de 17 años que llegó al municipio hace ocho meses y presenta un dibujo."
+          ],
+          "correcta": 0,
+          "explicacion": "Hay que cruzar cuatro reglas: edad, tiempo de residencia, una sola categoría y no haber ganado la edición anterior. La joven de 22 las cumple todas, porque el límite incluye los 22 y se admiten dos obras de una misma categoría. A cada una de las demás personas la descarta un solo detalle: ocho meses de residencia, dos categorías, el premio del año pasado."
+        },
+        {
+          "codigo": "P002-T02-03",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "De la advertencia «Inscribirse no garantiza ser seleccionado» se deduce que:",
+          "opciones": [
+            "Quien no sea seleccionado tendrá que pagar la inscripción.",
+            "El jurado rechazará la mayor parte de las obras inscritas.",
+            "Algunas obras inscritas pueden quedar por fuera de la exposición.",
+            "Solo se elegirá una obra por cada participante."
+          ],
+          "correcta": 2,
+          "explicacion": "Si inscribirse no asegura un lugar y el cupo es de 40 obras, puede haber obras inscritas que no se exhiban. Decir que serán «la mayor parte» va más allá de lo que el texto permite: no sabemos cuántas se inscribirán."
+        },
+        {
+          "codigo": "P002-T02-04",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "La convocatoria excluye a los familiares del jurado. La razón más probable de esa regla es:",
+          "opciones": [
+            "Reducir el número de obras inscritas.",
+            "Evitar que la decisión del jurado parezca parcial.",
+            "Castigar a quienes ganaron la edición anterior.",
+            "Impedir que participen personas de otros municipios."
+          ],
+          "correcta": 1,
+          "explicacion": "El texto no explica la regla, pero su sentido se infiere: un jurado que premia a un pariente pone en duda todo el concurso. Las otras opciones mezclan esta condición con requisitos distintos, como el de residencia o el de los ganadores anteriores."
+        },
+        {
+          "codigo": "P002-T02-05",
+          "categoria": "critico",
+          "dificultad": 1,
+          "enunciado": "Una vecina comenta: «Ese concurso es injusto, porque cobra por participar». A la luz de la convocatoria, su crítica:",
+          "opciones": [
+            "No puede valorarse, porque el texto no habla de costos.",
+            "Es acertada, porque los premios se entregan en dinero.",
+            "Es acertada, porque el jurado solo elige cuarenta obras.",
+            "Parte de un dato falso: la inscripción es gratuita."
+          ],
+          "correcta": 3,
+          "explicacion": "Antes de discutir una conclusión hay que revisar el dato en que se apoya. La convocatoria dice que «La inscripción no tiene costo», así que el argumento de la vecina se cae desde la premisa. Los premios y el cupo no tienen que ver con lo que ella critica."
+        },
+        {
+          "codigo": "P002-T02-06",
+          "categoria": "cohesion",
+          "dificultad": 1,
+          "enunciado": "En la oración «Lo eligen con su voto quienes visiten la exposición», la palabra «Lo» se refiere a:",
+          "opciones": [
+            "El premio del público.",
+            "El primer premio.",
+            "El jurado del Salón.",
+            "El voto de los visitantes."
+          ],
+          "correcta": 0,
+          "explicacion": "«Lo» retoma lo que se acaba de nombrar en la misma línea: el premio del público. Es un pronombre que evita repetir. El jurado no puede ser, porque justamente este premio lo deciden los visitantes."
+        }
+      ]
+    },
+    {
+      "codigo": "P002-T03",
+      "titulo": "Lo que el marco decide",
+      "tipologia": "ensayo",
+      "fuente": "Texto original para práctica.",
+      "contenido": "Solemos creer que el marco es un accesorio: una moldura que protege el cuadro y lo separa de la pared. Pero basta retirarlo para advertir que cumplía un oficio menos modesto. El marco no se limita a rodear la pintura; le dice al espectador dónde termina el mundo y dónde empieza aquello que debe mirarse de otra manera. Es, antes que un adorno, una orden: detente aquí.\n\nLo mismo cabe decir del pedestal, de la vitrina y, en último término, del museo entero, que no es sino un marco de proporciones arquitectónicas. Quien cruza su umbral baja la voz, aminora el paso y concede a cuanto encuentra una atención que rara vez dispensa a las cosas de su casa. De ahí el escándalo, todavía instructivo, de 1917, cuando Marcel Duchamp envió a una exposición de Nueva York un orinal de porcelana firmado con seudónimo. La pieza fue rechazada, pero la pregunta que traía consigo no ha dejado de incomodar: si un objeto cualquiera, puesto en el lugar indicado, reclama la mirada que reservamos al arte, ¿qué es entonces lo que hace artística a una obra: sus cualidades o su emplazamiento?\n\nSería apresurado concluir que todo depende del lugar, como pretenden quienes ven en el arte contemporáneo una simple impostura. El marco convoca la atención, pero no puede garantizar que algo la merezca. Hay objetos que, una vez mirados con detenimiento, se agotan en un instante, y otros que resisten y devuelven más de lo que se les pide. La institución otorga, por así decirlo, un crédito; solo la obra puede saldarlo.\n\nCon todo, sería igualmente ingenuo suponer que existe una mirada «pura», libre de marcos. Nadie contempla desde ninguna parte. Miramos siempre desde una educación, una época y unas expectativas que nos han enseñado qué buscar. Reconocerlo no rebaja la experiencia del arte: la vuelve, más bien, responsable. Porque quien sabe que su atención ha sido dirigida puede, al menos, preguntarse por quién y hacia dónde.",
+      "preguntas": [
+        {
+          "codigo": "P002-T03-01",
+          "categoria": "literal",
+          "dificultad": 3,
+          "enunciado": "Según el texto, el marco, el pedestal, la vitrina y el museo tienen en común que:",
+          "opciones": [
+            "Son accesorios cuya única tarea consiste en proteger las obras.",
+            "Perdieron su función a raíz del escándalo ocurrido en 1917.",
+            "Indican que lo que contienen pide otra manera de mirar.",
+            "Aseguran que lo exhibido merece la atención que se le concede."
+          ],
+          "correcta": 2,
+          "explicacion": "El primer párrafo define el oficio del marco (decir «dónde empieza aquello que debe mirarse de otra manera») y el segundo lo extiende a los demás: «Lo mismo cabe decir del pedestal, de la vitrina…». La opción del accesorio repite la creencia que el autor corrige, y la de la garantía contradice el tercer párrafo: el marco «no puede garantizar que algo la merezca»."
+        },
+        {
+          "codigo": "P002-T03-02",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "En el tercer párrafo, la palabra «impostura» puede reemplazarse, sin alterar el sentido, por:",
+          "opciones": [
+            "Provocación",
+            "Engaño",
+            "Costumbre",
+            "Imposición"
+          ],
+          "correcta": 1,
+          "explicacion": "Una impostura es un fingimiento, un engaño con apariencia de verdad: así juzgan el arte contemporáneo quienes creen que su valor es puro montaje. «Imposición» se le parece en el sonido, no en el significado; «provocación» suena razonable, pero la frase habla de fraude, no de desafío."
+        },
+        {
+          "codigo": "P002-T03-03",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "Con la frase «La institución otorga, por así decirlo, un crédito; solo la obra puede saldarlo», el autor da a entender que:",
+          "opciones": [
+            "El museo logra que miremos con atención, pero la obra debe justificarla.",
+            "Los artistas quedan en deuda con las instituciones que los exhiben.",
+            "El prestigio de un museo basta para volver valioso cualquier objeto.",
+            "Las obras expuestas adquieren un valor en dinero que luego deben devolver."
+          ],
+          "correcta": 0,
+          "explicacion": "Crédito y saldo son aquí metáforas, y el «por así decirlo» lo advierte: el museo adelanta la atención del público, y la obra «paga» si resiste una mirada detenida. Leerlo como dinero o como deuda del artista es tomar la figura al pie de la letra; decir que el prestigio basta contradice la idea misma de un crédito que hay que saldar."
+        },
+        {
+          "codigo": "P002-T03-04",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "De lo que plantea el texto se puede deducir MENOS que:",
+          "opciones": [
+            "La manera de mirar el arte es, en buena parte, aprendida.",
+            "Un mismo objeto puede recibir miradas distintas según el lugar en que se encuentre.",
+            "Que una pieza esté en un museo no demuestra por sí solo que sea valiosa.",
+            "El valor del arte contemporáneo depende solo del lugar donde se exhibe."
+          ],
+          "correcta": 3,
+          "explicacion": "Tres opciones se desprenden del texto: el lugar condiciona la mirada, el marco no garantiza el valor y siempre miramos desde una educación y una época. La que no se deduce es justamente la postura que el autor rechaza: «Sería apresurado concluir que todo depende del lugar». En las preguntas con «MENOS» se busca la afirmación que el texto no respalda."
+        },
+        {
+          "codigo": "P002-T03-05",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "El autor recuerda el envío de Duchamp a la exposición de 1917 con el fin de:",
+          "opciones": [
+            "Plantear, con un caso concreto, la pregunta por lo que hace artística a una obra.",
+            "Mostrar que los organizadores de la época carecían de criterio.",
+            "Probar que cualquier objeto es arte desde que un museo lo acepta.",
+            "Contar cómo nacieron los primeros museos de arte moderno."
+          ],
+          "correcta": 0,
+          "explicacion": "El episodio importa por «la pregunta que traía consigo»: ¿cualidades o emplazamiento? El autor lo usa para abrir el problema, no para cerrarlo. La opción según la cual cualquier objeto es arte si un museo lo acepta no puede ser: la pieza fue rechazada, y el autor no saca esa conclusión."
+        },
+        {
+          "codigo": "P002-T03-06",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "¿Qué relación guardan entre sí el tercer párrafo y el cuarto?",
+          "opciones": [
+            "El tercero formula una pregunta y el cuarto la responde con un ejemplo histórico.",
+            "Cada uno corrige un exceso: creer que todo depende del lugar o que nada depende de él.",
+            "Ambos repiten una misma idea con palabras distintas para darle más énfasis.",
+            "El cuarto desmiente lo afirmado en el tercero y deja el texto sin una posición definida."
+          ],
+          "correcta": 1,
+          "explicacion": "El tercero frena a quien concluye que el lugar lo es todo; el cuarto frena a quien cree en una mirada sin marcos. La palabra «igualmente» avisa que son dos errores simétricos, y la posición del autor queda entre ambos. No hay contradicción: «Con todo» matiza lo anterior, no lo desmiente."
+        },
+        {
+          "codigo": "P002-T03-07",
+          "categoria": "cohesion",
+          "dificultad": 3,
+          "enunciado": "En la oración «Reconocerlo no rebaja la experiencia del arte: la vuelve, más bien, responsable», la expresión «más bien»:",
+          "opciones": [
+            "Atenúa la afirmación, porque el autor no está seguro de ella.",
+            "Concede la razón a quienes sostienen la opinión contraria.",
+            "Añade una segunda consecuencia a la que ya se mencionó.",
+            "Rectifica lo que se acaba de negar y propone la idea que el autor defiende."
+          ],
+          "correcta": 3,
+          "explicacion": "Después de una negación («no rebaja»), «más bien» introduce la versión que el autor sí suscribe: no la rebaja, la vuelve responsable. Es un marcador de rectificación. En otros contextos «más bien» atenúa («es más bien tímido»), y por eso esa opción tienta; aquí, tras el «no», corrige."
+        }
+      ]
+    },
+    {
+      "codigo": "P002-T04",
+      "titulo": "Jueves a las tres",
+      "tipologia": "literario",
+      "fuente": "Relato original para práctica.",
+      "contenido": "Todos los jueves, a las tres, Irene se paraba frente al mismo cuadro con su cuaderno de tapas negras. Era un retrato pequeño, casi escondido entre dos paisajes enormes: una mujer de perfil que pelaba una naranja junto a una ventana. Nadie se detenía a mirarlo. Los visitantes pasaban de largo hacia la sala de los maestros, donde había que hacer fila.\n\nEl vigilante, un hombre callado al que le faltaban dos años para la pensión, tardó un mes en hablarle.\n\n—Lleva cinco jueves dibujando lo mismo —dijo—. ¿No se cansa?\n\n—No es lo mismo —contestó Irene sin levantar el lápiz—. El primer día dibujé una mujer. El segundo, una naranja. Hoy estoy dibujando la luz.\n\nEl hombre miró el cuadro como si lo hubieran colgado esa mañana. Después miró el cuaderno. En la última página no había mujer ni fruta: solo un rectángulo en blanco, la ventana, y alrededor una sombra hecha con miles de rayitas que iba cediendo hasta desaparecer en una mano.\n\n—Yo llevo once años en esta sala —dijo por fin— y habría jurado que esa ventana estaba cerrada.\n\nIrene sonrió. Cuando sonó el timbre del cierre, guardó el lápiz, pero el vigilante no se movió de su sitio. Seguía de pie frente al retrato, con las manos atrás, igual que los visitantes de la otra sala.\n\nEl jueves siguiente, junto al cuadro pequeño, alguien había puesto una silla.",
+      "preguntas": [
+        {
+          "codigo": "P002-T04-01",
+          "categoria": "literal",
+          "dificultad": 1,
+          "enunciado": "¿Qué muestra el cuadro que Irene dibuja cada jueves?",
+          "opciones": [
+            "Un vigilante de pie con las manos cruzadas atrás.",
+            "Un paisaje enorme con una ventana cerrada al fondo.",
+            "Una mujer de perfil que pela una naranja junto a una ventana.",
+            "Una mujer que dibuja en un cuaderno de tapas negras."
+          ],
+          "correcta": 2,
+          "explicacion": "El primer párrafo lo describe: «una mujer de perfil que pelaba una naranja junto a una ventana». Las otras opciones arman escenas con elementos que sí están en el relato —los paisajes, el vigilante, el cuaderno—, pero en otro lugar."
+        },
+        {
+          "codigo": "P002-T04-02",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "El vigilante mira el cuadro «como si lo hubieran colgado esa mañana». Esto da a entender que:",
+          "opciones": [
+            "Lo observa de verdad por primera vez.",
+            "Sospecha que alguien cambió el cuadro por otro.",
+            "El cuadro acaba de llegar a la sala.",
+            "Le molesta que Irene lo esté copiando."
+          ],
+          "correcta": 0,
+          "explicacion": "El «como si» anuncia una comparación, no un hecho: el cuadro lleva años ahí, pero él lo mira como algo nuevo. Tomar la comparación por un dato real es el error de la opción sobre la llegada del cuadro."
+        },
+        {
+          "codigo": "P002-T04-03",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "La respuesta de Irene —«El primer día dibujé una mujer. El segundo, una naranja. Hoy estoy dibujando la luz»— sugiere que:",
+          "opciones": [
+            "El museo reemplaza el cuadro de esa sala cada semana por otro parecido.",
+            "En cada visita descubre en el cuadro algo que antes no veía.",
+            "Irene deja sin terminar cada dibujo que empieza.",
+            "A Irene le interesan más los objetos que las personas."
+          ],
+          "correcta": 1,
+          "explicacion": "El cuadro es siempre el mismo; lo que cambia es lo que Irene alcanza a ver en él, de lo más evidente (la figura) a lo más sutil (la luz). Por eso contesta «No es lo mismo». Nada indica que abandone sus dibujos ni que el museo cambie el cuadro."
+        },
+        {
+          "codigo": "P002-T04-04",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "En la última línea aparece una silla junto al cuadro. Lo más razonable es inferir que:",
+          "opciones": [
+            "La dirección del museo quiere que Irene termine pronto y se marche de la sala.",
+            "El cuadro se volvió tan visitado como los de la sala de los maestros.",
+            "El vigilante cree ahora que ese cuadro merece una mirada detenida.",
+            "El vigilante se cansó de trabajar de pie después de once años."
+          ],
+          "correcta": 2,
+          "explicacion": "El relato no dice quién puso la silla ni para quién, pero prepara la respuesta: el vigilante pasa de preguntar «¿No se cansa?» a quedarse mirando el retrato después del cierre. Una silla junto a un cuadro invita a detenerse; es el gesto de alguien que cambió de opinión sobre él. Que el cuadro sea ahora muy visitado exagera: la frase «igual que los visitantes de la otra sala» describe la postura del vigilante, no una multitud."
+        },
+        {
+          "codigo": "P002-T04-05",
+          "categoria": "critico",
+          "dificultad": 1,
+          "enunciado": "¿Quién cuenta la historia?",
+          "opciones": [
+            "Irene, que recuerda sus visitas al museo.",
+            "El vigilante, poco antes de pensionarse.",
+            "Un visitante de la sala de los maestros.",
+            "Un narrador externo, que no participa."
+          ],
+          "correcta": 3,
+          "explicacion": "El relato habla de Irene y del vigilante en tercera persona («se paraba», «dijo»), y nadie dice «yo» fuera de los diálogos. Es un narrador externo que muestra gestos y palabras y deja que el lector saque las conclusiones."
+        },
+        {
+          "codigo": "P002-T04-06",
+          "categoria": "cohesion",
+          "dificultad": 2,
+          "enunciado": "En la frase «una sombra hecha con miles de rayitas que iba cediendo hasta desaparecer en una mano», lo que «iba cediendo» es:",
+          "opciones": [
+            "El rectángulo.",
+            "La ventana.",
+            "La sombra.",
+            "Las rayitas."
+          ],
+          "correcta": 2,
+          "explicacion": "El verbo está en singular («iba»), así que su sujeto no puede ser «rayitas», aunque sea la palabra más cercana: la que cede es la sombra. Fijarse en la concordancia entre verbo y sujeto resuelve muchas preguntas sobre a qué se refiere una expresión."
+        }
+      ]
+    },
+    {
+      "codigo": "P002-T05",
+      "titulo": "El grafiti entra al museo: dos posturas",
+      "tipologia": "intertextual",
+      "fuente": "Textos originales para práctica.",
+      "contenido": "### Texto A\n\nDurante años el grafiti fue tratado como una mancha que había que borrar. Hoy algunos museos le abren sus salas, y hay quien lo lamenta como si se tratara de una traición. No lo es. El museo ofrece al grafitero lo que la calle le niega: tiempo, materiales, un público que se detiene y, no menos importante, un pago por su trabajo. Además, pocas obras permanecen en el lugar para el que fueron hechas: los retablos salieron de las iglesias y las máscaras rituales, de las aldeas, y no por eso dejamos de admirarlos. Exigirle al grafiti que se quede en la intemperie para seguir siendo «auténtico» es condenar a sus autores a la precariedad en nombre de una pureza que solo disfrutan los espectadores.\n\n### Texto B\n\nUn grafiti no es solo una imagen: es una imagen puesta en un muro que nadie ofreció. Su fuerza nace de esa circunstancia —el riesgo, la prisa, la certeza de que mañana puede amanecer cubierto de pintura gris— y de que interpela a quien no fue a buscarlo. Trasladado a una sala, con luz medida y cartel explicativo, conserva la forma y pierde el gesto: se vuelve decoración. Nadie niega que los grafiteros tengan derecho a vivir de lo que saben hacer. Pero conviene llamar a las cosas por su nombre: lo que cuelga en el museo es pintura de un grafitero, no grafiti. El animal sigue siendo hermoso en el zoológico; lo que ya no hace es cazar.",
+      "preguntas": [
+        {
+          "codigo": "P002-T05-01",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "Según el texto B, la fuerza de un grafiti proviene de:",
+          "opciones": [
+            "El reconocimiento que le conceden las instituciones.",
+            "El modo en que se pinta y su encuentro con quien no lo buscaba.",
+            "La habilidad del autor y la calidad de los materiales que emplea.",
+            "La luz medida y el cartel explicativo que lo acompañan."
+          ],
+          "correcta": 1,
+          "explicacion": "El texto B lo dice en dos partes: la fuerza nace de «esa circunstancia» (el riesgo, la prisa) y de que «interpela a quien no fue a buscarlo». La luz medida y el cartel sí aparecen en el texto, pero como rasgos de la sala del museo: es el dato correcto en el lugar equivocado."
+        },
+        {
+          "codigo": "P002-T05-02",
+          "categoria": "critico",
+          "dificultad": 1,
+          "enunciado": "¿Sobre qué asunto discrepan los dos textos?",
+          "opciones": [
+            "Si el grafiti debe borrarse de los muros de la ciudad.",
+            "Si los grafiteros merecen recibir un pago por su trabajo.",
+            "Si los museos deberían cobrar por la entrada.",
+            "Si el grafiti pierde lo esencial al entrar al museo."
+          ],
+          "correcta": 3,
+          "explicacion": "Para A, entrar al museo no es una traición; para B, lo que cuelga allí es «pintura de un grafitero, no grafiti». Ese es el punto en disputa. Cuando se comparan dos textos, lo primero es ubicar la pregunta que cada uno responde de manera distinta."
+        },
+        {
+          "codigo": "P002-T05-03",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "Al hablar de «una pureza que solo disfrutan los espectadores», el autor del texto A critica que:",
+          "opciones": [
+            "Quienes exigen autenticidad no pagan el costo de esa exigencia.",
+            "Los grafiteros pintan pensando únicamente en agradar al público.",
+            "Los espectadores no distinguen un grafiti auténtico de una imitación.",
+            "Los museos impiden que la gente disfrute del grafiti en la calle."
+          ],
+          "correcta": 0,
+          "explicacion": "La frase opone dos lados: los autores, condenados «a la precariedad», y los espectadores, que disfrutan la pureza sin pagar nada por ella. El autor señala que es fácil pedir autenticidad cuando el sacrificio lo hace otro. Las comillas en «auténtico» ya avisaban que toma distancia de esa palabra."
+        },
+        {
+          "codigo": "P002-T05-04",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "La frase final del texto B, «El animal sigue siendo hermoso en el zoológico; lo que ya no hace es cazar», cumple en la argumentación la función de:",
+          "opciones": [
+            "Resumir con una analogía que el grafiti conserva la forma y pierde la acción.",
+            "Admitir, al final, que el autor del texto A tenía la razón.",
+            "Respaldar la tesis con un dato tomado de las ciencias naturales.",
+            "Abrir un tema nuevo, el del trato que reciben los animales en cautiverio."
+          ],
+          "correcta": 0,
+          "explicacion": "El zoológico es el museo, el animal es el grafiti, y cazar es lo que el grafiti hacía en la calle: arriesgarse, interpelar. La analogía repite en imagen lo dicho antes: «conserva la forma y pierde el gesto». No es un dato ni un tema nuevo: es un cierre retórico."
+        },
+        {
+          "codigo": "P002-T05-05",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "El texto A recuerda que los retablos y las máscaras rituales salieron de su lugar de origen y los seguimos admirando. ¿Qué respuesta sería más coherente con la postura del texto B?",
+          "opciones": [
+            "Admirar una obra es prueba suficiente de que conserva todo su sentido.",
+            "Los museos no deberían pagar a los artistas por obras de origen popular.",
+            "Los retablos y las máscaras nunca fueron considerados verdaderas obras de arte.",
+            "También esos objetos, fuera de su lugar, dejaron de cumplir su función."
+          ],
+          "correcta": 3,
+          "explicacion": "B distingue entre forma y gesto: algo puede seguir siendo hermoso y, sin embargo, haber perdido lo que hacía. Con esa distinción puede aceptar el ejemplo de A y volverlo a su favor: admiramos la máscara, pero ya no cumple su rito. Que admirar baste para conservar el sentido es la idea de A, no la de B."
+        },
+        {
+          "codigo": "P002-T05-06",
+          "categoria": "cohesion",
+          "dificultad": 1,
+          "enunciado": "En el texto A, la palabra «Además» indica que el autor:",
+          "opciones": [
+            "Enuncia la conclusión de todo el texto.",
+            "Presenta la postura de sus contradictores.",
+            "Suma un argumento nuevo a favor de su postura.",
+            "Cambia de opinión sobre el tema."
+          ],
+          "correcta": 2,
+          "explicacion": "«Además» es un conector de adición: después de enumerar lo que el museo ofrece, el autor agrega otra razón, la de las obras que cambian de lugar. Para presentar la postura contraria usaría «pero» o «sin embargo»; para concluir, «por tanto» o «en suma»."
+        }
+      ]
+    }
+  ]
+}

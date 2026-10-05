@@ -37,7 +37,7 @@
                 <span class="datos">
                   <span>🔥 <b>${e.racha}</b> días</span>
                   <span>⏱️ <b>${LE.minutos(e.minutos_7d)}</b></span>
-                  <span><b>${e.respuestas_7d}</b> respuestas</span>
+                  <span><b>${e.respuestas_7d}</b> respuestas${LE.logicaActiva() ? ` (${e.logica_7d ?? 0} de lógica)` : ""}</span>
                   <span><b>${e.precision_7d ?? "—"}${e.precision_7d != null ? "%" : ""}</b> aciertos</span>
                   <span>Última vez: <b>${esc(LE.hace(e.ultima_actividad))}</b></span>
                 </span>
@@ -78,8 +78,8 @@
     try {
       await LE.api.enviarMensaje({
         estudiante_id: b.dataset.est, tipo: "mision",
-        titulo: cat ? `Misión: nivel ${LE.cat(cat).nombre.toLowerCase()}` : "Misión: volver al ritmo",
-        cuerpo, mision: { n, categoria: cat }
+        titulo: cat ? (LE.compDe(cat) === "logica" ? `Misión de lógica: ${LE.cat(cat).nombre.toLowerCase()}` : `Misión: nivel ${LE.cat(cat).nombre.toLowerCase()}`) : "Misión: volver al ritmo",
+        cuerpo, mision: { n, categoria: cat, componente: cat ? LE.compDe(cat) : "lectura" }
       });
       await LE.api.cerrarAlerta(b.dataset.id, "atendida");
       card.remove();
@@ -96,13 +96,24 @@
   // =================================================================
   LE.ruta("/tutor/estudiante/:id", async ({ id }) => {
     LE.cargando();
-    const [r, msgs, falladas] = await Promise.all([LE.api.resumen(id), LE.api.mensajes(id), LE.api.preguntasFalladas(id)]);
+    const conLogica = LE.logicaActiva();
+    const [r, msgs, falladas, cua] = await Promise.all([LE.api.resumen(id), LE.api.mensajes(id), LE.api.preguntasFalladas(id), conLogica ? LE.api.cuaderno("logica", id).catch(() => null) : null]);
     LE.estado.vistaEst = { id, r, falladas };
     const p = r.perfil, t = r.totales;
     const precision = t.respuestas ? Math.round((100 * t.aciertos) / t.respuestas) : 0;
     const min7 = r.dias.slice(-7).reduce((a, d) => a + d.minutos, 0);
     const diasActivos7 = r.dias.slice(-7).filter((d) => d.respuestas > 0).length;
-    const niveles = LE.estado.config.simulacros || {};
+    const pc = r.por_componente || {};
+    const tablaSims = (comp) => {
+      const sims = (r.simulacros || []).filter((x) => (x.componente || "lectura") === comp);
+      const niveles = LE.cfgDe("simulacros", comp) || {};
+      const cats = LE.COMP[comp].cats;
+      if (!sims.length) return comp === "lectura" || !conLogica ? `<p class="sub">Aún no ha hecho simulacros${conLogica ? " de lectura" : ""}.</p>` : `<p class="sub">Aún no ha hecho simulacros de lógica.</p>`;
+      return `<div class="scroll-x"><table class="tabla">
+            <thead><tr><th>Fecha</th><th>Nivel</th><th class="num">Puntaje</th>${cats.map((c) => `<th class="num">${esc(LE.cat(c).nombre)}</th>`).join("")}<th></th></tr></thead>
+            <tbody>${sims.map((x) => `<tr><td>${LE.fecha(x.fecha)}</td><td>${esc(niveles[x.nivel]?.nombre || x.nivel)}</td><td class="num"><b>${x.puntaje}%</b></td>${cats.map((c) => { const k = x.por_categoria?.[c]; return `<td class="num">${k ? k.correctas + "/" + k.total : "—"}</td>`; }).join("")}<td><a href="#/diagnostico/${x.id}">Ver</a></td></tr>`).join("")}</tbody>
+          </table></div>`;
+    };
 
     LE.montar(`
       <div class="pila" style="--pila:1.5rem">
@@ -123,11 +134,27 @@
           <div class="stat"><b>${LE.minutos(r.minutos_hoy)}</b><span>hoy</span></div>
           <div class="stat"><b>${LE.minutos(min7)}</b><span>últimos 7 días</span></div>
           <div class="stat"><b>${LE.minutos(r.minutos_total)}</b><span>en total</span></div>
-          <div class="stat"><b>${t.respuestas}</b><span>preguntas · ${precision}% aciertos</span></div>
+          <div class="stat"><b>${t.respuestas}</b><span>preguntas · ${precision}% aciertos${conLogica ? ` · ${pc.logica?.respuestas || 0} de lógica` : ""}</span></div>
           <div class="stat"><b>${t.segundos_promedio ?? "—"}${t.segundos_promedio != null ? " s" : ""}</b><span>por pregunta</span></div>
           <div class="stat"><b>${r.retos}</b><span>retos y misiones</span></div>
         </div>
 
+        ${conLogica ? `
+        <section class="panel">
+          <div class="titulo-seccion"><h2>Uso diario</h2><span class="sub pequeno">Últimas 4 semanas, los dos componentes</span></div>
+          ${LE.calor(r.dias)}
+          <p class="tenue pequeno" style="margin-top:.8rem">Pasa el cursor por un día para ver minutos y respuestas.</p>
+        </section>
+        <div class="rejilla dos">
+          <section class="panel">
+            <div class="titulo-seccion"><h2>Dominio · Lectura</h2><span class="sub pequeno">${pc.lectura?.respuestas || 0} respuestas</span></div>
+            ${LE.ecualizador(r.dominio)}
+          </section>
+          <section class="panel">
+            <div class="titulo-seccion"><h2>Dominio · Lógica</h2><span class="sub pequeno">${pc.logica?.respuestas || 0} respuestas</span></div>
+            ${LE.ecualizador(r.dominio_logica, { cats: LE.CATS_LOGICA })}
+          </section>
+        </div>` : `
         <div class="rejilla dos">
           <section class="panel">
             <div class="titulo-seccion"><h2>Dominio actual</h2><span class="sub pequeno">Últimas 30 por nivel</span></div>
@@ -138,17 +165,21 @@
             ${LE.calor(r.dias)}
             <p class="tenue pequeno" style="margin-top:.8rem">Pasa el cursor por un día para ver minutos y respuestas.</p>
           </section>
-        </div>
+        </div>`}
 
-        ${tablaTendencia(r.tendencia)}
+        ${conLogica && cua ? panelErrores(cua, p) : ""}
+
+        ${tablaTendencia(r.tendencia, "lectura", conLogica)}
+        ${conLogica ? tablaTendencia(r.tendencia, "logica", true) : ""}
 
         <section class="panel">
-          <div class="titulo-seccion"><h2>Simulacros</h2></div>
-          ${r.simulacros.length ? `<div class="scroll-x"><table class="tabla">
-            <thead><tr><th>Fecha</th><th>Nivel</th><th class="num">Puntaje</th>${LE.CATS.map((c) => `<th class="num">${esc(LE.cat(c).nombre)}</th>`).join("")}<th></th></tr></thead>
-            <tbody>${r.simulacros.map((x) => `<tr><td>${LE.fecha(x.fecha)}</td><td>${esc(niveles[x.nivel]?.nombre || x.nivel)}</td><td class="num"><b>${x.puntaje}%</b></td>${LE.CATS.map((c) => { const k = x.por_categoria?.[c]; return `<td class="num">${k ? k.correctas + "/" + k.total : "—"}</td>`; }).join("")}<td><a href="#/diagnostico/${x.id}">Ver</a></td></tr>`).join("")}</tbody>
-          </table></div>` : `<p class="sub">Aún no ha hecho simulacros.</p>`}
+          <div class="titulo-seccion"><h2>Simulacros${conLogica ? " de lectura" : ""}</h2></div>
+          ${tablaSims("lectura")}
         </section>
+        ${conLogica ? `<section class="panel">
+          <div class="titulo-seccion"><h2>Simulacros de lógica</h2></div>
+          ${tablaSims("logica")}
+        </section>` : ""}
 
         <div class="rejilla dos">
           <section class="panel">
@@ -174,8 +205,9 @@
           <div class="titulo-seccion"><h2>Preguntas que más falla</h2><span class="sub pequeno">Coméntale una: le llega con la pregunta citada</span></div>
           ${falladas.length ? falladas.map((f, k) => (k === 6 ? `<details class="pila" style="--pila:.8rem"><summary class="enlace" style="list-style:none">Ver ${falladas.length - 6} más</summary>` : "") + `
             <article class="fallada cr-${f.categoria}">
-              <div class="fila entre"><span class="fila"><span class="etq">${esc(LE.cat(f.categoria).nombre)}</span><span class="tenue pequeno">${esc(f.texto)}</span></span><span class="pequeno"><b>${f.fallos}</b> de ${f.intentos} intentos mal</span></div>
-              <b>${esc(f.enunciado)}</b>
+              <div class="fila entre"><span class="fila">${conLogica ? `<span class="tenue pequeno">${LE.COMP[f.componente || "lectura"].icono} ${LE.COMP[f.componente || "lectura"].nombre}</span>` : ""}<span class="etq">${esc(LE.cat(f.categoria).nombre)}</span><span class="tenue pequeno">${esc(f.tema && LE.tecnica(f.tema) ? LE.tecnica(f.tema).nombre : f.texto)}</span></span><span class="pequeno"><b>${f.fallos}</b> de ${f.intentos} intentos mal</span></div>
+              ${f.componente === "logica" ? `<div class="enunciado md" style="font-size:1rem">${LE.md(f.enunciado)}</div>` : `<b>${esc(f.enunciado)}</b>`}
+              ${f.error?.tipo ? `<p class="pequeno sub"><span class="etq-error">${esc(LE.tipoError(f.error.tipo).nombre)}</span> ${esc(f.error.nota || "")}</p>` : ""}
               <div class="ops">${f.opciones.map((o, j) => `<span class="${j === f.correcta ? "ok" : j === f.ultima_opcion ? "ult" : ""}">${LE.LETRAS[j]}. ${esc(o)}${j === f.correcta ? " ✓" : j === f.ultima_opcion ? " ← su última respuesta" : ""}</span>`).join("")}</div>
               <details><summary class="pequeno sub" style="cursor:pointer">Explicación del banco</summary><p class="sub pequeno" style="margin-top:.4rem">${esc(f.explicacion)}</p></details>
               <div><button class="btn sec chico" data-accion="comentar" data-k="${k}">Comentarle esta pregunta</button></div>
@@ -185,7 +217,32 @@
     activarCompositor();
   }, { tutor: true });
 
-  function tablaTendencia(tend = []) {
+  // Lógica: cómo se equivoca y qué técnicas le cuestan (lo mismo que ella ve en su cuaderno).
+  function panelErrores(cua, p) {
+    const top = Object.entries(cua.perfil || {}).sort((a, b) => b[1] - a[1])[0];
+    const flojas = (cua.temas || []).filter((t) => t.intentos >= 2 && t.aciertos < t.intentos && LE.tecnica(t.tema)).map((t) => ({ ...t, pct: Math.round((100 * t.aciertos) / t.intentos) }))
+      .sort((a, b) => a.pct - b.pct || b.intentos - a.intentos).slice(0, 6);
+    const dominadas = (cua.temas || []).filter((t) => LE.estadoTecnica(t) === "dominada").length;
+    return `<div class="rejilla dos">
+      <section class="panel pila" style="--pila:.8rem">
+        <div class="titulo-seccion" style="margin-bottom:0"><h2>Lógica: cómo se equivoca</h2><span class="sub pequeno">Últimos fallos, por tipo de error</span></div>
+        ${top ? `${LE.perfilErrores(cua.perfil)}
+          <p class="sub pequeno">Lo que más se repite es <b style="color:var(--texto)">${esc(LE.tipoError(top[0]).nombre.toLowerCase())}</b>. ${esc(LE.tipoError(top[0]).consejo)}</p>` : `<p class="sub">Todavía no hay errores de lógica con diagnóstico.</p>`}
+        <p class="tenue pequeno">${(cua.pendientes || []).length} preguntas pendientes en su cuaderno de errores · ${cua.recuperadas} corregidas.</p>
+      </section>
+      <section class="panel pila" style="--pila:.6rem">
+        <div class="titulo-seccion" style="margin-bottom:0"><h2>Lógica: técnicas que más le cuestan</h2><span class="sub pequeno">${dominadas} de ${(LE.estado.tecnicas || []).length} dominadas</span></div>
+        ${flojas.length ? flojas.map((t) => `<div class="repaso-fila">
+          <span><b>${esc(LE.tecnica(t.tema).nombre)}</b><span class="tenue pequeno"> · ${t.aciertos} de ${t.intentos} (${t.pct}%)</span></span>
+          <button class="btn suave chico" data-accion="verTecnica" data-cod="${esc(t.tema)}">Ver ficha</button>
+        </div>`).join("") : `<p class="sub">Todavía no hay técnicas con fallos repetidos.</p>`}
+      </section>
+    </div>`;
+  }
+
+  function tablaTendencia(tend = [], comp = "lectura", rotular = false) {
+    const cats = LE.COMP[comp].cats;
+    tend = (tend || []).filter((t) => cats.includes(t.categoria));
     if (!tend?.length) return "";
     const semanas = [...new Set(tend.map((t) => t.semana))].sort();
     const celda = (sem, c) => {
@@ -193,10 +250,10 @@
       return x ? `<td class="num"><span class="celda-mapa cr-${c}" style="--p:${Math.round(x.precision * 0.7)}" title="${x.n} respuestas">${x.precision}%</span></td>` : `<td class="num tenue">—</td>`;
     };
     return `<section class="panel">
-      <div class="titulo-seccion"><h2>Evolución semanal</h2><span class="sub pequeno">% de aciertos por semana y nivel</span></div>
+      <div class="titulo-seccion"><h2>Evolución semanal${rotular ? " · " + LE.COMP[comp].nombre : ""}</h2><span class="sub pequeno">% de aciertos por semana y nivel</span></div>
       <div class="scroll-x"><table class="tabla">
-        <thead><tr><th>Semana del</th>${LE.CATS.map((c) => `<th class="num">${esc(LE.cat(c).nombre)}</th>`).join("")}</tr></thead>
-        <tbody>${semanas.map((s) => `<tr><td>${LE.fecha(s + "T12:00")}</td>${LE.CATS.map((c) => celda(s, c)).join("")}</tr>`).join("")}</tbody>
+        <thead><tr><th>Semana del</th>${cats.map((c) => `<th class="num">${esc(LE.cat(c).nombre)}</th>`).join("")}</tr></thead>
+        <tbody>${semanas.map((s) => `<tr><td>${LE.fecha(s + "T12:00")}</td>${cats.map((c) => celda(s, c)).join("")}</tr>`).join("")}</tbody>
       </table></div>
     </section>`;
   }
@@ -211,7 +268,9 @@
       <label class="campo">Mensaje<textarea name="cuerpo" maxlength="1200" placeholder="Escríbele a ${nombreCorto(p.nombre)}…"></textarea></label>
       <div class="dos-campos" data-solo-mision hidden>
         <label class="campo">Preguntas<select name="n"><option>5</option><option selected>10</option><option>15</option></select></label>
-        <label class="campo">Nivel<select name="cat"><option value="">Mezcla de todos</option>${LE.CATS.map((c) => `<option value="${c}">${esc(LE.cat(c).nombre)}</option>`).join("")}</select></label>
+        <label class="campo">${LE.logicaActiva() ? "Componente y nivel" : "Nivel"}<select name="cat">${LE.logicaActiva()
+          ? ["lectura", "logica"].map((k) => `<optgroup label="${LE.COMP[k].nombre}"><option value="${k}|">${LE.COMP[k].nombre}: mezcla de todos</option>${LE.COMP[k].cats.map((c) => `<option value="${k}|${c}">${esc(LE.cat(c).nombre)}</option>`).join("")}</optgroup>`).join("")
+          : `<option value="lectura|">Mezcla de todos</option>${LE.CATS.map((c) => `<option value="lectura|${c}">${esc(LE.cat(c).nombre)}</option>`).join("")}`}</select></label>
       </div>
       <div class="acciones"><button class="btn">Enviar</button></div>
     </form>`;
@@ -235,7 +294,7 @@
       try {
         await LE.api.enviarMensaje({
           estudiante_id: f.dataset.est, tipo, titulo: f.titulo.value.trim(), cuerpo: f.cuerpo.value.trim(),
-          mision: tipo === "mision" ? { n: +f.n.value, categoria: f.cat.value || null } : null
+          mision: tipo === "mision" ? { n: +f.n.value, categoria: f.cat.value.split("|")[1] || null, componente: f.cat.value.split("|")[0] || "lectura" } : null
         });
         LE.aviso(tipo === "mision" ? "Misión enviada" : "Mensaje enviado");
         LE.navegar();
@@ -250,14 +309,14 @@
     const v = await LE.dialogo(`
       <form class="pila" method="dialog">
         <h2>Comentario sobre una pregunta</h2>
-        <p class="sub">«${esc(f.enunciado)}»</p>
+        <p class="sub">«${esc(LE.plano(f.enunciado, 260))}»</p>
         <p class="pequeno">Respuesta correcta: <b style="color:var(--menta)">${LE.LETRAS[f.correcta]}. ${esc(f.opciones[f.correcta])}</b></p>
         <label class="campo">Tu comentario<textarea name="c" required placeholder="Explícale con tus palabras por qué, o dale una pista para la próxima."></textarea></label>
         <div class="acciones"><button class="btn sec" type="button" data-valor="">Cancelar</button><button class="btn" value="enviar">Enviar</button></div>
       </form>`, { alAbrir: (d) => d.querySelector("form").addEventListener("submit", (e) => { texto = e.target.c.value.trim(); }) });
     if (v !== "enviar" || !texto) return;
     try {
-      await LE.api.enviarMensaje({ estudiante_id: id, tipo: "comentario", titulo: "Sobre una pregunta que se te complicó", cuerpo: texto, pregunta_id: f.id, mision: { cita: f.enunciado, correcta: `${LE.LETRAS[f.correcta]}. ${f.opciones[f.correcta]}` } });
+      await LE.api.enviarMensaje({ estudiante_id: id, tipo: "comentario", titulo: "Sobre una pregunta que se te complicó", cuerpo: texto, pregunta_id: f.id, mision: { cita: LE.plano(f.enunciado, 260), correcta: `${LE.LETRAS[f.correcta]}. ${f.opciones[f.correcta]}` } });
       LE.aviso("Comentario enviado");
       LE.navegar();
     } catch (e) { LE.error(e); }
@@ -276,35 +335,49 @@
     const c = await LE.api.resumenContenido();
     const m = c.matriz || {};
     const total = (cat) => [1, 2, 3].reduce((a, d) => a + (m[cat]?.[d] || 0), 0);
-    const dist = LE.estado.config.distribucion || {};
+    const matrizDe = (comp) => {
+      const dist = LE.cfgDe("distribucion", comp) || {};
+      return `<div class="scroll-x"><table class="tabla">
+              <thead><tr><th>Nivel</th><th class="num">Fácil</th><th class="num">Media</th><th class="num">Difícil</th><th class="num">Total</th><th class="num">Meta</th></tr></thead>
+              <tbody>${LE.COMP[comp].cats.map((cat) => `<tr><td><span class="etq cr-${cat}">${esc(LE.cat(cat).nombre)}</span></td>${[1, 2, 3].map((d) => `<td class="num">${m[cat]?.[d] || 0}</td>`).join("")}<td class="num"><b>${total(cat)}</b></td><td class="num tenue">${Math.round((dist[cat] || 0) * 100)}%</td></tr>`).join("")}</tbody>
+            </table></div>`;
+    };
+    const nLog = c.preguntas_logica || 0;
+    const temas = c.temas || {};
+    const sinPreguntas = (LE.estado.tecnicas || []).filter((t) => !temas[t.codigo]);
     LE.montar(`
       <div class="pila" style="--pila:1.5rem">
         <div class="pila" style="--pila:.3rem">
           <h1>Contenido</h1>
-          <p class="sub">${c.textos} lecturas y ${c.preguntas} preguntas activas.</p>
+          <p class="sub">Lectura: ${c.textos} lecturas y ${c.preguntas} preguntas activas.${nLog || LE.logicaActiva() ? ` Lógica: ${nLog} preguntas, ${c.situaciones || 0} situaciones y ${c.tecnicas || 0} fichas de técnica.` : ""}</p>
         </div>
 
         <div class="rejilla dos">
           <section class="panel">
-            <div class="titulo-seccion"><h2>Banco de preguntas</h2><span class="sub pequeno">Por nivel y dificultad</span></div>
-            <div class="scroll-x"><table class="tabla">
-              <thead><tr><th>Nivel</th><th class="num">Fácil</th><th class="num">Media</th><th class="num">Difícil</th><th class="num">Total</th><th class="num">Meta</th></tr></thead>
-              <tbody>${LE.CATS.map((cat) => `<tr><td><span class="etq cr-${cat}">${esc(LE.cat(cat).nombre)}</span></td>${[1, 2, 3].map((d) => `<td class="num">${m[cat]?.[d] || 0}</td>`).join("")}<td class="num"><b>${total(cat)}</b></td><td class="num tenue">${Math.round((dist[cat] || 0) * 100)}%</td></tr>`).join("")}</tbody>
-            </table></div>
-            <p class="tenue pequeno" style="margin-top:.8rem">La columna «Meta» es el peso de cada nivel en retos y simulacros. Un banco sano tiene al menos 3 veces las preguntas del simulacro más largo (150).</p>
+            <div class="titulo-seccion"><h2>Banco de lectura</h2><span class="sub pequeno">Por nivel y dificultad</span></div>
+            ${matrizDe("lectura")}
+            <p class="tenue pequeno" style="margin-top:.8rem">La columna «Meta» es el peso de cada nivel en los retos. Un banco sano tiene al menos 3 veces las preguntas del simulacro más largo (150).</p>
           </section>
           <section class="panel">
-            <div class="titulo-seccion"><h2>Paquetes cargados</h2></div>
-            <table class="tabla"><tbody>${(c.paquetes || []).map((p) => `<tr><td>${esc(p.paquete)}</td><td class="num">${p.preguntas} preguntas</td></tr>`).join("") || `<tr><td class="tenue">Ninguno</td></tr>`}</tbody></table>
+            <div class="titulo-seccion"><h2>Banco de lógica</h2><span class="sub pequeno">Por nivel y dificultad</span></div>
+            ${nLog ? `${matrizDe("logica")}
+              <p class="tenue pequeno" style="margin-top:.8rem">En lógica la meta vale para retos y simulacros. Para que un simulacro de 40 no repita casi todo, conviene pasar de 120 preguntas.${sinPreguntas.length ? ` Técnicas sin preguntas: ${sinPreguntas.map((t) => esc(t.nombre)).join(", ")}.` : ""}</p>`
+              : `<p class="sub">${LE.logicaActiva() ? "Lógica está activada pero todavía no hay preguntas: carga <b>logica-001</b> y <b>logica-002</b>." : "Lógica no está activada. Carga primero <b>logica-base</b> (niveles, técnicas e insignias) y después los paquetes de preguntas <b>logica-001</b> y <b>logica-002</b>."}</p>`}
           </section>
         </div>
 
+        <section class="panel">
+          <div class="titulo-seccion"><h2>Paquetes cargados</h2></div>
+          <table class="tabla"><tbody>${(c.paquetes || []).map((p) => `<tr><td>${esc(p.paquete)}</td><td class="num">${p.preguntas} preguntas</td></tr>`).join("") || `<tr><td class="tenue">Ninguno</td></tr>`}</tbody></table>
+        </section>
+
         <section class="panel pila" style="--pila:.9rem">
           <h2>Cargar un paquete</h2>
-          <p class="sub">Un paquete es un archivo .json que puede traer lecturas con preguntas, insignias nuevas, ajustes de la gamificación y una novedad que la estudiante verá al entrar. Si una lectura o pregunta ya existe (mismo código), se actualiza; no se duplica.</p>
+          <p class="sub">Un paquete es un archivo .json que puede traer lecturas con preguntas, problemas de lógica, fichas de técnica, insignias nuevas, ajustes de la gamificación y una novedad que la estudiante verá al entrar. Si una lectura, pregunta o ficha ya existe (mismo código), se actualiza; no se duplica.</p>
           <div class="fila">
             <label class="btn sec" style="cursor:pointer">Elegir archivo .json<input type="file" accept=".json,application/json" id="archivo-paquete" hidden></label>
-            <a class="enlace" href="content/plantilla-paquete.json" download>Descargar plantilla</a>
+            <a class="enlace" href="content/plantilla-paquete.json" download>Plantilla de lectura</a>
+            <a class="enlace" href="content/plantilla-logica.json" download>Plantilla de lógica</a>
           </div>
           <label class="campo">O pega aquí el contenido del paquete<textarea id="texto-paquete" style="min-height:8rem;font-family:ui-monospace,monospace;font-size:.85rem" placeholder='{"paquete": "paquete-002", "textos": [ ... ]}'></textarea></label>
           <div id="revision-paquete"></div>
@@ -313,7 +386,7 @@
 
         <section class="panel pila" style="--pila:.6rem">
           <h2>Cómo llegan las actualizaciones</h2>
-          <p class="sub"><b style="color:var(--texto)">Preguntas y lecturas nuevas:</b> con un paquete, desde aquí. La estudiante las ve en su siguiente reto.</p>
+          <p class="sub"><b style="color:var(--texto)">Preguntas, lecturas, problemas de lógica y fichas de técnica:</b> con un paquete, desde aquí. La estudiante los ve en su siguiente reto.</p>
           <p class="sub"><b style="color:var(--texto)">Insignias, rangos, XP, tiempos y niveles del simulacro:</b> también con un paquete (campos <code>insignias</code> y <code>config</code>). No hay que tocar código.</p>
           <p class="sub"><b style="color:var(--texto)">Diseño y funciones nuevas:</b> se reemplazan los archivos en GitHub y se sube el número de versión. La app le muestra a la estudiante un aviso para actualizar.</p>
         </section>
@@ -330,23 +403,45 @@
     if (!p || typeof p !== "object" || Array.isArray(p)) return ["El archivo no es un objeto JSON."];
     if (!p.paquete) err.push("Falta el nombre del paquete (campo «paquete»).");
     const codigos = new Set();
+    const tecnicasConocidas = new Set([...(LE.estado.tecnicas || []).map((t) => t.codigo), ...(p.tecnicas || []).map((t) => t.codigo)]);
+    const tiposError = LE.TIPOS_ERROR();
+    // Revisa una pregunta. «esperado» es el componente que debe tener según dónde está.
+    const revisar = (q, d2, esperado) => {
+      if (!q.codigo) err.push(`${d2}: falta «codigo».`);
+      else if (codigos.has(q.codigo)) err.push(`${d2}: el código ${q.codigo} está repetido.`);
+      codigos.add(q.codigo);
+      if (!LE.CATS_TODAS.includes(q.categoria)) err.push(`${d2}: «categoria» debe ser literal, inferencial, critico o cohesion (lectura), o deductivo, proporcional, abstracto o geometrico (lógica).`);
+      else if (LE.compDe(q.categoria) !== esperado) err.push(`${d2}: la categoría «${q.categoria}» es de ${LE.COMP[LE.compDe(q.categoria)].nombre.toLowerCase()} y está en un lugar de ${LE.COMP[esperado].nombre.toLowerCase()}. Los dos componentes no se mezclan.`);
+      if (!Array.isArray(q.opciones) || q.opciones.length !== 4) err.push(`${d2}: necesita exactamente 4 opciones.`);
+      if (!(Number.isInteger(q.correcta) && q.correcta >= 0 && q.correcta <= 3)) err.push(`${d2}: «correcta» debe ser 0, 1, 2 o 3 (A, B, C o D).`);
+      if (q.dificultad != null && ![1, 2, 3].includes(q.dificultad)) err.push(`${d2}: «dificultad» debe ser 1, 2 o 3.`);
+      if (!q.enunciado) err.push(`${d2}: falta «enunciado».`);
+      if (q.pasos != null && (!Array.isArray(q.pasos) || q.pasos.some((x) => typeof x !== "string"))) err.push(`${d2}: «pasos» debe ser una lista de textos.`);
+      if (q.errores != null) {
+        if (!Array.isArray(q.errores) || q.errores.length !== 4) err.push(`${d2}: «errores» debe tener 4 posiciones, una por opción (null en la correcta).`);
+        else q.errores.forEach((e, k) => {
+          if (k === q.correcta && e) err.push(`${d2}: «errores» trae diagnóstico en la opción correcta.`);
+          if (e && !tiposError.includes(e.tipo)) err.push(`${d2}: tipo de error «${e.tipo}» no reconocido (${tiposError.join(", ")}).`);
+        });
+      }
+      if (q.figura != null && !/^\s*<svg[\s>]/i.test(q.figura)) err.push(`${d2}: «figura» debe ser un SVG.`);
+      if (q.tema && LE.compDe(q.categoria) === "logica" && !tecnicasConocidas.has(q.tema)) err.push(`${d2}: la técnica «${q.tema}» no existe. Carga primero su ficha o inclúyela en «tecnicas».`);
+    };
     (p.textos || []).forEach((t, i) => {
-      const donde = `Lectura ${i + 1}${t.codigo ? " (" + t.codigo + ")" : ""}`;
+      const situacion = t.tipologia === "situacion";
+      const donde = `${situacion ? "Situación" : "Lectura"} ${i + 1}${t.codigo ? " (" + t.codigo + ")" : ""}`;
       if (!t.codigo) err.push(`${donde}: falta «codigo».`);
       if (!t.titulo) err.push(`${donde}: falta «titulo».`);
       if (!t.contenido) err.push(`${donde}: falta «contenido».`);
       if (t.tipologia && !LE.TIPOS[t.tipologia]) err.push(`${donde}: tipología «${t.tipologia}» no reconocida.`);
-      (t.preguntas || []).forEach((q, j) => {
-        const d2 = `${donde}, pregunta ${j + 1}`;
-        if (!q.codigo) err.push(`${d2}: falta «codigo».`);
-        else if (codigos.has(q.codigo)) err.push(`${d2}: el código ${q.codigo} está repetido.`);
-        codigos.add(q.codigo);
-        if (!LE.CATS.includes(q.categoria)) err.push(`${d2}: «categoria» debe ser literal, inferencial, critico o cohesion.`);
-        if (!Array.isArray(q.opciones) || q.opciones.length !== 4) err.push(`${d2}: necesita exactamente 4 opciones.`);
-        if (!(Number.isInteger(q.correcta) && q.correcta >= 0 && q.correcta <= 3)) err.push(`${d2}: «correcta» debe ser 0, 1, 2 o 3 (A, B, C o D).`);
-        if (q.dificultad != null && ![1, 2, 3].includes(q.dificultad)) err.push(`${d2}: «dificultad» debe ser 1, 2 o 3.`);
-        if (!q.enunciado) err.push(`${d2}: falta «enunciado».`);
-      });
+      if (t.figura != null && !/^\s*<svg[\s>]/i.test(t.figura)) err.push(`${donde}: «figura» debe ser un SVG.`);
+      (t.preguntas || []).forEach((q, j) => revisar(q, `${donde}, pregunta ${j + 1}`, situacion ? "logica" : "lectura"));
+    });
+    (p.preguntas || []).forEach((q, j) => revisar(q, `Problema suelto ${j + 1}${q.codigo ? " (" + q.codigo + ")" : ""}`, "logica"));
+    (p.tecnicas || []).forEach((t, k) => {
+      if (!t.codigo || !t.nombre) err.push(`Técnica ${k + 1}: necesita codigo y nombre.`);
+      if (!LE.CATS_LOGICA.includes(t.categoria)) err.push(`Técnica ${k + 1}${t.codigo ? " (" + t.codigo + ")" : ""}: «categoria» debe ser deductivo, proporcional, abstracto o geometrico.`);
+      if (t.pasos != null && !Array.isArray(t.pasos)) err.push(`Técnica ${k + 1}: «pasos» debe ser una lista.`);
     });
     (p.insignias || []).forEach((i, k) => { if (!i.codigo || !i.nombre || !i.regla?.tipo) err.push(`Insignia ${k + 1}: necesita codigo, nombre y regla.tipo.`); });
     return err;
@@ -359,13 +454,15 @@
     catch (e) { caja.innerHTML = `<p class="error">No es JSON válido: ${esc(e.message)}</p>`; return; }
     const err = LE.validarPaquete(p);
     if (err.length) { caja.innerHTML = `<div class="pila" style="--pila:.3rem"><p class="error">Hay que corregir ${err.length} ${err.length === 1 ? "cosa" : "cosas"}:</p>${err.slice(0, 12).map((e) => `<p class="sub pequeno">· ${esc(e)}</p>`).join("")}</div>`; return; }
-    const nq = (p.textos || []).reduce((a, t) => a + (t.preguntas || []).length, 0);
+    const todas = [...(p.textos || []).flatMap((t) => t.preguntas || []), ...(p.preguntas || [])];
+    const nq = todas.length;
     const porCat = {};
-    (p.textos || []).forEach((t) => (t.preguntas || []).forEach((q) => (porCat[q.categoria] = (porCat[q.categoria] || 0) + 1)));
+    todas.forEach((q) => (porCat[q.categoria] = (porCat[q.categoria] || 0) + 1));
+    const nLect = (p.textos || []).filter((t) => t.tipologia !== "situacion").length, nSit = (p.textos || []).length - nLect;
     LE.estado.paqueteListo = p;
     caja.innerHTML = `<div class="mensaje" style="--c:var(--menta)">
       <h3>«${esc(p.paquete)}» está listo</h3>
-      <p>${(p.textos || []).length} lecturas · ${nq} preguntas${nq ? " (" + Object.entries(porCat).map(([c, n]) => `${n} ${LE.cat(c).nombre.toLowerCase()}`).join(", ") + ")" : ""}${p.insignias?.length ? ` · ${p.insignias.length} insignias` : ""}${p.config ? ` · ajustes: ${Object.keys(p.config).join(", ")}` : ""}${p.novedad ? " · con novedad para la estudiante" : ""}</p>
+      <p>${[nLect ? `${nLect} lecturas` : "", nSit ? `${nSit} situaciones de lógica` : "", `${nq} preguntas${nq ? " (" + Object.entries(porCat).map(([c, n]) => `${n} ${LE.cat(c).nombre.toLowerCase()}`).join(", ") + ")" : ""}`, p.tecnicas?.length ? `${p.tecnicas.length} fichas de técnica` : "", p.insignias?.length ? `${p.insignias.length} insignias` : "", p.config ? `ajustes: ${Object.keys(p.config).join(", ")}` : "", p.novedad ? "con novedad para la estudiante" : ""].filter(Boolean).join(" · ")}</p>
       <button class="btn chico" style="margin-top:.8rem" data-accion="importarPaquete">Cargar paquete</button>
     </div>`;
   };
@@ -375,7 +472,7 @@
     try {
       const r = await LE.api.importarPaquete(LE.estado.paqueteListo);
       await LE.recargarConfig();
-      LE.aviso(`Cargado: ${r.textos} lecturas, ${r.preguntas} preguntas${r.insignias ? ", " + r.insignias + " insignias" : ""}.`);
+      LE.aviso(`Cargado: ${r.textos} lecturas o situaciones, ${r.preguntas} preguntas${r.tecnicas ? ", " + r.tecnicas + " técnicas" : ""}${r.insignias ? ", " + r.insignias + " insignias" : ""}.`);
       LE.estado.paqueteListo = null;
       LE.navegar();
     } catch (e) { LE.error(e); b.disabled = false; }

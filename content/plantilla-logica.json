@@ -1,0 +1,107 @@
+{
+  "paquete": "logica-003",
+  "novedad": {
+    "version": "logica-003",
+    "titulo": "Problemas nuevos de lógica",
+    "cuerpo": "Llegaron problemas nuevos de proporciones."
+  },
+  "preguntas": [
+    {
+      "codigo": "L-POR-5",
+      "categoria": "proporcional",
+      "tema": "porcentajes",
+      "dificultad": 2,
+      "enunciado": "Enunciado del problema. Admite **negrita**, listas con «- » y cuadros con filas entre barras verticales.",
+      "opciones": [
+        "Opción A",
+        "Opción B",
+        "Opción C",
+        "Opción D"
+      ],
+      "correcta": 1,
+      "pista": "El primer movimiento, sin dar la respuesta.",
+      "pasos": [
+        "Paso 1 de la solución.",
+        "Paso 2.",
+        "Paso 3: el resultado."
+      ],
+      "errores": [
+        {
+          "tipo": "incompleto",
+          "nota": "Qué hizo quien marcó la A y qué le faltó."
+        },
+        null,
+        {
+          "tipo": "regla",
+          "nota": "Qué regla equivocada lleva a la C."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "Qué respondió en realidad quien marcó la D."
+        }
+      ],
+      "explicacion": "La idea clave, en una frase."
+    }
+  ],
+  "textos": [
+    {
+      "codigo": "L-S05",
+      "titulo": "Título de la situación",
+      "tipologia": "situacion",
+      "fuente": "Situación original para práctica.",
+      "contenido": "Contexto que comparten varias preguntas.\n\n| Columna | A | B |\n| Fila 1 | 2 | 3 |\n| Fila 2 | 4 | 5 |",
+      "preguntas": [
+        {
+          "codigo": "L-S05-1",
+          "categoria": "proporcional",
+          "tema": "tablas",
+          "dificultad": 1,
+          "enunciado": "Pregunta sobre la situación:",
+          "opciones": [
+            "Opción A",
+            "Opción B",
+            "Opción C",
+            "Opción D"
+          ],
+          "correcta": 0,
+          "pista": "Pista.",
+          "pasos": [
+            "Paso 1.",
+            "Paso 2."
+          ],
+          "errores": [
+            null,
+            {
+              "tipo": "planteamiento",
+              "nota": "…"
+            },
+            {
+              "tipo": "calculo",
+              "nota": "…"
+            },
+            {
+              "tipo": "inferencia",
+              "nota": "…"
+            }
+          ],
+          "explicacion": "Idea clave."
+        }
+      ]
+    }
+  ],
+  "tecnicas": [
+    {
+      "codigo": "tecnica-nueva",
+      "categoria": "proporcional",
+      "nombre": "Nombre de la técnica",
+      "orden": 300,
+      "cuando": "En qué tipo de problema se usa.",
+      "pasos": [
+        "Paso 1.",
+        "Paso 2."
+      ],
+      "ejemplo": "Un ejemplo resuelto.",
+      "trampa": "El error típico."
+    }
+  ]
+}

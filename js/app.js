@@ -29,7 +29,7 @@
 
   // ---------- Ingreso ----------
   function pintarIngreso(msg = "") {
-    document.title = "Entrelíneas · Lectura UdeA";
+    document.title = "Entrelíneas · Examen UdeA";
     if (location.hash === "#/salir") history.replaceState(null, "", location.pathname + location.search);
     app.innerHTML = `
       ${LE.api.modo === "demo" ? `<div class="banda demo">Modo demo: los datos viven solo en este navegador</div>` : ""}
@@ -37,7 +37,7 @@
         <form class="ingreso-caja" id="f-ingreso" novalidate>
           <div class="ondas" aria-hidden="true">${LE.ondas(9)}</div>
           <h1 class="ingreso-marca">Entre<i>líneas</i></h1>
-          <p class="sub">Práctica diaria de Competencia Lectora para el examen de admisión de la Universidad de Antioquia.</p>
+          <p class="sub">Práctica diaria de Competencia Lectora y Razonamiento Lógico para el examen de admisión de la Universidad de Antioquia.</p>
           <label class="campo">Usuario<input name="usuario" autocomplete="username" autocapitalize="none" spellcheck="false" required></label>
           <label class="campo">Contraseña<input name="clave" type="password" autocomplete="current-password" required></label>
           <p class="error" id="error-ingreso" role="alert">${esc(msg)}</p>
@@ -58,25 +58,28 @@
   }
 
   // ---------- Estructura ----------
-  const NAV_EST = [["#/inicio", "🏠", "Inicio"], ["#/simulacro", "⏱️", "Simulacro"], ["#/mensajes", "✉️", "Mensajes"], ["#/perfil", "👤", "Perfil"]];
+  // Con Lógica activada, cada componente tiene su propia entrada en la navegación.
+  const navEst = () => (LE.logicaActiva()
+    ? [["#/inicio", "📖", "Lectura"], ["#/logica", "🧩", "Lógica"], ["#/simulacro", "⏱️", "Simulacro"], ["#/mensajes", "✉️", "Mensajes"], ["#/perfil", "👤", "Perfil"]]
+    : [["#/inicio", "🏠", "Inicio"], ["#/simulacro", "⏱️", "Simulacro"], ["#/mensajes", "✉️", "Mensajes"], ["#/perfil", "👤", "Perfil"]]);
   const NAV_TUT = [["#/tutor", "👥", "Estudiantes"], ["#/tutor/contenido", "📚", "Contenido"], ["#/salir", "🚪", "Salir"]];
 
   LE.recargarConfig = async () => {
-    const [c, ins] = await Promise.all([LE.api.config(), LE.api.insignias()]);
-    LE.estado.config = c; LE.estado.insignias = ins;
+    const [c, ins, tec] = await Promise.all([LE.api.config(), LE.api.insignias(), LE.api.tecnicas().catch(() => [])]);
+    LE.estado.config = c; LE.estado.insignias = ins; LE.estado.tecnicas = tec || [];
   };
 
   async function arrancar(perfil) {
     LE.estado.perfil = perfil;
     await LE.recargarConfig();
     const tutor = LE.esTutor();
-    document.title = tutor ? "Tutoría · Entrelíneas" : "Entrelíneas · Lectura UdeA";
+    document.title = tutor ? "Tutoría · Entrelíneas" : "Entrelíneas · Examen UdeA";
     app.innerHTML = `
       <div id="bandas">${LE.api.modo === "demo" ? `<div class="banda demo">Modo demo: los datos viven solo en este navegador</div>` : ""}</div>
       <header class="barra"><div class="barra-in">
         <a class="marca" href="${LE.inicioPorRol()}" aria-label="Entrelíneas, inicio">Entre<i>líneas</i></a>
         <nav class="nav" aria-label="Principal">
-          ${(tutor ? NAV_TUT : NAV_EST).map(([h, i, t]) => `<a href="${h}"><span class="ico" aria-hidden="true">${i}</span>${t}${h === "#/mensajes" ? '<span class="punto" hidden></span>' : ""}</a>`).join("")}
+          ${(tutor ? NAV_TUT : navEst()).map(([h, i, t]) => `<a href="${h}"><span class="ico" aria-hidden="true">${i}</span>${t}${h === "#/mensajes" ? '<span class="punto" hidden></span>' : ""}</a>`).join("")}
         </nav>
       </div></header>
       <main id="vista" tabindex="-1"></main>`;
@@ -116,7 +119,7 @@
     LE.cronometro.detener();
     window.onhashchange = null;
     await LE.api.salir();
-    LE.estado = { perfil: null, config: {}, insignias: [], sesion: null };
+    LE.estado = { perfil: null, config: {}, insignias: [], tecnicas: [], sesion: null };
     history.replaceState(null, "", location.pathname + location.search);
     pintarIngreso();
   };

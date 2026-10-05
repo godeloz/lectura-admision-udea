@@ -1,0 +1,475 @@
+{
+  "paquete": "paquete-004",
+  "novedad": {
+    "version": "contenido-004",
+    "titulo": "Lecturas nuevas",
+    "cuerpo": "Llegaron 5 lecturas con 30 preguntas: las láminas de la Expedición Botánica, la red de hongos del bosque, un poema de Barba Jacob, doblaje contra subtítulos y la programación de un cineclub."
+  },
+  "textos": [
+    {
+      "codigo": "P004-T01",
+      "titulo": "Las láminas de la Expedición",
+      "tipologia": "ensayo",
+      "fuente": "Texto original para práctica, con datos históricos.",
+      "contenido": "En 1783 comenzó en el Nuevo Reino de Granada una empresa que hoy resulta difícil de clasificar. La Real Expedición Botánica, dirigida por el sacerdote y médico gaditano José Celestino Mutis, se proponía inventariar las plantas del territorio con fines que la Corona no disimulaba: hallar especies útiles para la medicina y el comercio. Era, pues, ciencia al servicio de un imperio. Pero su resultado más perdurable no fue un catálogo de riquezas, sino una colección de imágenes: más de cinco mil láminas en las que cada planta aparece dibujada con una exactitud que todavía asombra a los botánicos y con una gracia que no les debe nada a los mejores pintores de flores de su tiempo.\n\nEsas láminas no las pintó Mutis. Salieron de un taller por el que pasaron, a lo largo de tres décadas, más de cuarenta dibujantes, casi todos americanos: muchachos llegados de Quito, de Popayán, de Santafé, varios de ellos formados en talleres de pintura religiosa y reeducados para una disciplina nueva. Se les exigía mirar de otro modo. Donde el pintor de iglesia buscaba conmover, el de la Expedición debía informar; donde aquel componía una escena, este aislaba un ejemplar sobre el papel en blanco, sin paisaje ni sombra, y lo mostraba a la vez en flor y en fruto, como ninguna planta se deja ver en la naturaleza. La lámina no copiaba un individuo: construía un tipo.\n\nLa mayor parte de esos dibujos carece de firma. El hecho suele atribuirse a una costumbre del taller, y sin duda lo era; pero conviene no despacharlo tan pronto. Una obra colectiva que la posteridad conoce por el nombre de su director —«las láminas de Mutis»— plantea una pregunta que la historia del arte ha tardado en hacerse: a quién pertenece una imagen, si a quien la concibió como parte de un sistema o a quienes, pincel en mano, resolvieron una por una las dificultades de cada hoja.\n\nEl destino de la colección añade una ironía. Mutis murió en 1808 sin publicar su Flora. Pocos años después, restablecido el dominio español tras la primera independencia, los materiales de la Expedición fueron embalados y remitidos a Madrid, donde permanecen. El primer volumen impreso no apareció hasta 1954. Así, el retrato más minucioso que se haya hecho de la naturaleza de este país fue encargado por una monarquía, ejecutado por artistas locales cuyo nombre casi nadie recuerda, y se conserva al otro lado del océano. Tal vez por eso sigue siendo tan elocuente: en cada lámina hay una planta y, detrás de ella, la historia entera de quién manda mirar, quién pinta y quién se queda con lo pintado.",
+      "preguntas": [
+        {
+          "codigo": "P004-T01-01",
+          "categoria": "literal",
+          "dificultad": 3,
+          "enunciado": "Según el segundo párrafo, ¿qué se proponían, respectivamente, el pintor de iglesia y el pintor de la Expedición?",
+          "opciones": [
+            "Conmover con un ejemplar aislado / informar con una escena",
+            "Informar con una escena / conmover con un ejemplar aislado",
+            "Conmover con una escena / informar con un ejemplar aislado",
+            "Informar con un ejemplar aislado / conmover con una escena"
+          ],
+          "correcta": 2,
+          "explicacion": "El párrafo opone los dos oficios en frases paralelas: «Donde el pintor de iglesia buscaba conmover, el de la Expedición debía informar; donde aquel componía una escena, este aislaba un ejemplar». «Aquel» es el de iglesia y «este», el de la Expedición. Las opciones usan las mismas palabras cambiadas de lugar: hay que comprobar los cuatro datos, no solo el primero."
+        },
+        {
+          "codigo": "P004-T01-02",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "En el último párrafo, el autor menciona «la primera independencia» sin explicar a qué se refiere. Con ello:",
+          "opciones": [
+            "Da por sentado que el lector conoce ese periodo de la historia.",
+            "Indica el lugar exacto en el que ocurrieron los hechos narrados.",
+            "Sostiene que la Expedición fue la causa de la independencia.",
+            "Corrige una fecha que suele citarse de manera equivocada."
+          ],
+          "correcta": 0,
+          "explicacion": "Un autor no explica lo que cree que su lector ya sabe. Aquí supone que conoce los años que van del primer grito de independencia a la reconquista española. Reconocer qué da por sabido un texto ayuda a entender para quién fue escrito; en la frase no hay ningún lugar, ninguna causa ni ninguna corrección de fechas."
+        },
+        {
+          "codigo": "P004-T01-03",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "La frase «La lámina no copiaba un individuo: construía un tipo» significa que la imagen:",
+          "opciones": [
+            "Representaba plantas imaginarias, inventadas por los dibujantes.",
+            "Reunía los rasgos de la especie, no los de una planta concreta.",
+            "Retrataba con toda fidelidad un solo ejemplar recogido en el campo.",
+            "Servía de molde para imprimir después muchas copias idénticas."
+          ],
+          "correcta": 1,
+          "explicacion": "La frase resume lo dicho justo antes: la planta aparece «a la vez en flor y en fruto, como ninguna planta se deja ver en la naturaleza». Eso no es inventar: es componer, con rasgos reales, un modelo de la especie. La opción del ejemplar recogido en el campo describe precisamente lo que la frase niega, copiar un individuo."
+        },
+        {
+          "codigo": "P004-T01-04",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "En la oración final, «quién manda mirar, quién pinta y quién se queda con lo pintado» alude, en ese orden, a:",
+          "opciones": [
+            "Los botánicos de hoy, José Celestino Mutis y los dibujantes americanos que firmaron cada una de las láminas.",
+            "José Celestino Mutis, la monarquía española y los lectores del primer volumen de la Flora.",
+            "El espectador actual, los pintores de iglesia y el Nuevo Reino de Granada, dueño de la colección.",
+            "La Corona que encargó la obra, los dibujantes americanos y la institución que la guarda en Madrid."
+          ],
+          "correcta": 3,
+          "explicacion": "La oración final retoma, en el mismo orden, la enumeración que la precede: el retrato «fue encargado por una monarquía, ejecutado por artistas locales» y «se conserva al otro lado del océano». Cuando un texto cierra con una fórmula breve, casi siempre condensa algo que acaba de decir con más palabras: conviene volver unas líneas atrás."
+        },
+        {
+          "codigo": "P004-T01-05",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "¿Cuál de las siguientes frases resume mejor el planteamiento del texto?",
+          "opciones": [
+            "La ciencia y el arte persiguen fines que no pueden reconciliarse.",
+            "Toda imagen cuenta también la historia de quien la encargó y de quien la hizo.",
+            "Un país que pierde sus archivos pierde con ellos toda la memoria de su pasado.",
+            "El talento de un solo hombre basta para fundar una tradición."
+          ],
+          "correcta": 1,
+          "explicacion": "El texto insiste en que las láminas no son solo plantas: cada una lleva consigo las condiciones en que fue hecha. La frase sobre los archivos tienta, porque la colección está en Madrid, pero el autor no dice que el país haya perdido su memoria. Y la del talento de un solo hombre es lo contrario de lo que el texto cuenta sobre el taller."
+        },
+        {
+          "codigo": "P004-T01-06",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "Del conjunto del texto se desprende que el autor ve la Expedición Botánica como:",
+          "opciones": [
+            "Una empresa en la que conviven el interés imperial, el rigor científico y el logro artístico.",
+            "Un fracaso científico, puesto que su director no llegó a publicar la Flora que proyectaba.",
+            "Un episodio de saqueo que no dejó en el territorio nada que merezca aprecio o estudio.",
+            "Una obra de arte desinteresada, ajena a cualquier propósito económico o político de la época en que se hizo."
+          ],
+          "correcta": 0,
+          "explicacion": "El autor no elige una sola cara. Dice que era «ciencia al servicio de un imperio», elogia la exactitud y la gracia de las láminas y recuerda que la colección terminó lejos. Cada una de las otras opciones se queda con un aspecto y niega los demás; en los textos matizados, la respuesta correcta suele ser la que conserva la tensión."
+        },
+        {
+          "codigo": "P004-T01-07",
+          "categoria": "cohesion",
+          "dificultad": 3,
+          "enunciado": "En la oración «El hecho suele atribuirse a una costumbre del taller, y sin duda lo era; pero conviene no despacharlo tan pronto», los dos pronombres «lo» se refieren, respectivamente, a:",
+          "opciones": [
+            "«El hecho» de que falten las firmas, en uno y otro caso.",
+            "«Una costumbre del taller», en uno y otro caso.",
+            "«Una costumbre del taller» y «el hecho» de que falten las firmas.",
+            "«El taller» de la Expedición y «el dibujo» que no lleva firma."
+          ],
+          "correcta": 2,
+          "explicacion": "El primer «lo» reemplaza al atributo: el hecho «era» una costumbre del taller. El segundo es el objeto de «despachar»: lo que no conviene despachar es el hecho. Dos pronombres iguales y vecinos pueden tener referentes distintos; para saberlo hay que rehacer la frase con las palabras que cada uno sustituye."
+        }
+      ]
+    },
+    {
+      "codigo": "P004-T02",
+      "titulo": "La red bajo el bosque",
+      "tipologia": "divulgacion",
+      "fuente": "Texto original de divulgación para práctica.",
+      "contenido": "Bajo el suelo de casi cualquier bosque ocurre un comercio antiguo. Las raíces de la mayoría de los árboles viven asociadas a hongos cuyos filamentos, mucho más finos que una raíz, exploran la tierra y recogen agua y minerales que entregan a la planta; a cambio reciben azúcares que el árbol fabrica con la luz. Esa asociación, llamada micorriza, está bien documentada y nadie la discute.\n\nLo que vino después es más delicado. Como un mismo hongo puede unirse a las raíces de varios árboles, se pensó que los filamentos formarían una red capaz de comunicarlos. En 1997, un experimento hecho en un bosque de Canadá mostró que una pequeña cantidad de carbono, marcada para poder seguirle el rastro, pasaba de unos árboles jóvenes a otros de distinta especie. La revista que publicó el hallazgo lo anunció en su portada con un juego de palabras que hizo fortuna: la *wood wide web*, la red del bosque.\n\nA partir de ahí la idea creció más rápido que las pruebas. En libros, documentales y charlas se empezó a decir que los árboles «se hablan», que los más viejos «alimentan» a sus hijos y que el bosque entero se comporta como una comunidad solidaria. La imagen es hermosa y tiene, además, la ventaja de darnos una razón sentimental para cuidar los bosques.\n\nEn 2023, tres investigadores revisaron los estudios de campo disponibles y llegaron a una conclusión incómoda. Que existan hongos compartidos entre árboles vecinos está probado solo en unos pocos tipos de bosque. Que por ellos viaje carbono es posible, pero las cantidades medidas son pequeñas y resulta difícil descartar que hayan pasado simplemente por el suelo. Y que los árboles adultos favorezcan a sus descendientes no ha sido demostrado en ningún bosque real. Encontraron, además, que muchos artículos citaban los primeros experimentos como si hubieran probado más de lo que probaron.\n\nNada de esto significa que la red no exista ni que la hipótesis sea falsa. Significa que no sabemos todavía, y que entre «no sabemos» y «se ha descubierto» hay una distancia que la divulgación tiende a acortar. Las metáforas ayudan a pensar —nadie entendería gran cosa de un bosque sin ellas—, pero tienen un costo: «madre», «hablar», «solidaridad» traen consigo intenciones que ningún experimento ha medido. Un árbol no necesita ser generoso para merecer que lo dejemos en pie.",
+      "preguntas": [
+        {
+          "codigo": "P004-T02-01",
+          "categoria": "literal",
+          "dificultad": 3,
+          "enunciado": "Según el texto, ¿qué afirmación está bien documentada y cuál no ha sido demostrada en ningún bosque real, en ese orden?",
+          "opciones": [
+            "El paso de grandes cantidades de carbono por los hongos / la existencia de hongos compartidos",
+            "La ayuda de los árboles adultos a sus descendientes / el intercambio entre hongos y raíces",
+            "La existencia de hongos compartidos en todo bosque / el paso de carbono de un árbol a otro",
+            "El intercambio entre hongos y raíces / la ayuda de los árboles adultos a sus descendientes"
+          ],
+          "correcta": 3,
+          "explicacion": "El primer párrafo dice que la micorriza, el intercambio de minerales por azúcares, «está bien documentada y nadie la discute». El cuarto dice que el favor de los adultos a sus descendientes «no ha sido demostrado en ningún bosque real». Entre los dos extremos quedan las afirmaciones probadas a medias, que son las que usan las otras opciones."
+        },
+        {
+          "codigo": "P004-T02-02",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "La frase «la idea creció más rápido que las pruebas» significa que:",
+          "opciones": [
+            "Se difundieron afirmaciones que los experimentos no alcanzaban a respaldar.",
+            "Los árboles conectados por hongos crecen más de prisa que los árboles aislados.",
+            "Las pruebas se fueron perdiendo a medida que la idea se hacía más popular.",
+            "Los científicos publicaron sus resultados sin haberlos revisado lo suficiente."
+          ],
+          "correcta": 0,
+          "explicacion": "«Crecer» está usado en sentido figurado: lo que creció fue la fama de la idea, no los árboles. El párrafo lo muestra enseguida: libros y documentales hablaban de árboles que alimentan a sus hijos cuando el experimento solo había mostrado el paso de un poco de carbono. El texto no acusa a los científicos de publicar con prisa."
+        },
+        {
+          "codigo": "P004-T02-03",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "La última oración —«Un árbol no necesita ser generoso para merecer que lo dejemos en pie»— da a entender que:",
+          "opciones": [
+            "Solo merecen protección aquellos árboles que benefician a sus vecinos.",
+            "Cuidar los bosques no debería depender de atribuirles cualidades humanas.",
+            "La conservación de los bosques carece hoy de una justificación científica.",
+            "Los árboles compiten entre sí y son, en el fondo, organismos egoístas."
+          ],
+          "correcta": 1,
+          "explicacion": "La frase responde a la «razón sentimental» de la que se habló antes: si cuidamos los bosques porque los creemos solidarios, ¿qué pasa si no lo son? El autor separa las dos cosas: el bosque merece cuidado aunque la generosidad sea solo una metáfora. Decir que los árboles son egoístas sería cambiar una intención humana por otra, justo lo que el texto pide evitar."
+        },
+        {
+          "codigo": "P004-T02-04",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "¿Qué actitud asume el autor frente a la hipótesis de la red del bosque?",
+          "opciones": [
+            "Se abstiene de opinar y se limita a contar en orden la historia de la idea.",
+            "La defiende, porque ha servido para que más gente se interese por los bosques.",
+            "La considera posible pero no probada, y critica que se la presente como un hecho.",
+            "La rechaza por completo y la tiene por un engaño deliberado de sus defensores."
+          ],
+          "correcta": 2,
+          "explicacion": "El último párrafo lo dice sin ambigüedad: nada de lo expuesto significa «que la hipótesis sea falsa»; significa «que no sabemos todavía». La crítica va contra el salto de «no sabemos» a «se ha descubierto». No hay rechazo total ni defensa, y tampoco neutralidad: el autor toma posición sobre cómo se comunica la ciencia."
+        },
+        {
+          "codigo": "P004-T02-05",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "El autor observa que la imagen del bosque solidario tiene «la ventaja de darnos una razón sentimental para cuidar los bosques». En el conjunto del texto, esa observación sirve para:",
+          "opciones": [
+            "Acusar a los defensores de los bosques de falsear los datos a propósito.",
+            "Recomendar que se siga difundiendo, dado que sus efectos sobre el público son benéficos.",
+            "Demostrar que la hipótesis, además de hermosa, es científicamente correcta.",
+            "Sugerir por qué la idea se aceptó con tanta facilidad pese a la falta de pruebas."
+          ],
+          "correcta": 3,
+          "explicacion": "La frase aparece cuando el texto cuenta cómo la idea «creció más rápido que las pruebas»: explica su éxito, no su verdad. Una idea que nos gusta y que además nos sirve se examina menos. El autor llama «ventaja» a ese atractivo con cierta ironía, y más adelante le pone precio: las metáforas «tienen un costo»."
+        },
+        {
+          "codigo": "P004-T02-06",
+          "categoria": "cohesion",
+          "dificultad": 3,
+          "enunciado": "En el último párrafo, las rayas de «—nadie entendería gran cosa de un bosque sin ellas—» encierran:",
+          "opciones": [
+            "Las palabras textuales de uno de los investigadores que hicieron la revisión.",
+            "La conclusión principal a la que quiere llegar todo el párrafo.",
+            "Una concesión que matiza la crítica a las metáforas antes de formularla.",
+            "Un ejemplo de las metáforas que el autor se propone rechazar."
+          ],
+          "correcta": 2,
+          "explicacion": "Las rayas abren un inciso: una aclaración que se inserta en la oración sin romperla. Aquí el autor reconoce el valor de las metáforas («ellas») justo antes del «pero» que introduce su costo. Es una concesión: admite lo que tiene de cierto la postura contraria para que su crítica no parezca un rechazo de toda imagen."
+        }
+      ]
+    },
+    {
+      "codigo": "P004-T03",
+      "titulo": "Canción de la vida profunda (fragmento)",
+      "tipologia": "literario",
+      "fuente": "Porfirio Barba Jacob, «Canción de la vida profunda» (hacia 1915). Fragmento. Obra en dominio público.",
+      "contenido": "Hay días en que somos tan móviles, tan móviles,\ncomo las leves briznas al viento y al azar.\nTal vez bajo otro cielo la Gloria nos sonría...\nLa vida es clara, undívaga, y abierta como un mar.\n\nY hay días en que somos tan fértiles, tan fértiles,\ncomo en abril el campo, que tiembla de pasión:\nbajo el influjo próvido de espirituales lluvias,\nel alma está brotando florestas de ilusión.\n\nY hay días en que somos tan sórdidos, tan sórdidos,\ncomo la entraña obscura de obscuro pedernal:\nla noche nos sorprende, con sus profusas lámparas,\nen rútilas monedas tasando el Bien y el Mal.\n\nY hay días en que somos tan plácidos, tan plácidos...\n—¡niñez en el crepúsculo! ¡Lagunas de zafir!—\nque un verso, un trino, un monte, un pájaro que cruza,\ny hasta las propias penas nos hacen sonreír.\n\n[…]\n\nY hay días en que somos tan lúgubres, tan lúgubres,\ncomo en las noches lúgubres el llanto del pinar.\nEl alma gime entonces bajo el dolor del mundo,\ny acaso ni Dios mismo nos pueda consolar.\n\nMas hay también ¡oh Tierra! un día... un día... un día...\nen que levamos anclas para jamás volver;\nun día en que discurren vientos ineluctables...\n¡Un día en que ya nadie nos puede retener!",
+      "preguntas": [
+        {
+          "codigo": "P004-T03-01",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "Según el poema, en los días «plácidos»:",
+          "opciones": [
+            "Incluso las penas propias llegan a causar una sonrisa.",
+            "El alma hace brotar verdaderos bosques de ilusión.",
+            "La noche sorprende a quien cuenta sus monedas.",
+            "El alma gime bajo el peso del dolor del mundo."
+          ],
+          "correcta": 0,
+          "explicacion": "La cuarta estrofa termina así: «y hasta las propias penas nos hacen sonreír». Las otras opciones dicen cosas que el poema sí dice, pero de otros días: el gemido es de los lúgubres, las monedas son de los sórdidos y las florestas, de los fértiles. Cada estrofa tiene su estado de ánimo y sus imágenes; mezclarlas es el error."
+        },
+        {
+          "codigo": "P004-T03-02",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "Al comparar a las personas con «las leves briznas al viento y al azar», el poeta sugiere que en esos días:",
+          "opciones": [
+            "Pierden todo interés por lo que ocurre a su alrededor.",
+            "Cambian de rumbo con facilidad, llevadas por lo que pase.",
+            "Trabajan la tierra desde las primeras horas de la mañana.",
+            "Se sienten fuertes y completamente seguras de su destino."
+          ],
+          "correcta": 1,
+          "explicacion": "Una brizna es una hebra de hierba: no pesa, y el viento la lleva adonde quiere. Ser «móviles» como ella es dejarse llevar. La comparación no habla de trabajo ni de fortaleza, y tampoco de desinterés: la estrofa es luminosa, con la vida «abierta como un mar»."
+        },
+        {
+          "codigo": "P004-T03-03",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "La expresión «como la entraña obscura de obscuro pedernal» es:",
+          "opciones": [
+            "Una metáfora",
+            "Una metonimia",
+            "Una sinécdoque",
+            "Un símil"
+          ],
+          "correcta": 3,
+          "explicacion": "Hay símil cuando la comparación se hace explícita con un nexo, aquí «como»: somos sórdidos como el interior de una piedra. Si el poeta hubiera dicho «somos entraña de pedernal», sin nexo, sería metáfora. La metonimia y la sinécdoque nombran una cosa con otra que le está próxima o que es parte de ella, y no comparan."
+        },
+        {
+          "codigo": "P004-T03-04",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "En la última estrofa, el día «en que levamos anclas para jamás volver» alude a:",
+          "opciones": [
+            "Un viaje por mar.",
+            "El fin de la juventud.",
+            "La muerte.",
+            "El abandono de la poesía."
+          ],
+          "correcta": 2,
+          "explicacion": "Levar anclas es zarpar, pero un viaje del que no se vuelve «jamás», empujado por vientos «ineluctables» (inevitables) y en el que «ya nadie nos puede retener», es la muerte. El poema recorre los días cambiantes de la vida y cierra con el único día que no se parece a los demás."
+        },
+        {
+          "codigo": "P004-T03-05",
+          "categoria": "inferencial",
+          "dificultad": 3,
+          "enunciado": "El poeta dice que la vida es «clara, undívaga, y abierta como un mar». Por la forma de la palabra y por el contexto, «undívaga» significa:",
+          "opciones": [
+            "Que es única y no admite comparación alguna.",
+            "Que yace hundida en lo más hondo del mar.",
+            "Que resulta vaga, imprecisa y difícil de entender.",
+            "Que ondula y se mueve libremente, como las olas."
+          ],
+          "correcta": 3,
+          "explicacion": "La palabra junta dos raíces: «unda», ola (la misma de «ondular» e «inundar»), y «vagar», andar sin rumbo fijo. El contexto lo confirma: la estrofa habla de días «móviles» y de una vida «abierta como un mar». Las otras opciones se apoyan en parecidos de sonido: «único», «hundida», «vaga»."
+        },
+        {
+          "codigo": "P004-T03-06",
+          "categoria": "cohesion",
+          "dificultad": 2,
+          "enunciado": "En el primer verso de la última estrofa, la palabra «Mas» (sin tilde) equivale a:",
+          "opciones": [
+            "Pero",
+            "Además",
+            "Aunque",
+            "Por eso"
+          ],
+          "correcta": 0,
+          "explicacion": "«Mas» sin tilde es una conjunción adversativa: significa «pero». No hay que confundirla con «más», con tilde, que indica cantidad. Aquí marca el giro del poema: todas las estrofas anteriores enumeran días que van y vuelven; esta opone a ellos un día distinto, el definitivo."
+        }
+      ]
+    },
+    {
+      "codigo": "P004-T04",
+      "titulo": "¿Doblaje o subtítulos?: dos posturas",
+      "tipologia": "intertextual",
+      "fuente": "Textos originales para práctica.",
+      "contenido": "### Texto A\n\nUna actuación no está hecha solo de gestos. La mitad del trabajo de un actor es su voz: el temblor, la pausa, la sílaba que se quiebra. El doblaje conserva la imagen y reemplaza todo eso por la interpretación de otra persona, grabada meses después en una cabina, sin compañeros de escena y con la obligación de calzar cada frase en una boca ajena. El resultado puede ser impecable y, sin embargo, ya no es la película que se filmó. Se objeta que leer subtítulos distrae. Distrae al principio, como distrae cualquier hábito nuevo; a los pocos minutos el ojo aprende a leer sin dejar de mirar. Y hay una ganancia que rara vez se menciona: quien ve cine subtitulado oye otras lenguas, y termina por reconocerles la música aunque no las entienda.\n\n### Texto B\n\nEl cine se inventó para ser mirado. Quien lee subtítulos pasa buena parte de la proyección con los ojos en el borde inferior de la pantalla, justamente donde no ocurre nada, y se pierde el encuadre que el director compuso con tanto cuidado. Además, el subtítulo tampoco es el original: resume, recorta, deja por fuera lo que no cabe en dos líneas. Entre dos traducciones, prefiero la que no me obliga a apartar la vista. Pero el argumento decisivo es otro. Los subtítulos suponen un espectador que lee rápido y ve bien; dejan por fuera a los niños pequeños, a muchos ancianos, a quienes aprendieron a leer tarde. Defender la versión original como la única digna es, en el fondo, defender un cine para pocos. El doblaje será una traición, pero es una traición que abre la puerta.",
+      "preguntas": [
+        {
+          "codigo": "P004-T04-01",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "Según el texto B, ¿a quiénes dejan por fuera los subtítulos?",
+          "opciones": [
+            "A los actores de doblaje, que se quedan sin trabajo.",
+            "A quienes no leen con rapidez o no ven bien.",
+            "A quienes desconocen la lengua original de la película.",
+            "A los directores, cuyo encuadre queda tapado por las letras."
+          ],
+          "correcta": 1,
+          "explicacion": "El texto B dice que los subtítulos «suponen un espectador que lee rápido y ve bien» y da tres ejemplos de quienes no lo son: niños pequeños, muchos ancianos y quienes aprendieron a leer tarde. Quien desconoce la lengua original es, al contrario, el espectador al que los subtítulos ayudan."
+        },
+        {
+          "codigo": "P004-T04-02",
+          "categoria": "inferencial",
+          "dificultad": 2,
+          "enunciado": "Cuando el texto A dice que el espectador termina por reconocerles «la música» a otras lenguas, se refiere a:",
+          "opciones": [
+            "El ritmo con que van apareciendo los subtítulos.",
+            "Las canciones que suenan en las películas extranjeras.",
+            "La banda sonora compuesta para acompañar cada escena.",
+            "El sonido y la entonación propios de cada idioma."
+          ],
+          "correcta": 3,
+          "explicacion": "«Música» es aquí una metáfora de cómo suena una lengua: su ritmo, su melodía, su acento. Por eso el texto añade «aunque no las entienda»: se puede reconocer el sonido de un idioma sin comprender las palabras. Las canciones y la banda sonora son música en sentido literal, y se oyen igual en una versión doblada."
+        },
+        {
+          "codigo": "P004-T04-03",
+          "categoria": "critico",
+          "dificultad": 1,
+          "enunciado": "El autor del texto A menciona una objeción contra su propia postura y la responde. ¿Cuál es?",
+          "opciones": [
+            "Que los actores de doblaje interpretan mal.",
+            "Que el público prefiere el cine de su país.",
+            "Que leer subtítulos distrae al espectador.",
+            "Que el doblaje resulta más costoso."
+          ],
+          "correcta": 2,
+          "explicacion": "La objeción aparece anunciada con «Se objeta que leer subtítulos distrae», y la respuesta viene enseguida: distrae solo al principio. Un texto argumentativo sólido no ignora lo que se le puede replicar. El autor no dice que los actores de doblaje interpreten mal; admite incluso que el resultado «puede ser impecable»."
+        },
+        {
+          "codigo": "P004-T04-04",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "¿En qué punto están de acuerdo los dos textos?",
+          "opciones": [
+            "En que los subtítulos distraen sin remedio.",
+            "En que el doblaje altera la obra original.",
+            "En que el cine solo debe verse en su lengua original.",
+            "En que los niños deberían acostumbrarse a los subtítulos."
+          ],
+          "correcta": 1,
+          "explicacion": "Para A, la película doblada «ya no es la película que se filmó»; B lo concede con otra palabra: «El doblaje será una traición». Coinciden en el hecho y difieren en cuánto pesa: para A es una pérdida inaceptable; para B, el precio de que más gente pueda entrar."
+        },
+        {
+          "codigo": "P004-T04-05",
+          "categoria": "critico",
+          "dificultad": 3,
+          "enunciado": "¿Cuál de los argumentos del texto B responde de manera más directa a la idea del texto A de que la película doblada «ya no es la película que se filmó»?",
+          "opciones": [
+            "Que el subtítulo tampoco es el original: resume y recorta.",
+            "Que el director compuso el encuadre de cada plano con mucho cuidado.",
+            "Que los subtítulos excluyen a quienes leen despacio.",
+            "Que el cine se inventó, ante todo, para ser mirado."
+          ],
+          "correcta": 0,
+          "explicacion": "A reprocha al doblaje su infidelidad. La respuesta directa es mostrar que la alternativa tampoco es fiel: «el subtítulo tampoco es el original». Los otros argumentos de B son válidos, pero contestan a otra cosa: a la comodidad de mirar o a quién puede ver la película. Para saber qué responde a qué, hay que fijarse en el tema exacto de cada razón."
+        }
+      ]
+    },
+    {
+      "codigo": "P004-T05",
+      "titulo": "Cineclub La Linterna: ciclo de octubre",
+      "tipologia": "discontinuo",
+      "fuente": "Programación ficticia, elaborada para práctica.",
+      "contenido": "### Ciclo «Ciudades filmadas»\nBiblioteca del barrio, sala 2\n\n**Funciones**\n- Jueves 1: *Tranvía a ninguna parte* (1958, 92 min). Blanco y negro. Subtitulada.\n- Jueves 8: *Los tejados* (1974, 110 min). Subtitulada.\n- Jueves 15: *Mapa de un barrio* (2019, 78 min). Documental. Hablada en español.\n- Jueves 22: *La última estación* (1986, 131 min). Doblada.\n- Jueves 29: *Noche de maquetas* (2021, 64 min). Animación. Para mayores de 12 años.\n\n**Horario**\nTodas las funciones empiezan a las 6:30 p. m. La sala abre a las 6:00 p. m. Después de cada película hay una conversación de 30 minutos; quedarse es opcional.\n\n**Entrada**\n- Gratuita, hasta completar las 60 sillas.\n- No se reservan puestos. Las boletas se entregan en la puerta desde las 6:00 p. m., una por persona.\n- Quien llegue después de empezada la función podrá entrar solo si quedan sillas.\n\n**Para tener en cuenta**\n- La biblioteca cierra a las 9:00 p. m.\n- El jueves 22 la conversación terminará después del cierre; la salida será por la puerta lateral.",
+      "preguntas": [
+        {
+          "codigo": "P004-T05-01",
+          "categoria": "literal",
+          "dificultad": 1,
+          "enunciado": "¿Cuál de las películas del ciclo es un documental?",
+          "opciones": [
+            "La última estación",
+            "Mapa de un barrio",
+            "Los tejados",
+            "Noche de maquetas"
+          ],
+          "correcta": 1,
+          "explicacion": "La función del jueves 15 lo indica: «Mapa de un barrio (2019, 78 min). Documental». En un texto de este tipo, cada dato tiene su fila; la pregunta literal se responde ubicando la correcta."
+        },
+        {
+          "codigo": "P004-T05-02",
+          "categoria": "literal",
+          "dificultad": 2,
+          "enunciado": "¿Cuál es la película más larga del ciclo y en qué versión se presenta?",
+          "opciones": [
+            "La última estación, doblada.",
+            "La última estación, subtitulada.",
+            "Los tejados, subtitulada.",
+            "Tranvía a ninguna parte, doblada."
+          ],
+          "correcta": 0,
+          "explicacion": "Hay que comparar las cinco duraciones (92, 110, 78, 131 y 64 minutos) y después leer la versión en la misma fila: «La última estación», de 131 minutos, va doblada. La opción que acierta en la película y falla en la versión castiga a quien se queda con el primer dato y no termina de leer la línea."
+        },
+        {
+          "codigo": "P004-T05-03",
+          "categoria": "inferencial",
+          "dificultad": 1,
+          "enunciado": "Una persona quiere asegurarse de tener silla. Según las reglas, lo más conveniente es:",
+          "opciones": [
+            "Reservar su puesto por teléfono desde el día anterior.",
+            "Llegar a las 6:30 p. m., justo cuando empieza la película.",
+            "Pedirle a un amigo que recoja varias boletas en la puerta de la sala.",
+            "Llegar a las 6:00 p. m., cuando empiezan a entregar las boletas."
+          ],
+          "correcta": 3,
+          "explicacion": "El texto no da el consejo, pero se deduce de tres reglas: hay solo 60 sillas, no se reservan puestos y las boletas se entregan desde las 6:00, una por persona. Llegar a la hora de la función es arriesgarse a que ya no queden sillas."
+        },
+        {
+          "codigo": "P004-T05-04",
+          "categoria": "critico",
+          "dificultad": 1,
+          "enunciado": "Un vecino comenta: «Ese cineclub es para gente que lee rápido, porque todo lo pasan con subtítulos». Según la programación, su afirmación es:",
+          "opciones": [
+            "Imposible de valorar: el texto no dice nada sobre los idiomas.",
+            "Correcta: para entrar hay que leer primero un reglamento muy largo.",
+            "Inexacta: solo dos de las cinco funciones se anuncian como subtituladas.",
+            "Correcta: las cinco películas del ciclo son habladas en otro idioma."
+          ],
+          "correcta": 2,
+          "explicacion": "Basta contar: se anuncian como subtituladas las funciones del jueves 1 y del jueves 8. Hay además una hablada en español y una doblada. El vecino generaliza a partir de una parte; antes de aceptar un «todo» conviene revisar el conjunto."
+        },
+        {
+          "codigo": "P004-T05-05",
+          "categoria": "critico",
+          "dificultad": 2,
+          "enunciado": "¿Cuál de las siguientes conclusiones NO se puede sacar de la programación?",
+          "opciones": [
+            "La película de animación está pensada para niños pequeños.",
+            "La película de 1986 terminará después de las 8:30 p. m.",
+            "Solo una de las conversaciones se alarga más allá del cierre.",
+            "A cada función pueden entrar, como máximo, sesenta personas."
+          ],
+          "correcta": 0,
+          "explicacion": "La función de animación es «Para mayores de 12 años»: suponer que la animación es para niños pequeños es un prejuicio que el texto contradice. Las otras tres conclusiones exigen una cuenta, pero salen de los datos: 6:30 más 131 minutos da las 8:41; las sillas son 60; y solo el jueves 22 película y conversación pasan de las 9:00."
+        },
+        {
+          "codigo": "P004-T05-06",
+          "categoria": "cohesion",
+          "dificultad": 1,
+          "enunciado": "En la sección «Horario», la frase «quedarse es opcional» significa que se puede elegir entre:",
+          "opciones": [
+            "Recibir la boleta en la puerta o reservarla antes.",
+            "Ver la película completa o salir antes de que termine.",
+            "Entrar a la sala a las 6:00 o esperar hasta las 6:30.",
+            "Asistir o no a la conversación que sigue a la película."
+          ],
+          "correcta": 3,
+          "explicacion": "«Quedarse» no dice a qué; hay que buscarlo en lo que viene justo antes del punto y coma: «hay una conversación de 30 minutos». La frase depende de la anterior para completar su sentido. Las otras opciones la conectan con partes del texto que no tienen relación con ella."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1980 @@
+{
+  "paquete": "logica-002",
+  "textos": [
+    {
+      "codigo": "L-S02",
+      "titulo": "Cuatro tonos de verde",
+      "tipologia": "situacion",
+      "fuente": "Situación original para práctica.",
+      "contenido": "Un taller prepara cuatro tonos de verde mezclando pintura azul, amarilla y blanca. El cuadro indica cuántos tarros de cada color lleva cada tono.\n\n| Tono | Azul | Amarillo | Blanco |\n| T1 | 2 | 2 | 0 |\n| T2 | 2 | 4 | 2 |\n| T3 | 1 | 3 | 0 |\n| T4 | 3 | 3 | 6 |",
+      "preguntas": [
+        {
+          "codigo": "L-S02-1",
+          "categoria": "proporcional",
+          "tema": "tablas",
+          "dificultad": 1,
+          "enunciado": "El tono con mayor proporción de pintura amarilla es:",
+          "opciones": [
+            "T2",
+            "T1",
+            "T4",
+            "T3"
+          ],
+          "correcta": 3,
+          "pista": "Para cada tono, escribe la fracción: tarros de amarillo sobre tarros en total.",
+          "pasos": [
+            "T1: 2 de 4, la mitad.",
+            "T2: 4 de 8, la mitad.",
+            "T3: 3 de 4, tres cuartos.",
+            "T4: 3 de 12, la cuarta parte.",
+            "La mayor proporción es la de T3."
+          ],
+          "errores": [
+            {
+              "tipo": "planteamiento",
+              "nota": "T2 es el que lleva más tarros de amarillo, pero son 4 de 8: la mitad. Piden proporción, no cantidad."
+            },
+            {
+              "tipo": "calculo",
+              "nota": "En T1 el amarillo es 2 de 4, la mitad. Hay un tono con más de la mitad."
+            },
+            {
+              "tipo": "planteamiento",
+              "nota": "T4 lleva 3 tarros de amarillo, igual que T3, pero repartidos entre 12."
+            },
+            null
+          ],
+          "explicacion": "Proporción es parte sobre total, no cantidad."
+        },
+        {
+          "codigo": "L-S02-2",
+          "categoria": "proporcional",
+          "tema": "razones",
+          "dificultad": 2,
+          "enunciado": "Se va a preparar una cantidad grande del tono T2, con la misma receta, usando 6 tarros de azul. ¿Cuántos tarros de pintura se necesitan en total?",
+          "opciones": [
+            "24",
+            "20",
+            "18",
+            "12"
+          ],
+          "correcta": 0,
+          "pista": "El azul pasa de 2 a 6 tarros. ¿Por cuánto se multiplica la receta?",
+          "pasos": [
+            "La receta de T2 es 2 de azul, 4 de amarillo y 2 de blanco: 8 tarros.",
+            "El azul pasa de 2 a 6: todo se multiplica por 3.",
+            "8 × 3 = 24 tarros (6 de azul, 12 de amarillo y 6 de blanco)."
+          ],
+          "errores": [
+            null,
+            {
+              "tipo": "regla",
+              "nota": "Le sumaste 4 tarros a cada color. Para conservar la receta se multiplica todo por el mismo número."
+            },
+            {
+              "tipo": "incompleto",
+              "nota": "Sumaste el amarillo y el blanco, y te faltó contar los 6 tarros de azul."
+            },
+            {
+              "tipo": "enunciado",
+              "nota": "Esos son los tarros de amarillo. Piden el total."
+            }
+          ],
+          "explicacion": "Agrandar una receta es multiplicar todo por el mismo factor."
+        },
+        {
+          "codigo": "L-S02-3",
+          "categoria": "proporcional",
+          "tema": "tablas",
+          "dificultad": 3,
+          "enunciado": "Se quiere averiguar si agregar blanco cambia el tiempo de secado. Para que la comparación sirva, hay que comparar dos tonos que tengan la misma relación entre azul y amarillo y que se diferencien en el blanco. Esos tonos son:",
+          "opciones": [
+            "T1 y T3",
+            "T2 y T4",
+            "T2 y T3",
+            "T1 y T4"
+          ],
+          "correcta": 3,
+          "pista": "Calcula para cada tono cuántos tarros de amarillo hay por cada tarro de azul.",
+          "pasos": [
+            "Amarillo por cada tarro de azul: T1, 1; T2, 2; T3, 3; T4, 1.",
+            "Los que tienen la misma relación son T1 y T4.",
+            "T1 no lleva blanco y T4 sí.",
+            "Como lo único que cambia entre los dos es el blanco, cualquier diferencia en el secado se le puede atribuir."
+          ],
+          "errores": [
+            {
+              "tipo": "planteamiento",
+              "nota": "Ninguno de los dos lleva blanco: no habría nada que comparar."
+            },
+            {
+              "tipo": "planteamiento",
+              "nota": "Los dos llevan blanco, pero además cambia la relación entre azul y amarillo. No se sabría a qué atribuir la diferencia."
+            },
+            {
+              "tipo": "planteamiento",
+              "nota": "Cambia el blanco, pero también la relación entre azul y amarillo: 1 a 2 en un tono y 1 a 3 en el otro."
+            },
+            null
+          ],
+          "explicacion": "Para saber el efecto de una cosa, se cambia solo esa y se deja fijo lo demás."
+        }
+      ]
+    },
+    {
+      "codigo": "L-S04",
+      "titulo": "Libros leídos en el semestre",
+      "tipologia": "situacion",
+      "fuente": "Situación original para práctica.",
+      "contenido": "El diagrama de barras muestra cuántos estudiantes de un curso leyeron 0, 1, 2, 3, 4 o 5 libros durante el semestre. La altura de cada barra indica el número de estudiantes.",
+      "figura": "<svg viewBox=\"0 0 290 192\" width=\"290\" height=\"192\"><line x1=\"52\" y1=\"150\" x2=\"274\" y2=\"150\" stroke=\"currentColor\" stroke-width=\"1\" opacity=\"0.18\"/><text x=\"44\" y=\"154\" font-size=\"11\" text-anchor=\"end\" fill=\"currentColor\">0</text><line x1=\"52\" y1=\"135\" x2=\"274\" y2=\"135\" stroke=\"currentColor\" stroke-width=\"1\" opacity=\"0.18\"/><text x=\"44\" y=\"139\" font-size=\"11\" text-anchor=\"end\" fill=\"currentColor\">1</text><line x1=\"52\" y1=\"120\" x2=\"274\" y2=\"120\" stroke=\"currentColor\" stroke-width=\"1\" opacity=\"0.18\"/><text x=\"44\" y=\"124\" font-size=\"11\" text-anchor=\"end\" fill=\"currentColor\">2</text><line x1=\"52\" y1=\"105\" x2=\"274\" y2=\"105\" stroke=\"currentColor\" stroke-width=\"1\" opacity=\"0.18\"/><text x=\"44\" y=\"109\" font-size=\"11\" text-anchor=\"end\" fill=\"currentColor\">3</text><line x1=\"52\" y1=\"90\" x2=\"274\" y2=\"90\" stroke=\"currentColor\" stroke-width=\"1\" opacity=\"0.18\"/><text x=\"44\" y=\"94\" font-size=\"11\" text-anchor=\"end\" fill=\"currentColor\">4</text><line x1=\"52\" y1=\"75\" x2=\"274\" y2=\"75\" stroke=\"currentColor\" stroke-width=\"1\" opacity=\"0.18\"/><text x=\"44\" y=\"79\" font-size=\"11\" text-anchor=\"end\" fill=\"currentColor\">5</text><line x1=\"52\" y1=\"60\" x2=\"274\" y2=\"60\" stroke=\"currentColor\" stroke-width=\"1\" opacity=\"0.18\"/><text x=\"44\" y=\"64\" font-size=\"11\" text-anchor=\"end\" fill=\"currentColor\">6</text><line x1=\"52\" y1=\"45\" x2=\"274\" y2=\"45\" stroke=\"currentColor\" stroke-width=\"1\" opacity=\"0.18\"/><text x=\"44\" y=\"49\" font-size=\"11\" text-anchor=\"end\" fill=\"currentColor\">7</text><line x1=\"52\" y1=\"30\" x2=\"274\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"1\" opacity=\"0.18\"/><text x=\"44\" y=\"34\" font-size=\"11\" text-anchor=\"end\" fill=\"currentColor\">8</text><rect x=\"60\" y=\"120\" width=\"30\" height=\"30\" fill=\"#C9BDF2\" stroke=\"currentColor\" stroke-width=\"2\"/><text x=\"75.0\" y=\"166\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">0</text><rect x=\"96\" y=\"75\" width=\"30\" height=\"75\" fill=\"#C9BDF2\" stroke=\"currentColor\" stroke-width=\"2\"/><text x=\"111.0\" y=\"166\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">1</text><rect x=\"132\" y=\"30\" width=\"30\" height=\"120\" fill=\"#C9BDF2\" stroke=\"currentColor\" stroke-width=\"2\"/><text x=\"147.0\" y=\"166\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">2</text><rect x=\"168\" y=\"60\" width=\"30\" height=\"90\" fill=\"#C9BDF2\" stroke=\"currentColor\" stroke-width=\"2\"/><text x=\"183.0\" y=\"166\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">3</text><rect x=\"204\" y=\"105\" width=\"30\" height=\"45\" fill=\"#C9BDF2\" stroke=\"currentColor\" stroke-width=\"2\"/><text x=\"219.0\" y=\"166\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">4</text><rect x=\"240\" y=\"135\" width=\"30\" height=\"15\" fill=\"#C9BDF2\" stroke=\"currentColor\" stroke-width=\"2\"/><text x=\"255.0\" y=\"166\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">5</text><line x1=\"52\" y1=\"150\" x2=\"278\" y2=\"150\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"52\" y1=\"150\" x2=\"52\" y2=\"22\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/><text x=\"166\" y=\"184\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">Libros leídos en el semestre</text><text x=\"14\" y=\"90\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\" transform=\"rotate(-90 14 90)\">Estudiantes</text></svg>",
+      "preguntas": [
+        {
+          "codigo": "L-S04-1",
+          "categoria": "proporcional",
+          "tema": "tablas",
+          "dificultad": 1,
+          "enunciado": "¿Cuántos estudiantes tiene el curso?",
+          "opciones": [
+            "6",
+            "8",
+            "25",
+            "15"
+          ],
+          "correcta": 2,
+          "pista": "¿Qué cuenta el eje vertical? Suma las alturas de todas las barras.",
+          "pasos": [
+            "La altura de cada barra es un número de estudiantes.",
+            "Alturas: 2, 5, 8, 6, 3 y 1.",
+            "2 + 5 + 8 + 6 + 3 + 1 = 25 estudiantes."
+          ],
+          "errores": [
+            {
+              "tipo": "enunciado",
+              "nota": "Ese es el número de barras. Cada barra reúne a varios estudiantes."
+            },
+            {
+              "tipo": "enunciado",
+              "nota": "Esa es la altura de la barra más alta, no el total."
+            },
+            null,
+            {
+              "tipo": "planteamiento",
+              "nota": "Sumaste los números del eje horizontal (0 + 1 + 2 + 3 + 4 + 5), que son libros. Los estudiantes se leen en la altura de las barras."
+            }
+          ],
+          "explicacion": "Antes de calcular, lee qué mide cada eje."
+        },
+        {
+          "codigo": "L-S04-2",
+          "categoria": "proporcional",
+          "tema": "tablas",
+          "dificultad": 2,
+          "enunciado": "El porcentaje de estudiantes del curso que leyó 3 libros o más es:",
+          "opciones": [
+            "24 %",
+            "40 %",
+            "10 %",
+            "60 %"
+          ],
+          "correcta": 1,
+          "pista": "Suma las barras de 3, 4 y 5 libros y divide entre el total de estudiantes.",
+          "pasos": [
+            "Leyeron 3 o más: 6 + 3 + 1 = 10 estudiantes.",
+            "Total del curso: 25.",
+            "10 ÷ 25 = 0,40, es decir, 40 %."
+          ],
+          "errores": [
+            {
+              "tipo": "enunciado",
+              "nota": "Contaste solo a los que leyeron exactamente 3. «3 o más» incluye a los de 4 y a los de 5."
+            },
+            null,
+            {
+              "tipo": "incompleto",
+              "nota": "Hallaste que son 10 estudiantes y lo tomaste como porcentaje. Falta dividir entre el total."
+            },
+            {
+              "tipo": "planteamiento",
+              "nota": "Ese es el porcentaje de los que leyeron menos de 3."
+            }
+          ],
+          "explicacion": "Un porcentaje necesita su base: aquí, todo el curso."
+        },
+        {
+          "codigo": "L-S04-3",
+          "categoria": "proporcional",
+          "tema": "promedio",
+          "dificultad": 3,
+          "enunciado": "El promedio de libros leídos por estudiante es:",
+          "opciones": [
+            "2,5",
+            "2",
+            "2,24",
+            "Cerca de 4,2"
+          ],
+          "correcta": 2,
+          "pista": "Primero halla cuántos libros se leyeron en total: cada barra aporta (libros) × (estudiantes).",
+          "pasos": [
+            "Libros en total: 0 × 2 + 1 × 5 + 2 × 8 + 3 × 6 + 4 × 3 + 5 × 1.",
+            "0 + 5 + 16 + 18 + 12 + 5 = 56 libros.",
+            "Estudiantes: 25.",
+            "Promedio: 56 ÷ 25 = 2,24 libros."
+          ],
+          "errores": [
+            {
+              "tipo": "regla",
+              "nota": "Promediaste los números del eje (0, 1, 2, 3, 4 y 5) sin tener en cuenta cuántos estudiantes hay en cada uno."
+            },
+            {
+              "tipo": "enunciado",
+              "nota": "Esa es la cantidad más frecuente, la barra más alta. No es el promedio."
+            },
+            null,
+            {
+              "tipo": "planteamiento",
+              "nota": "Dividiste los 25 estudiantes entre las 6 barras. El promedio es total de libros dividido entre total de estudiantes."
+            }
+          ],
+          "explicacion": "En una tabla de frecuencias, cada valor pesa según cuántas veces aparece."
+        }
+      ]
+    }
+  ],
+  "preguntas": [
+    {
+      "codigo": "L-CON-2",
+      "categoria": "deductivo",
+      "tema": "condicional",
+      "dificultad": 2,
+      "enunciado": "Un profesor de dibujo dice: «Si entregas el boceto el viernes, te doy cupo en la exposición». Mariana obtuvo cupo en la exposición. ¿Cuál de las siguientes afirmaciones es correcta?",
+      "opciones": [
+        "Mariana entregó el boceto el viernes.",
+        "Mariana no entregó el boceto el viernes.",
+        "Quien no entrega el boceto el viernes se queda sin cupo.",
+        "No se puede asegurar que Mariana haya entregado el boceto el viernes."
+      ],
+      "correcta": 3,
+      "pista": "La promesa dice qué pasa si entrega. ¿Dice que esa sea la única forma de obtener cupo?",
+      "pasos": [
+        "P: entregar el boceto el viernes. Q: recibir cupo. La promesa es P → Q.",
+        "El dato es Q: Mariana tiene cupo.",
+        "De Q no se puede volver a P. Entregar el viernes es suficiente para el cupo, pero la promesa no dice que sea necesario.",
+        "Lo único correcto es que no se puede asegurar que haya entregado el viernes."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Afirmaste el consecuente: de Q no sale P. El profesor pudo darle cupo por otra razón."
+        },
+        {
+          "tipo": "inferencia",
+          "nota": "Tampoco se sabe eso. La promesa no dice qué pasa con quien no entrega."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Negaste el antecedente: la promesa habla de quien entrega, no de quien no entrega."
+        },
+        null
+      ],
+      "explicacion": "Suficiente no es lo mismo que necesario."
+    },
+    {
+      "codigo": "L-CON-4",
+      "categoria": "deductivo",
+      "tema": "condicional",
+      "dificultad": 3,
+      "enunciado": "En un taller de serigrafía se cumplen dos reglas:\n\n- Si se usa tinta metálica, se trabaja con malla fina.\n- Si se trabaja con malla fina, la impresión tarda más de una hora.\n\nHoy una impresión tardó 40 minutos. De las siguientes afirmaciones, la única que se puede concluir es:",
+      "opciones": [
+        "Se usó tinta metálica con malla gruesa.",
+        "No se usó tinta metálica.",
+        "Se trabajó con malla fina, pero sin tinta metálica.",
+        "No se puede concluir nada, porque no se sabe qué tinta se usó."
+      ],
+      "correcta": 1,
+      "pista": "Empieza por la segunda regla con el dato de los 40 minutos y luego pasa a la primera.",
+      "pasos": [
+        "Dato: tardó 40 minutos, es decir, no tardó más de una hora.",
+        "Segunda regla: malla fina → más de una hora. Por contrarrecíproca: no más de una hora → no hubo malla fina.",
+        "Primera regla: tinta metálica → malla fina. Por contrarrecíproca: sin malla fina → sin tinta metálica.",
+        "Conclusión: no se usó tinta metálica."
+      ],
+      "errores": [
+        {
+          "tipo": "inferencia",
+          "nota": "La primera regla obliga a usar malla fina con tinta metálica: esa combinación está prohibida."
+        },
+        null,
+        {
+          "tipo": "regla",
+          "nota": "Si hubiera habido malla fina, la impresión habría tardado más de una hora, por la segunda regla."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Encadena las dos contrarrecíprocas: no tardó más de una hora → no hubo malla fina → no hubo tinta metálica."
+        }
+      ],
+      "explicacion": "Las contrarrecíprocas también se encadenan, de atrás hacia adelante."
+    },
+    {
+      "codigo": "L-NEG-2",
+      "categoria": "deductivo",
+      "tema": "negacion",
+      "dificultad": 2,
+      "enunciado": "La negación de la frase «Algunos estudiantes del taller llegaron tarde» es:",
+      "opciones": [
+        "Ningún estudiante del taller llegó tarde.",
+        "Algunos estudiantes del taller no llegaron tarde.",
+        "Todos los estudiantes del taller llegaron tarde.",
+        "Algunos estudiantes de otro taller llegaron tarde."
+      ],
+      "correcta": 0,
+      "pista": "La negación debe ser verdadera exactamente cuando la frase original es falsa. ¿Cuándo es falso que «algunos llegaron tarde»?",
+      "pasos": [
+        "«Algunos llegaron tarde» afirma que hay al menos uno que llegó tarde.",
+        "Es falsa únicamente cuando no hay ninguno.",
+        "La negación es: «Ningún estudiante del taller llegó tarde».",
+        "Comprobación: «algunos no llegaron tarde» no sirve, porque puede ser verdadera al mismo tiempo que la original."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "regla",
+          "nota": "Las dos frases pueden ser verdaderas a la vez (unos llegan tarde y otros no). Una negación nunca es verdadera junto con la original."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Eso no niega la frase: si todos llegaron tarde, también es cierto que algunos llegaron tarde."
+        },
+        {
+          "tipo": "planteamiento",
+          "nota": "Cambiaste de grupo. La negación habla de los mismos estudiantes."
+        }
+      ],
+      "explicacion": "«Algunos» se niega con «ninguno»."
+    },
+    {
+      "codigo": "L-NEG-4",
+      "categoria": "deductivo",
+      "tema": "negacion",
+      "dificultad": 3,
+      "enunciado": "En una galería hay un letrero: «Ningún cuadro de esta sala está a la venta». El letrero es falso. De las siguientes afirmaciones, la única que es necesariamente verdadera es:",
+      "opciones": [
+        "Todos los cuadros de la sala están a la venta.",
+        "Algunos cuadros de la sala no están a la venta.",
+        "Al menos un cuadro de la sala está a la venta.",
+        "Exactamente un cuadro de la sala está a la venta."
+      ],
+      "correcta": 2,
+      "pista": "¿Qué es lo mínimo que debe ocurrir para que «ninguno» sea mentira?",
+      "pasos": [
+        "«Ningún cuadro está a la venta» es falso cuando hay algún cuadro a la venta.",
+        "Eso garantiza al menos uno, sin decir cuántos.",
+        "«Todos» y «exactamente uno» afirman más de lo que se sabe; «algunos no» podría no cumplirse.",
+        "Lo único necesariamente verdadero: al menos un cuadro de la sala está a la venta."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Fuiste al extremo contrario. Negar «ninguno» da «al menos uno», no «todos»."
+        },
+        {
+          "tipo": "inferencia",
+          "nota": "Puede ser cierto o no: si todos estuvieran a la venta, el letrero también sería falso."
+        },
+        null,
+        {
+          "tipo": "inferencia",
+          "nota": "«Al menos uno» no fija cuántos: podrían ser dos, o todos."
+        }
+      ],
+      "explicacion": "«Ninguno» se niega con «al menos uno»."
+    },
+    {
+      "codigo": "L-VER-2",
+      "categoria": "deductivo",
+      "tema": "veraces",
+      "dificultad": 2,
+      "enunciado": "Tres personas opinan sobre cuántas personas caben en un salón de ensayo.\n\n- Karen: «Caben por lo menos 30».\n- Luis: «Caben menos de 30».\n- Mateo: «Caben más de 20».\n\nSi solo una de las tres dice la verdad, un número posible de personas que caben en el salón es:",
+      "opciones": [
+        "21",
+        "30",
+        "35",
+        "18"
+      ],
+      "correcta": 3,
+      "pista": "Parte los números en tres zonas: hasta 20, de 21 a 29 y de 30 en adelante. ¿Cuántos dicen la verdad en cada una?",
+      "pasos": [
+        "De 30 en adelante: Karen y Mateo dicen la verdad. Dos verdades.",
+        "De 21 a 29: Luis y Mateo dicen la verdad. Dos verdades.",
+        "Hasta 20: solo Luis dice la verdad. Esta es la zona que sirve.",
+        "De las opciones, el único número de esa zona es 18."
+      ],
+      "errores": [
+        {
+          "tipo": "incompleto",
+          "nota": "Con 21 dicen la verdad Luis (menos de 30) y Mateo (más de 20). Son dos verdades."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "«Por lo menos 30» incluye al 30: Karen diría la verdad, y Mateo también."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Con 35 dicen la verdad Karen y Mateo. Son dos verdades."
+        },
+        null
+      ],
+      "explicacion": "Cuando lo desconocido es un número, los casos son zonas de la recta."
+    },
+    {
+      "codigo": "L-VER-4",
+      "categoria": "deductivo",
+      "tema": "veraces",
+      "dificultad": 3,
+      "enunciado": "En una isla hay dos tipos de habitantes: los veraces, que siempre dicen la verdad, y los mentirosos, que siempre mienten. Un visitante encuentra a dos habitantes, P y Q. P le dice: «Los dos somos mentirosos». Entonces:",
+      "opciones": [
+        "P y Q son mentirosos.",
+        "P es veraz y Q es mentiroso.",
+        "P es mentiroso y Q es veraz.",
+        "P es mentiroso, pero no se puede saber qué es Q."
+      ],
+      "correcta": 2,
+      "pista": "Prueba primero si P puede ser veraz. ¿Qué pasaría con su propia frase?",
+      "pasos": [
+        "Supón que P es veraz. Su frase sería verdadera y él sería mentiroso: contradicción. Entonces P es mentiroso.",
+        "Como P miente, la frase «los dos somos mentirosos» es falsa.",
+        "Que sea falsa significa que al menos uno de los dos no es mentiroso. P sí lo es, así que el que no lo es tiene que ser Q.",
+        "P es mentiroso y Q es veraz."
+      ],
+      "errores": [
+        {
+          "tipo": "inferencia",
+          "nota": "Le creíste a P. Si los dos fueran mentirosos, P habría dicho una verdad, y un mentiroso no puede."
+        },
+        {
+          "tipo": "inferencia",
+          "nota": "Un veraz no puede decir «los dos somos mentirosos»: estaría diciendo con verdad que él miente."
+        },
+        null,
+        {
+          "tipo": "incompleto",
+          "nota": "Como P miente, su frase es falsa: no son mentirosos los dos. P sí lo es, así que Q no puede serlo."
+        }
+      ],
+      "explicacion": "Supón un caso y busca la contradicción."
+    },
+    {
+      "codigo": "L-CUA-2",
+      "categoria": "deductivo",
+      "tema": "cuadro",
+      "dificultad": 2,
+      "enunciado": "Cuatro amigas, Ana, Bea, Carla y Dina, pidieron cada una un jugo distinto: mango, lulo, mora y guanábana. Se sabe que:\n\n- Ana no pidió mango ni mora.\n- Bea pidió lulo.\n- Carla no pidió mora.\n\n¿Qué jugo pidió Carla?",
+      "opciones": [
+        "Guanábana",
+        "Mango",
+        "Mora",
+        "Lulo"
+      ],
+      "correcta": 1,
+      "pista": "Haz un cuadro de amigas por jugos. ¿Qué le queda a Ana después de tachar?",
+      "pasos": [
+        "Bea pidió lulo: se tacha el lulo para las demás.",
+        "Ana no pidió mango ni mora, y el lulo es de Bea: Ana pidió guanábana.",
+        "Carla no pidió mora, ni lulo, ni guanábana: pidió mango.",
+        "A Dina le queda la mora."
+      ],
+      "errores": [
+        {
+          "tipo": "incompleto",
+          "nota": "La guanábana es lo único que le queda a Ana: no pidió mango ni mora, y el lulo es de Bea."
+        },
+        null,
+        {
+          "tipo": "enunciado",
+          "nota": "El enunciado dice que Carla no pidió mora."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "El lulo lo pidió Bea, y los jugos son distintos."
+        }
+      ],
+      "explicacion": "Cada casilla que se confirma tacha su fila y su columna."
+    },
+    {
+      "codigo": "L-CUA-4",
+      "categoria": "deductivo",
+      "tema": "cuadro",
+      "dificultad": 3,
+      "enunciado": "Cuatro bandas, W, X, Y y Z, tocan en un festival en cuatro turnos seguidos, una por turno. Se sabe que:\n\n- X no toca de primera ni de última.\n- W toca inmediatamente después de Y.\n- Z no toca en el último turno.\n\n¿Qué banda toca en el tercer turno?",
+      "opciones": [
+        "Y",
+        "X",
+        "W",
+        "Z"
+      ],
+      "correcta": 0,
+      "pista": "Y y W van pegadas, en ese orden. Prueba sus tres ubicaciones posibles: turnos 1-2, 2-3 o 3-4.",
+      "pasos": [
+        "Y y W ocupan dos turnos seguidos: 1-2, 2-3 o 3-4.",
+        "En 1-2: X iría de tercera y Z de última. No se permite.",
+        "En 2-3: X se queda sin turno, porque solo puede ir de segunda o de tercera.",
+        "En 3-4: X va de segunda y Z de primera. Se cumplen todas las pistas.",
+        "El orden es Z, X, Y, W. En el tercer turno toca Y."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "incompleto",
+          "nota": "Si X fuera tercera, Y y W ocuparían los turnos 1 y 2, y Z quedaría de última, que no se permite."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Para que W fuera tercera, Y sería segunda, y X se quedaría sin un turno permitido."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Si Z fuera tercera, Y y W irían en los turnos 1 y 2, y X quedaría de última, que no se permite."
+        }
+      ],
+      "explicacion": "Cuando dos elementos van pegados, se mueven como un bloque."
+    },
+    {
+      "codigo": "L-ORD-2",
+      "categoria": "deductivo",
+      "tema": "orden",
+      "dificultad": 2,
+      "enunciado": "Cinco amigos comparan sus estaturas. Hugo es más alto que Inés. Juan es más bajo que Inés. Kelly es más alta que Hugo. Leo es más alto que Juan, pero más bajo que Inés. El segundo más bajo del grupo es:",
+      "opciones": [
+        "Inés",
+        "Leo",
+        "Juan",
+        "Hugo"
+      ],
+      "correcta": 1,
+      "pista": "Ordénalos del más alto al más bajo y luego cuenta desde abajo.",
+      "pasos": [
+        "Kelly es más alta que Hugo, y Hugo más alto que Inés: Kelly, Hugo, Inés.",
+        "Juan es más bajo que Inés, y Leo está entre los dos: Inés, Leo, Juan.",
+        "Orden completo, de mayor a menor: Kelly, Hugo, Inés, Leo, Juan.",
+        "El más bajo es Juan y el segundo más bajo es Leo."
+      ],
+      "errores": [
+        {
+          "tipo": "calculo",
+          "nota": "Inés queda en la mitad: por encima de ella están Kelly y Hugo, y por debajo Leo y Juan."
+        },
+        null,
+        {
+          "tipo": "enunciado",
+          "nota": "Juan es el más bajo. Piden el segundo más bajo."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "Contaste desde arriba: Hugo es el segundo más alto."
+        }
+      ],
+      "explicacion": "Fíjate desde qué extremo te piden contar."
+    },
+    {
+      "codigo": "L-ORD-4",
+      "categoria": "deductivo",
+      "tema": "orden",
+      "dificultad": 3,
+      "enunciado": "En una carrera participaron cinco corredores, R, S, T, U y V, y no hubo empates. Se sabe que:\n\n- R llegó antes que S.\n- T llegó después que S.\n- U llegó antes que T.\n- V llegó de último.\n\nDe las siguientes afirmaciones, la única que no se puede asegurar es:",
+      "opciones": [
+        "U llegó antes que S.",
+        "T llegó de cuarto.",
+        "R llegó antes que T.",
+        "S no llegó de primero."
+      ],
+      "correcta": 0,
+      "pista": "Hay una cadena firme (R, S, T) y un corredor suelto. ¿Con quién se compara U?",
+      "pasos": [
+        "Cadena: R antes que S y S antes que T.",
+        "U llegó antes que T, pero ninguna pista lo compara con R ni con S.",
+        "V es quinto. Antes de T llegaron R, S y U, así que T es cuarto.",
+        "U puede haber sido primero, segundo o tercero. Por eso no se puede asegurar que haya llegado antes que S."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "incompleto",
+          "nota": "Sí se puede asegurar: R, S y U llegaron antes que T, y V después. A T solo le queda el cuarto lugar."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Sí se puede asegurar: R llegó antes que S y S antes que T."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Sí se puede asegurar: R llegó antes que S."
+        }
+      ],
+      "explicacion": "Si ninguna pista compara dos elementos, su orden queda abierto."
+    },
+    {
+      "codigo": "L-CER-2",
+      "categoria": "deductivo",
+      "tema": "certeza",
+      "dificultad": 2,
+      "enunciado": "En un cajón hay 8 medias negras, 6 grises y 4 blancas, todas revueltas. Sin mirar, ¿cuántas medias hay que sacar como mínimo para tener la certeza de sacar al menos una blanca?",
+      "opciones": [
+        "14",
+        "9",
+        "4",
+        "15"
+      ],
+      "correcta": 3,
+      "pista": "La peor suerte es sacar primero todas las que no son blancas. ¿Cuántas son?",
+      "pasos": [
+        "Las que no son blancas: 8 negras + 6 grises = 14.",
+        "En el peor caso, las 14 primeras son de esas.",
+        "La siguiente tiene que ser blanca: 14 + 1 = 15."
+      ],
+      "errores": [
+        {
+          "tipo": "incompleto",
+          "nota": "Con 14 todavía podrían ser todas negras y grises. Falta una."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Solo tuviste en cuenta las negras. En el peor caso salen primero las negras y también las grises."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "Esas son las medias blancas que hay, no las que hay que sacar."
+        },
+        null
+      ],
+      "explicacion": "El peor caso es agotar todo lo que no sirve."
+    },
+    {
+      "codigo": "L-CER-4",
+      "categoria": "deductivo",
+      "tema": "certeza",
+      "dificultad": 3,
+      "enunciado": "Una caja contiene 10 fichas rojas, 8 azules, 6 verdes y 2 amarillas. Sin mirar, ¿cuántas fichas hay que sacar como mínimo para tener la certeza de tener 5 de un mismo color?",
+      "opciones": [
+        "17",
+        "14",
+        "15",
+        "5"
+      ],
+      "correcta": 2,
+      "pista": "¿Cuántas puedes sacar, con la peor suerte, sin llegar a 5 de ningún color? Ojo con las amarillas.",
+      "pasos": [
+        "Peor caso: 4 de cada color que alcance. Rojas 4, azules 4, verdes 4.",
+        "Amarillas solo hay 2: en el peor caso salen las 2.",
+        "Total sin lograrlo: 4 + 4 + 4 + 2 = 14.",
+        "La siguiente completa 5 de algún color: 15."
+      ],
+      "errores": [
+        {
+          "tipo": "planteamiento",
+          "nota": "Contaste 4 fichas de cada uno de los cuatro colores, pero amarillas solo hay 2."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "14 es el peor caso sin lograrlo: 4 rojas, 4 azules, 4 verdes y 2 amarillas. Falta sumar una."
+        },
+        null,
+        {
+          "tipo": "inferencia",
+          "nota": "Con 5 puede pasar si salen todas del mismo color, pero no es seguro."
+        }
+      ],
+      "explicacion": "En el peor caso, cada color aporta lo máximo que no cumple, sin pasarse de lo que hay."
+    },
+    {
+      "codigo": "L-FRA-2",
+      "categoria": "proporcional",
+      "tema": "fracciones",
+      "dificultad": 2,
+      "enunciado": "Un rollo de cable tiene 36 metros. ¿Cuántos tramos de 3/4 de metro se pueden cortar?",
+      "opciones": [
+        "27",
+        "48",
+        "12",
+        "108"
+      ],
+      "correcta": 1,
+      "pista": "«¿Cuántos caben?» es una división. Dividir entre 3/4 es multiplicar por 4/3.",
+      "pasos": [
+        "Se busca cuántas veces cabe 3/4 en 36: 36 ÷ 3/4.",
+        "Dividir entre una fracción es multiplicar por la invertida: 36 × 4/3.",
+        "36 × 4 = 144, y 144 ÷ 3 = 48.",
+        "Comprobación: como cada tramo mide menos de un metro, deben salir más de 36 tramos."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Multiplicaste 36 por 3/4. Saber cuántos tramos caben es dividir, no multiplicar."
+        },
+        null,
+        {
+          "tipo": "calculo",
+          "nota": "Dividiste por 3 y te faltó multiplicar por 4."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "Multiplicaste por 3 en vez de dividir: 36 ÷ 3/4 es 36 × 4 ÷ 3."
+        }
+      ],
+      "explicacion": "Estima antes: tramos de menos de 1 m dan más de 36."
+    },
+    {
+      "codigo": "L-FRA-4",
+      "categoria": "proporcional",
+      "tema": "fracciones",
+      "dificultad": 3,
+      "enunciado": "En una fiesta, 2/5 de los asistentes son hombres. De las mujeres, 1/3 lleva gafas. Si hay 12 mujeres con gafas, ¿cuántas personas asistieron a la fiesta?",
+      "opciones": [
+        "36",
+        "90",
+        "60",
+        "30"
+      ],
+      "correcta": 2,
+      "pista": "Primero averigua qué fracción del total son las mujeres. Luego, qué fracción del total son las mujeres con gafas.",
+      "pasos": [
+        "Si 2/5 son hombres, 3/5 son mujeres.",
+        "Mujeres con gafas: 1/3 de 3/5 = 1/5 del total.",
+        "1/5 del total son 12 personas.",
+        "Total: 12 × 5 = 60."
+      ],
+      "errores": [
+        {
+          "tipo": "incompleto",
+          "nota": "Ese es el número de mujeres. Faltan los hombres."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "Tomaste la tercera parte de los 2/5, que son los hombres. Las gafas se cuentan entre las mujeres, que son 3/5."
+        },
+        null,
+        {
+          "tipo": "planteamiento",
+          "nota": "Dividiste 12 entre 2/5, pero esa fracción es la de hombres y no tiene que ver con las gafas."
+        }
+      ],
+      "explicacion": "Fracción de una fracción: se multiplican."
+    },
+    {
+      "codigo": "L-POR-2",
+      "categoria": "proporcional",
+      "tema": "porcentajes",
+      "dificultad": 2,
+      "enunciado": "Llenar el tanque de una moto cuesta $40.000. Si el precio de la gasolina sube 20 %, ¿cuánto cuesta llenar 3/4 del tanque?",
+      "opciones": [
+        "$36.000",
+        "$30.000",
+        "$48.000",
+        "$38.000"
+      ],
+      "correcta": 0,
+      "pista": "Son dos pasos que se multiplican: precio nuevo del tanque completo y, de eso, los 3/4.",
+      "pasos": [
+        "Tanque completo con el aumento: 40.000 × 1,20 = 48.000.",
+        "Tres cuartos de eso: 48.000 × 3/4 = 36.000.",
+        "El orden no importa: 40.000 × 3/4 = 30.000 y 30.000 × 1,20 = 36.000."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "incompleto",
+          "nota": "Calculaste los 3/4 con el precio viejo. Falta aplicar el aumento del 20 %."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Ese es el tanque completo con el precio nuevo. Falta tomar los 3/4."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Sumaste 3/4 y 20 % como si fueran partes del mismo total. El aumento se multiplica, no se suma."
+        }
+      ],
+      "explicacion": "Dos cambios seguidos se multiplican."
+    },
+    {
+      "codigo": "L-POR-4",
+      "categoria": "proporcional",
+      "tema": "porcentajes",
+      "dificultad": 3,
+      "enunciado": "Un teatro reserva el 20 % de sus sillas para invitados; las demás se venden en taquilla. Hasta ahora se han vendido 300 boletas, que equivalen al 50 % de las sillas del teatro. ¿Cuántas boletas faltan por vender en taquilla?",
+      "opciones": [
+        "300",
+        "120",
+        "480",
+        "180"
+      ],
+      "correcta": 3,
+      "pista": "Halla primero cuántas sillas tiene el teatro. Luego reparte: invitados y taquilla.",
+      "pasos": [
+        "Si 300 es el 50 %, el teatro tiene 600 sillas.",
+        "Invitados: 20 % de 600 = 120 sillas.",
+        "Taquilla: 600 − 120 = 480 boletas.",
+        "Faltan por vender: 480 − 300 = 180."
+      ],
+      "errores": [
+        {
+          "tipo": "incompleto",
+          "nota": "Supusiste que la otra mitad del teatro se vende completa. De esas sillas, una parte está reservada para invitados."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "Esas son las sillas reservadas para invitados."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "Ese es el total de boletas de taquilla. Ya se vendieron 300."
+        },
+        null
+      ],
+      "explicacion": "Del porcentaje al total: divide la parte entre su porcentaje."
+    },
+    {
+      "codigo": "L-RAZ-2",
+      "categoria": "proporcional",
+      "tema": "razones",
+      "dificultad": 2,
+      "enunciado": "Para preparar una mezcla se usan tres ingredientes: por cada gramo de X se necesitan 3 gramos de Y, y por cada gramo de Y se necesitan 2 gramos de Z. Si la mezcla pesa 120 gramos, ¿cuántos gramos de Z contiene?",
+      "opciones": [
+        "40",
+        "36",
+        "12",
+        "72"
+      ],
+      "correcta": 3,
+      "pista": "Expresa los tres ingredientes con la misma unidad: si X es 1 parte, ¿cuántas partes son Y y Z?",
+      "pasos": [
+        "Si X es 1 parte, Y son 3 partes.",
+        "Z es el doble de Y: 6 partes.",
+        "Total: 1 + 3 + 6 = 10 partes. Cada parte pesa 120 ÷ 10 = 12 gramos.",
+        "Z: 6 × 12 = 72 gramos."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Usaste las partes 1, 3 y 2. Los 2 gramos de Z son por cada gramo de Y, y hay 3 de Y: son 6 partes de Z."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "Eso es lo que hay de Y."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Eso vale una parte, que es lo que hay de X. Z son 6 partes."
+        },
+        null
+      ],
+      "explicacion": "Las razones encadenadas se llevan a una misma unidad de parte."
+    },
+    {
+      "codigo": "L-REG-2",
+      "categoria": "proporcional",
+      "tema": "regla3",
+      "dificultad": 2,
+      "enunciado": "Ocho pintores pintan un mural en 6 días. Si todos trabajan al mismo ritmo, ¿cuántos días tardarían 12 pintores en pintar el mismo mural?",
+      "opciones": [
+        "4",
+        "9",
+        "2",
+        "3"
+      ],
+      "correcta": 0,
+      "pista": "Más pintores, menos días: es inversa. Calcula el trabajo total en «días de pintor».",
+      "pasos": [
+        "Es proporcionalidad inversa: el producto pintores × días se conserva.",
+        "Trabajo total: 8 × 6 = 48 días de pintor.",
+        "Con 12 pintores: 48 ÷ 12 = 4 días."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "regla",
+          "nota": "Usaste regla de tres directa. Con más pintores el trabajo dura menos, no más."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Restaste 4 días porque hay 4 pintores más. La relación no es una resta: el producto pintores × días se conserva."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "El trabajo total es 8 × 6 = 48 días de pintor, y 48 ÷ 12 = 4."
+        }
+      ],
+      "explicacion": "En la inversa se conserva el producto."
+    },
+    {
+      "codigo": "L-REG-4",
+      "categoria": "proporcional",
+      "tema": "regla3",
+      "dificultad": 3,
+      "enunciado": "Cuatro máquinas iguales producen 600 botones en 3 horas. ¿Cuántos botones producen 6 máquinas iguales en 5 horas?",
+      "opciones": [
+        "900",
+        "1.500",
+        "1.000",
+        "1.300"
+      ],
+      "correcta": 1,
+      "pista": "Halla lo que produce una máquina en una hora y multiplica por 6 máquinas y por 5 horas.",
+      "pasos": [
+        "4 máquinas en 3 horas son 12 horas de máquina.",
+        "Cada hora de máquina produce 600 ÷ 12 = 50 botones.",
+        "6 máquinas en 5 horas son 30 horas de máquina.",
+        "30 × 50 = 1.500 botones."
+      ],
+      "errores": [
+        {
+          "tipo": "incompleto",
+          "nota": "Ajustaste las máquinas (de 4 a 6), pero dejaste las 3 horas."
+        },
+        null,
+        {
+          "tipo": "incompleto",
+          "nota": "Ajustaste las horas (de 3 a 5), pero dejaste las 4 máquinas."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Sumaste los dos aumentos por separado (300 por las máquinas y 400 por las horas). Los factores se multiplican."
+        }
+      ],
+      "explicacion": "Con tres magnitudes, reduce a una máquina y una hora."
+    },
+    {
+      "codigo": "L-PLA-2",
+      "categoria": "proporcional",
+      "tema": "plantear",
+      "dificultad": 2,
+      "enunciado": "En una función se vendieron 50 boletas entre generales y de estudiante. La general costaba $10.000 y la de estudiante $6.000. Si se recaudaron $380.000, ¿cuántas boletas de estudiante se vendieron?",
+      "opciones": [
+        "20",
+        "38",
+        "30",
+        "25"
+      ],
+      "correcta": 2,
+      "pista": "Imagina que las 50 fueran generales. ¿Cuánto se habría recaudado? Cada boleta de estudiante baja esa cifra en $4.000.",
+      "pasos": [
+        "Si las 50 fueran generales: 50 × 10.000 = 500.000.",
+        "Se recaudaron 380.000: faltan 120.000.",
+        "Cada boleta de estudiante recauda 4.000 menos que una general.",
+        "120.000 ÷ 4.000 = 30 boletas de estudiante. Comprobación: 30 × 6.000 + 20 × 10.000 = 380.000."
+      ],
+      "errores": [
+        {
+          "tipo": "enunciado",
+          "nota": "Esas son las boletas generales. Preguntan por las de estudiante."
+        },
+        {
+          "tipo": "planteamiento",
+          "nota": "Dividiste lo recaudado entre el precio de la general, como si todas fueran generales."
+        },
+        null,
+        {
+          "tipo": "inferencia",
+          "nota": "Supusiste mitad y mitad. Así se habrían recaudado $400.000, no $380.000."
+        }
+      ],
+      "explicacion": "Suponer que todas son de un tipo y corregir la diferencia."
+    },
+    {
+      "codigo": "L-PLA-4",
+      "categoria": "proporcional",
+      "tema": "plantear",
+      "dificultad": 3,
+      "enunciado": "Hace 5 años, la edad de Marta era el triple de la de su hijo. Dentro de 5 años será el doble. ¿Cuántos años tiene Marta hoy?",
+      "opciones": [
+        "15",
+        "30",
+        "40",
+        "35"
+      ],
+      "correcta": 3,
+      "pista": "Usa dos letras para las edades de hoy y escribe una ecuación por cada frase.",
+      "pasos": [
+        "Hoy: Marta tiene M y su hijo h.",
+        "Hace 5 años: M − 5 = 3(h − 5), es decir, M = 3h − 10.",
+        "Dentro de 5 años: M + 5 = 2(h + 5), es decir, M = 2h + 5.",
+        "3h − 10 = 2h + 5, así que h = 15 y M = 35.",
+        "Comprobación: hace 5 años tenían 30 y 10; dentro de 5 tendrán 40 y 20."
+      ],
+      "errores": [
+        {
+          "tipo": "enunciado",
+          "nota": "Esa es la edad del hijo hoy. Preguntan por la de Marta."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Esa era la edad de Marta hace 5 años. Falta sumarle los 5."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "Esa será la edad de Marta dentro de 5 años. Preguntan por la de hoy."
+        },
+        null
+      ],
+      "explicacion": "Una ecuación por cada frase, con las edades de hoy como incógnitas."
+    },
+    {
+      "codigo": "L-PRO-2",
+      "categoria": "proporcional",
+      "tema": "promedio",
+      "dificultad": 2,
+      "enunciado": "En cinco partidos, un equipo anotó en promedio 2 goles por partido. ¿Cuántos goles debe anotar en el sexto partido para que su promedio suba a 2,5?",
+      "opciones": [
+        "3",
+        "15",
+        "5",
+        "4"
+      ],
+      "correcta": 2,
+      "pista": "Trabaja con sumas: ¿cuántos goles lleva y cuántos necesita en total para promediar 2,5 en seis partidos?",
+      "pasos": [
+        "Goles que lleva: 5 × 2 = 10.",
+        "Goles que necesita en seis partidos: 6 × 2,5 = 15.",
+        "En el sexto partido debe anotar 15 − 10 = 5."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Promediaste 2 y 3 como si el sexto partido pesara lo mismo que los cinco anteriores juntos."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Esa es la suma total que necesita en los seis partidos. Ya lleva 10."
+        },
+        null,
+        {
+          "tipo": "calculo",
+          "nota": "Con 4 goles la suma sería 14 y el promedio 14 ÷ 6, que no llega a 2,5."
+        }
+      ],
+      "explicacion": "Promedio × cantidad = suma total."
+    },
+    {
+      "codigo": "L-CNT-2",
+      "categoria": "proporcional",
+      "tema": "conteo",
+      "dificultad": 2,
+      "enunciado": "En un torneo de ajedrez participan 7 jugadores y cada uno juega una partida contra cada uno de los demás. ¿Cuántas partidas se juegan en total?",
+      "opciones": [
+        "42",
+        "21",
+        "49",
+        "14"
+      ],
+      "correcta": 1,
+      "pista": "Cada jugador tiene 6 rivales. Si multiplicas 7 × 6, ¿cuántas veces contaste cada partida?",
+      "pasos": [
+        "Cada uno de los 7 jugadores juega contra 6 rivales: 7 × 6 = 42.",
+        "Así cada partida quedó contada dos veces, una por cada jugador.",
+        "42 ÷ 2 = 21 partidas."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Contaste cada partida dos veces: la de A contra B es la misma que la de B contra A."
+        },
+        null,
+        {
+          "tipo": "planteamiento",
+          "nota": "Multiplicaste 7 × 7, como si cada jugador jugara también contra sí mismo."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Multiplicaste por 2. Cada jugador tiene 6 rivales, no 2."
+        }
+      ],
+      "explicacion": "Parejas entre n: n × (n − 1) ÷ 2."
+    },
+    {
+      "codigo": "L-CNT-4",
+      "categoria": "proporcional",
+      "tema": "conteo",
+      "dificultad": 3,
+      "enunciado": "Una clave tiene cuatro símbolos: primero dos letras distintas elegidas entre A, B, C y D, y luego dos dígitos elegidos entre 1, 2 y 3, que sí pueden repetirse. ¿Cuántas claves distintas hay?",
+      "opciones": [
+        "108",
+        "144",
+        "72",
+        "54"
+      ],
+      "correcta": 0,
+      "pista": "Son cuatro decisiones. Fíjate en cuáles se permite repetir y en cuáles no.",
+      "pasos": [
+        "Primera letra: 4 opciones. Segunda letra, distinta: 3.",
+        "Primer dígito: 3 opciones. Segundo dígito, que puede repetir: 3.",
+        "4 × 3 × 3 × 3 = 108 claves."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "enunciado",
+          "nota": "Dejaste repetir las letras (4 × 4). El enunciado dice que son distintas."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "No dejaste repetir los dígitos (3 × 2). El enunciado dice que pueden repetirse."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Contaste las parejas de letras sin importar el orden. En una clave, AB y BA son distintas."
+        }
+      ],
+      "explicacion": "Lee qué se puede repetir antes de multiplicar."
+    },
+    {
+      "codigo": "L-PRB-2",
+      "categoria": "proporcional",
+      "tema": "probabilidad",
+      "dificultad": 2,
+      "enunciado": "Con los dígitos 1, 2, 3, 4 y 5 se forman todos los números de dos cifras distintas. Si se elige uno de esos números al azar, la probabilidad de que sea par es:",
+      "opciones": [
+        "2/5",
+        "1/2",
+        "8/25",
+        "3/5"
+      ],
+      "correcta": 0,
+      "pista": "Un número es par si termina en cifra par. ¿Cuántos de estos números terminan en 2 o en 4?",
+      "pasos": [
+        "Números posibles: 5 opciones para la primera cifra y 4 para la segunda. Son 20.",
+        "Pares: la última cifra es 2 o 4 (2 opciones) y la primera es cualquiera de las otras 4. Son 8.",
+        "Probabilidad: 8/20 = 2/5."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "inferencia",
+          "nota": "Supusiste que la mitad son pares. Entre los cinco dígitos hay tres impares y solo dos pares."
+        },
+        {
+          "tipo": "planteamiento",
+          "nota": "Contaste 25 números posibles, pero las cifras deben ser distintas: son 20."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "Esa es la probabilidad de que sea impar."
+        }
+      ],
+      "explicacion": "Para contar los pares, empieza por la última cifra."
+    },
+    {
+      "codigo": "L-PRB-4",
+      "categoria": "proporcional",
+      "tema": "probabilidad",
+      "dificultad": 3,
+      "enunciado": "Las letras de la palabra PIANO se ordenan al azar en una fila. La probabilidad de que la primera y la última letra sean vocales es:",
+      "opciones": [
+        "3/5",
+        "9/25",
+        "1/10",
+        "3/10"
+      ],
+      "correcta": 3,
+      "pista": "Elige primero la letra del comienzo y después la del final. ¿Cuántas vocales quedan para la segunda?",
+      "pasos": [
+        "PIANO tiene 5 letras: 3 vocales (I, A, O) y 2 consonantes.",
+        "La primera es vocal con probabilidad 3/5.",
+        "Si ya hay una vocal al comienzo, para el final quedan 2 vocales entre 4 letras: 2/4.",
+        "3/5 × 2/4 = 6/20 = 3/10."
+      ],
+      "errores": [
+        {
+          "tipo": "incompleto",
+          "nota": "Esa es la probabilidad de que la primera letra sea vocal. Falta que la última también lo sea."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Multiplicaste 3/5 por 3/5. Después de poner una vocal al comienzo, para el final quedan 2 vocales entre 4 letras."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "PIANO tiene tres vocales (I, A, O), no dos."
+        },
+        null
+      ],
+      "explicacion": "Sin reposición, la segunda probabilidad cambia."
+    },
+    {
+      "codigo": "L-SER-2",
+      "categoria": "abstracto",
+      "tema": "series",
+      "dificultad": 2,
+      "enunciado": "¿Qué número sigue en la serie 2, 3, 5, 8, 12, 17, …?",
+      "opciones": [
+        "22",
+        "23",
+        "25",
+        "24"
+      ],
+      "correcta": 1,
+      "pista": "Escribe los saltos entre términos. ¿Qué pasa con los saltos?",
+      "pasos": [
+        "Diferencias: 1, 2, 3, 4, 5.",
+        "Los saltos aumentan de uno en uno. El que sigue es 6.",
+        "17 + 6 = 23."
+      ],
+      "errores": [
+        {
+          "tipo": "incompleto",
+          "nota": "Repetiste el último salto (+5). El salto también va creciendo: +1, +2, +3, +4, +5, y sigue +6."
+        },
+        null,
+        {
+          "tipo": "regla",
+          "nota": "Sumaste los dos anteriores. Esa regla falla antes: 5 + 8 = 13, y el término siguiente es 12."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "El salto que sigue es +6, no +7."
+        }
+      ],
+      "explicacion": "Si las diferencias no son constantes, mira las diferencias de las diferencias."
+    },
+    {
+      "codigo": "L-SER-4",
+      "categoria": "abstracto",
+      "tema": "series",
+      "dificultad": 3,
+      "enunciado": "En la serie 2, 6, 12, 20, 30, 42, … el término que ocupa la posición 10 es:",
+      "opciones": [
+        "56",
+        "90",
+        "110",
+        "100"
+      ],
+      "correcta": 2,
+      "pista": "Compara cada término con su posición: 2 = 1 × 2, 6 = 2 × 3, 12 = 3 × 4…",
+      "pasos": [
+        "Posición 1: 2 = 1 × 2. Posición 2: 6 = 2 × 3. Posición 3: 12 = 3 × 4.",
+        "La regla es: posición × (posición + 1).",
+        "Se comprueba con la sexta: 6 × 7 = 42.",
+        "Posición 10: 10 × 11 = 110."
+      ],
+      "errores": [
+        {
+          "tipo": "enunciado",
+          "nota": "Ese es el término que sigue, el séptimo. Preguntan por el décimo."
+        },
+        {
+          "tipo": "planteamiento",
+          "nota": "Ese es el noveno término (9 × 10). Te corriste una posición."
+        },
+        null,
+        {
+          "tipo": "regla",
+          "nota": "Usaste n × n. La regla es n × (n + 1): 1 × 2, 2 × 3, 3 × 4…"
+        }
+      ],
+      "explicacion": "Para un término lejano, busca la fórmula con la posición."
+    },
+    {
+      "codigo": "L-OPE-2",
+      "categoria": "abstracto",
+      "tema": "operadores",
+      "dificultad": 2,
+      "enunciado": "Se define a ∆ b = a² − b. El valor de (2 ∆ 1) ∆ 4 es:",
+      "opciones": [
+        "3",
+        "7",
+        "2",
+        "5"
+      ],
+      "correcta": 3,
+      "pista": "Resuelve primero el paréntesis. El resultado pasa a ser el primer número de la segunda operación.",
+      "pasos": [
+        "Paréntesis: 2 ∆ 1 = 2² − 1 = 3.",
+        "Ahora 3 ∆ 4 = 3² − 4.",
+        "9 − 4 = 5."
+      ],
+      "errores": [
+        {
+          "tipo": "incompleto",
+          "nota": "Ese es el resultado del paréntesis. Falta operar ese 3 con el 4."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Calculaste 2 ∆ (1 ∆ 4). El paréntesis encierra a 2 ∆ 1, y en esta operación el orden importa."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "El cuadrado de 3 es 9, no 6: 3 ∆ 4 = 9 − 4."
+        },
+        null
+      ],
+      "explicacion": "Primero lo de adentro."
+    },
+    {
+      "codigo": "L-OPE-4",
+      "categoria": "abstracto",
+      "tema": "operadores",
+      "dificultad": 3,
+      "enunciado": "La operación ⊗ entre los símbolos a, b y c se define con el cuadro. El resultado de x ⊗ y está en la fila de x y la columna de y.\n\n| ⊗ | a | b | c |\n| a | b | c | a |\n| b | a | b | c |\n| c | c | a | b |\n\nEl resultado de (a ⊗ a) ⊗ c es:",
+      "opciones": [
+        "c",
+        "b",
+        "a",
+        "No está definido"
+      ],
+      "correcta": 0,
+      "pista": "Primero el paréntesis: fila a, columna a. Ese resultado es la fila del segundo paso.",
+      "pasos": [
+        "a ⊗ a: fila a, columna a. El cuadro da b.",
+        "Ahora b ⊗ c: fila b, columna c. El cuadro da c.",
+        "El resultado es c."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "incompleto",
+          "nota": "Ese es el resultado del paréntesis. Falta operarlo con c."
+        },
+        {
+          "tipo": "regla",
+          "nota": "En el segundo paso leíste columna y fila al revés: b ⊗ c está en la fila de b, no en la de c."
+        },
+        {
+          "tipo": "inferencia",
+          "nota": "El cuadro da un resultado para cualquier pareja de símbolos, así que siempre está definido."
+        }
+      ],
+      "explicacion": "En un cuadro de operación, el primero es la fila y el segundo la columna."
+    },
+    {
+      "codigo": "L-CIC-2",
+      "categoria": "abstracto",
+      "tema": "ciclos",
+      "dificultad": 2,
+      "enunciado": "Un collar repite siempre el mismo patrón de cuentas: roja, roja, azul, verde, azul, y vuelve a empezar. ¿De qué color es la cuenta número 73?",
+      "opciones": [
+        "Roja",
+        "Verde",
+        "Azul",
+        "No se puede determinar"
+      ],
+      "correcta": 2,
+      "pista": "El patrón tiene 5 cuentas. ¿Qué residuo deja 73 al dividirlo entre 5?",
+      "pasos": [
+        "El patrón se repite cada 5 cuentas.",
+        "73 ÷ 5 = 14 y sobran 3.",
+        "Después de 14 patrones completos (70 cuentas), la 73 es la tercera del patrón.",
+        "La tercera cuenta del patrón es azul."
+      ],
+      "errores": [
+        {
+          "tipo": "calculo",
+          "nota": "73 dividido entre 5 da 14 y sobran 3. La tercera cuenta del patrón es azul, no roja."
+        },
+        {
+          "tipo": "planteamiento",
+          "nota": "El residuo 3 señala la tercera cuenta del patrón. La verde es la cuarta."
+        },
+        null,
+        {
+          "tipo": "inferencia",
+          "nota": "Sí se puede: el patrón es fijo y se repite cada 5 cuentas."
+        }
+      ],
+      "explicacion": "El residuo dice qué lugar del ciclo es."
+    },
+    {
+      "codigo": "L-CIC-4",
+      "categoria": "abstracto",
+      "tema": "ciclos",
+      "dificultad": 3,
+      "enunciado": "¿Cuál es la cifra de las unidades de 7⁵⁰ (7 multiplicado por sí mismo 50 veces)?",
+      "opciones": [
+        "7",
+        "9",
+        "1",
+        "3"
+      ],
+      "correcta": 1,
+      "pista": "Calcula la última cifra de las primeras potencias de 7 y busca cuándo se repite.",
+      "pasos": [
+        "Últimas cifras: 7¹ termina en 7, 7² en 9, 7³ en 3, 7⁴ en 1, y 7⁵ otra vez en 7.",
+        "El ciclo de la última cifra tiene longitud 4: 7, 9, 3, 1.",
+        "50 ÷ 4 = 12 y sobran 2.",
+        "El segundo lugar del ciclo es 9."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Supusiste que todas las potencias de 7 terminan en 7. La última cifra va cambiando: 7, 9, 3, 1."
+        },
+        null,
+        {
+          "tipo": "calculo",
+          "nota": "Terminaría en 1 si 50 fuera múltiplo de 4. 50 ÷ 4 deja residuo 2."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "Esa es la última cifra cuando el residuo es 3. Aquí el residuo es 2."
+        }
+      ],
+      "explicacion": "No hace falta calcular el número: basta el ciclo de su última cifra."
+    },
+    {
+      "codigo": "L-CLA-2",
+      "categoria": "abstracto",
+      "tema": "claves",
+      "dificultad": 2,
+      "enunciado": "En cierto código, la palabra GATO se escribe HBUP. Con la misma regla, ¿cómo se escribe PISO?",
+      "opciones": [
+        "OHRN",
+        "QJTO",
+        "RKUQ",
+        "QJTP"
+      ],
+      "correcta": 3,
+      "pista": "Compara GATO con HBUP letra por letra. ¿Cuánto se mueve cada una en el abecedario?",
+      "pasos": [
+        "G pasa a H, A pasa a B, T pasa a U, O pasa a P.",
+        "Cada letra se cambia por la siguiente del abecedario.",
+        "P pasa a Q, I a J, S a T, O a P.",
+        "PISO se escribe QJTP."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Aplicaste la regla al revés: retrocediste una letra en vez de avanzar."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Te faltó cambiar la última letra: la O también avanza un lugar."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "Avanzaste dos letras. En el ejemplo, cada letra avanza una sola: G pasa a H."
+        },
+        null
+      ],
+      "explicacion": "Comprueba la regla con todas las letras del ejemplo."
+    },
+    {
+      "codigo": "L-CLA-4",
+      "categoria": "abstracto",
+      "tema": "claves",
+      "dificultad": 3,
+      "enunciado": "En un código por corrimiento, todas las letras avanzan el mismo número de lugares en el abecedario de 26 letras (sin la Ñ). Con ese código, la palabra CASA se escribe FDVD. ¿Qué palabra se escribió como SLDQR?",
+      "opciones": [
+        "VOGTU",
+        "RKCPQ",
+        "PIANO",
+        "OHZMN"
+      ],
+      "correcta": 2,
+      "pista": "Con CASA y FDVD averigua cuántos lugares avanza cada letra. Para descifrar hay que hacer lo contrario.",
+      "pasos": [
+        "C pasa a F: avanza 3 lugares (D, E, F). Con A → D y S → V se confirma.",
+        "Para descifrar se retrocede 3 lugares.",
+        "S retrocede a P, L a I, D a A, Q a N y R a O.",
+        "La palabra es PIANO."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Cifraste SLDQR en vez de descifrarla: avanzaste tres lugares, y para descifrar hay que retroceder."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "Retrocediste un solo lugar. El corrimiento es de tres: de C a F hay tres letras."
+        },
+        null,
+        {
+          "tipo": "calculo",
+          "nota": "Retrocediste cuatro lugares. El corrimiento es de tres."
+        }
+      ],
+      "explicacion": "Descifrar es deshacer: el mismo corrimiento, en sentido contrario."
+    },
+    {
+      "codigo": "L-FIG-2",
+      "categoria": "abstracto",
+      "tema": "figuras",
+      "dificultad": 2,
+      "enunciado": "Los puntos se organizan en figuras triangulares, como se muestra. La figura 1 tiene 1 punto, la figura 2 tiene 3, la figura 3 tiene 6 y la figura 4 tiene 10. ¿Cuántos puntos tiene la figura 8?",
+      "opciones": [
+        "28",
+        "36",
+        "20",
+        "45"
+      ],
+      "correcta": 1,
+      "pista": "Cada figura le agrega a la anterior una fila con un punto más. ¿Cuántos puntos agrega la figura 5? ¿Y la 6?",
+      "pasos": [
+        "La figura 2 agrega 2 puntos, la 3 agrega 3, la 4 agrega 4.",
+        "La figura n es la suma 1 + 2 + 3 + … + n.",
+        "Figura 8: 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 = 36.",
+        "Atajo: n × (n + 1) ÷ 2 = 8 × 9 ÷ 2 = 36."
+      ],
+      "errores": [
+        {
+          "tipo": "planteamiento",
+          "nota": "Ese es el valor de la figura 7. Faltó sumar la última fila, de 8 puntos."
+        },
+        null,
+        {
+          "tipo": "regla",
+          "nota": "Duplicaste el valor de la figura 4. Estas figuras no crecen en proporción a su número."
+        },
+        {
+          "tipo": "planteamiento",
+          "nota": "Ese es el valor de la figura 9. Te pasaste una fila."
+        }
+      ],
+      "explicacion": "Si el aumento crece de uno en uno, es una suma de consecutivos.",
+      "figura": "<svg viewBox=\"0 0 290 98\" width=\"290\" height=\"98\"><circle cx=\"26.0\" cy=\"66.0\" r=\"4\" fill=\"currentColor\"/><text x=\"26\" y=\"90\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">Figura 1</text><circle cx=\"86.0\" cy=\"52.08\" r=\"4\" fill=\"currentColor\"/><circle cx=\"78.0\" cy=\"66.0\" r=\"4\" fill=\"currentColor\"/><circle cx=\"94.0\" cy=\"66.0\" r=\"4\" fill=\"currentColor\"/><text x=\"86\" y=\"90\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">Figura 2</text><circle cx=\"158.0\" cy=\"38.16\" r=\"4\" fill=\"currentColor\"/><circle cx=\"150.0\" cy=\"52.08\" r=\"4\" fill=\"currentColor\"/><circle cx=\"166.0\" cy=\"52.08\" r=\"4\" fill=\"currentColor\"/><circle cx=\"142.0\" cy=\"66.0\" r=\"4\" fill=\"currentColor\"/><circle cx=\"158.0\" cy=\"66.0\" r=\"4\" fill=\"currentColor\"/><circle cx=\"174.0\" cy=\"66.0\" r=\"4\" fill=\"currentColor\"/><text x=\"158\" y=\"90\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">Figura 3</text><circle cx=\"244.0\" cy=\"24.240000000000002\" r=\"4\" fill=\"currentColor\"/><circle cx=\"236.0\" cy=\"38.16\" r=\"4\" fill=\"currentColor\"/><circle cx=\"252.0\" cy=\"38.16\" r=\"4\" fill=\"currentColor\"/><circle cx=\"228.0\" cy=\"52.08\" r=\"4\" fill=\"currentColor\"/><circle cx=\"244.0\" cy=\"52.08\" r=\"4\" fill=\"currentColor\"/><circle cx=\"260.0\" cy=\"52.08\" r=\"4\" fill=\"currentColor\"/><circle cx=\"220.0\" cy=\"66.0\" r=\"4\" fill=\"currentColor\"/><circle cx=\"236.0\" cy=\"66.0\" r=\"4\" fill=\"currentColor\"/><circle cx=\"252.0\" cy=\"66.0\" r=\"4\" fill=\"currentColor\"/><circle cx=\"268.0\" cy=\"66.0\" r=\"4\" fill=\"currentColor\"/><text x=\"244\" y=\"90\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">Figura 4</text></svg>"
+    },
+    {
+      "codigo": "L-FIG-4",
+      "categoria": "abstracto",
+      "tema": "figuras",
+      "dificultad": 3,
+      "enunciado": "Sobre una circunferencia se marcan puntos y se trazan todos los segmentos que unen dos de ellos. Con 3 puntos hay 3 segmentos; con 4 puntos, 6; con 5 puntos, 10, como en la figura. ¿Cuántos segmentos hay con 12 puntos?",
+      "opciones": [
+        "66",
+        "132",
+        "55",
+        "78"
+      ],
+      "correcta": 0,
+      "pista": "De cada punto salen segmentos hacia todos los demás. Si multiplicas, ¿cuántas veces contaste cada segmento?",
+      "pasos": [
+        "De cada uno de los 12 puntos salen 11 segmentos: 12 × 11 = 132.",
+        "Cada segmento tiene dos extremos, así que quedó contado dos veces.",
+        "132 ÷ 2 = 66 segmentos.",
+        "Comprobación con 5 puntos: 5 × 4 ÷ 2 = 10."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "regla",
+          "nota": "Multiplicaste 12 × 11 y no dividiste entre 2: cada segmento quedó contado desde sus dos extremos."
+        },
+        {
+          "tipo": "planteamiento",
+          "nota": "Ese es el valor para 11 puntos."
+        },
+        {
+          "tipo": "planteamiento",
+          "nota": "Ese es el valor para 13 puntos."
+        }
+      ],
+      "explicacion": "Unir puntos de a dos es contar parejas: n × (n − 1) ÷ 2.",
+      "figura": "<svg viewBox=\"0 0 160 160\" width=\"160\" height=\"160\"><circle cx=\"80\" cy=\"76\" r=\"56\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\"/><line x1=\"80.0\" y1=\"20.0\" x2=\"133.3\" y2=\"58.7\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"80.0\" y1=\"20.0\" x2=\"112.9\" y2=\"121.3\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"80.0\" y1=\"20.0\" x2=\"47.1\" y2=\"121.3\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"80.0\" y1=\"20.0\" x2=\"26.7\" y2=\"58.7\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"133.3\" y1=\"58.7\" x2=\"112.9\" y2=\"121.3\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"133.3\" y1=\"58.7\" x2=\"47.1\" y2=\"121.3\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"133.3\" y1=\"58.7\" x2=\"26.7\" y2=\"58.7\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"112.9\" y1=\"121.3\" x2=\"47.1\" y2=\"121.3\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"112.9\" y1=\"121.3\" x2=\"26.7\" y2=\"58.7\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"47.1\" y1=\"121.3\" x2=\"26.7\" y2=\"58.7\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><circle cx=\"80.0\" cy=\"20.0\" r=\"4.5\" fill=\"currentColor\"/><circle cx=\"133.3\" cy=\"58.7\" r=\"4.5\" fill=\"currentColor\"/><circle cx=\"112.9\" cy=\"121.3\" r=\"4.5\" fill=\"currentColor\"/><circle cx=\"47.1\" cy=\"121.3\" r=\"4.5\" fill=\"currentColor\"/><circle cx=\"26.7\" cy=\"58.7\" r=\"4.5\" fill=\"currentColor\"/><text x=\"80\" y=\"152\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">5 puntos: 10 segmentos</text></svg>"
+    },
+    {
+      "codigo": "L-ARE-2",
+      "categoria": "geometrico",
+      "tema": "areas",
+      "dificultad": 2,
+      "enunciado": "En un cuadrado de 10 cm de lado se dibuja un círculo que toca los cuatro lados. El área de la región del cuadrado que queda fuera del círculo es:",
+      "opciones": [
+        "100 − 100π cm²",
+        "100 − 10π cm²",
+        "100 − 25π cm²",
+        "25π cm²"
+      ],
+      "correcta": 2,
+      "pista": "El lado del cuadrado es el diámetro del círculo. ¿Cuánto mide el radio?",
+      "pasos": [
+        "Área del cuadrado: 10 × 10 = 100 cm².",
+        "El círculo toca los cuatro lados: su diámetro es 10 y su radio es 5.",
+        "Área del círculo: π × 5² = 25π cm².",
+        "Región fuera del círculo: 100 − 25π cm²."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Usaste 10 como radio. El círculo toca los cuatro lados: 10 cm es su diámetro y el radio es 5."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Restaste la longitud de la circunferencia (π × diámetro). Lo que se resta es el área: π × r²."
+        },
+        null,
+        {
+          "tipo": "enunciado",
+          "nota": "Esa es el área del círculo. Piden lo que queda por fuera."
+        }
+      ],
+      "explicacion": "Del lado del cuadrado sale el diámetro, no el radio.",
+      "figura": "<svg viewBox=\"0 0 190 170\" width=\"190\" height=\"170\"><rect x=\"30\" y=\"14\" width=\"130\" height=\"130\" fill=\"#C9BDF2\" stroke=\"currentColor\" stroke-width=\"2\"/><circle cx=\"95\" cy=\"79\" r=\"65\" fill=\"#FBF8FF\" stroke=\"currentColor\" stroke-width=\"2\"/><text x=\"95\" y=\"162\" font-size=\"13\" text-anchor=\"middle\" fill=\"currentColor\">10 cm</text></svg>"
+    },
+    {
+      "codigo": "L-ARE-4",
+      "categoria": "geometrico",
+      "tema": "areas",
+      "dificultad": 3,
+      "enunciado": "Un disco tiene forma de corona circular: el radio exterior mide 6 cm y el del agujero central mide 2 cm. Se pinta de rojo la cuarta parte de la corona, como en la figura. El área pintada es:",
+      "opciones": [
+        "32π cm²",
+        "9π cm²",
+        "4π cm²",
+        "8π cm²"
+      ],
+      "correcta": 3,
+      "pista": "Área de la corona = círculo grande − círculo pequeño. Después toma la cuarta parte.",
+      "pasos": [
+        "Círculo grande: π × 6² = 36π.",
+        "Agujero: π × 2² = 4π.",
+        "Corona: 36π − 4π = 32π.",
+        "La cuarta parte: 32π ÷ 4 = 8π cm²."
+      ],
+      "errores": [
+        {
+          "tipo": "incompleto",
+          "nota": "Esa es el área de toda la corona. Se pinta solo la cuarta parte."
+        },
+        {
+          "tipo": "planteamiento",
+          "nota": "Tomaste la cuarta parte del círculo completo, sin descontar el agujero."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Restaste los radios antes de elevar al cuadrado: π × (6 − 2)². Hay que restar las áreas: π × 6² − π × 2²."
+        },
+        null
+      ],
+      "explicacion": "Se restan las áreas, no los radios.",
+      "figura": "<svg viewBox=\"0 0 184 176\" width=\"184\" height=\"176\"><circle cx=\"92\" cy=\"88\" r=\"72\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M 116,88 L 164,88 A 72 72 0 0 0 92,16 L 92,64 A 24 24 0 0 1 116,88 Z\" fill=\"#E0524F\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\"/><circle cx=\"92\" cy=\"88\" r=\"24\" fill=\"#FBF8FF\" stroke=\"currentColor\" stroke-width=\"2\"/><line x1=\"92\" y1=\"88\" x2=\"20\" y2=\"88\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"5 4\"/><text x=\"46\" y=\"82\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">6 cm</text><line x1=\"92\" y1=\"88\" x2=\"92\" y2=\"112\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"5 4\"/><text x=\"98\" y=\"130\" font-size=\"12\" text-anchor=\"start\" fill=\"currentColor\">2 cm</text></svg>"
+    },
+    {
+      "codigo": "L-PER-2",
+      "categoria": "geometrico",
+      "tema": "perimetro",
+      "dificultad": 2,
+      "enunciado": "Tres cuadrados iguales de 4 cm de lado se colocan en fila, pegados lado con lado, como en la figura. El perímetro de la figura que forman es:",
+      "opciones": [
+        "48 cm",
+        "32 cm",
+        "40 cm",
+        "28 cm"
+      ],
+      "correcta": 1,
+      "pista": "La figura completa es un rectángulo. ¿Cuánto miden su largo y su ancho?",
+      "pasos": [
+        "Los tres cuadrados forman un rectángulo de 12 cm de largo y 4 cm de ancho.",
+        "Perímetro: 2 × (12 + 4) = 32 cm.",
+        "Otra forma: 3 × 16 = 48, menos los 4 lados que quedan adentro (16 cm), da 32."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Sumaste los perímetros de los tres cuadrados. Los lados por donde se pegan quedan adentro y no son borde."
+        },
+        null,
+        {
+          "tipo": "incompleto",
+          "nota": "Descontaste un lado por cada unión. En cada unión desaparecen dos lados: uno de cada cuadrado."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "El rectángulo mide 12 por 4: 2 × (12 + 4) = 32."
+        }
+      ],
+      "explicacion": "Los lados compartidos no son borde.",
+      "figura": "<svg viewBox=\"0 0 214 90\" width=\"214\" height=\"90\"><rect x=\"20\" y=\"16\" width=\"46\" height=\"46\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><rect x=\"66\" y=\"16\" width=\"46\" height=\"46\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><rect x=\"112\" y=\"16\" width=\"46\" height=\"46\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><text x=\"43\" y=\"80\" font-size=\"13\" text-anchor=\"middle\" fill=\"currentColor\">4 cm</text><text x=\"89\" y=\"80\" font-size=\"13\" text-anchor=\"middle\" fill=\"currentColor\">4 cm</text><text x=\"135\" y=\"80\" font-size=\"13\" text-anchor=\"middle\" fill=\"currentColor\">4 cm</text><text x=\"170\" y=\"43\" font-size=\"13\" text-anchor=\"start\" fill=\"currentColor\">4 cm</text></svg>"
+    },
+    {
+      "codigo": "L-PER-4",
+      "categoria": "geometrico",
+      "tema": "perimetro",
+      "dificultad": 3,
+      "enunciado": "Una pista está formada por un rectángulo de 10 m de largo y 4 m de ancho, con un semicírculo pegado a cada uno de sus lados cortos, como en la figura. El perímetro de la pista es:",
+      "opciones": [
+        "20 + 4π m",
+        "28 + 4π m",
+        "20 + 8π m",
+        "20 + 2π m"
+      ],
+      "correcta": 0,
+      "pista": "El borde tiene dos tramos rectos y dos semicírculos. Dos semicírculos iguales forman una circunferencia.",
+      "pasos": [
+        "Tramos rectos: los dos lados largos, 10 + 10 = 20 m.",
+        "Los lados cortos no son borde: sobre ellos van los semicírculos.",
+        "Los dos semicírculos forman una circunferencia de diámetro 4 m: π × 4 = 4π m.",
+        "Perímetro: 20 + 4π m."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "planteamiento",
+          "nota": "Incluiste los dos lados cortos del rectángulo. Quedan adentro de la pista: no son borde."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Usaste 4 como radio. Los 4 m son el diámetro de los semicírculos; el radio es 2."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Contaste un solo semicírculo. Son dos, y juntos forman una circunferencia completa."
+        }
+      ],
+      "explicacion": "Antes de sumar, marca qué tramos son borde.",
+      "figura": "<svg viewBox=\"0 0 260 112\" width=\"260\" height=\"112\"><path d=\"M 50,26 L 210,26 A 32 32 0 0 1 210,90 L 50,90 A 32 32 0 0 1 50,26 Z\" fill=\"#C9BDF2\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\"/><line x1=\"50\" y1=\"26\" x2=\"50\" y2=\"90\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"5 4\"/><line x1=\"210\" y1=\"26\" x2=\"210\" y2=\"90\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"5 4\"/><text x=\"130\" y=\"18\" font-size=\"13\" text-anchor=\"middle\" fill=\"currentColor\">10 m</text><text x=\"58\" y=\"62\" font-size=\"13\" text-anchor=\"start\" fill=\"currentColor\">4 m</text></svg>"
+    },
+    {
+      "codigo": "L-ESC-2",
+      "categoria": "geometrico",
+      "tema": "escala",
+      "dificultad": 2,
+      "enunciado": "Dos velas tienen forma de cubo y están hechas de la misma cera. La arista de la vela grande mide el doble que la de la pequeña. Si la pequeña pesa 150 gramos, la grande pesa:",
+      "opciones": [
+        "300 gramos",
+        "600 gramos",
+        "900 gramos",
+        "1.200 gramos"
+      ],
+      "correcta": 3,
+      "pista": "El peso depende del volumen. Si la arista se duplica, ¿por cuánto se multiplica el volumen?",
+      "pasos": [
+        "La arista se multiplica por 2.",
+        "El volumen se multiplica por 2³ = 8.",
+        "Misma cera: el peso crece igual que el volumen.",
+        "150 × 8 = 1.200 gramos."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Duplicaste el peso porque se duplicó la arista. El peso depende del volumen, que crece con el cubo del factor."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Multiplicaste por 4, que es lo que crece el área de una cara. El volumen crece por 8."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "Multiplicaste por 6 (2 × 3). El factor es 2 × 2 × 2 = 8."
+        },
+        null
+      ],
+      "explicacion": "Volúmenes y pesos × k³."
+    },
+    {
+      "codigo": "L-ESC-4",
+      "categoria": "geometrico",
+      "tema": "escala",
+      "dificultad": 3,
+      "enunciado": "Una pizza de 20 cm de diámetro cuesta $12.000. Si el precio es proporcional al área, una pizza del mismo grosor de 30 cm de diámetro debe costar:",
+      "opciones": [
+        "$18.000",
+        "$27.000",
+        "$24.000",
+        "$40.500"
+      ],
+      "correcta": 1,
+      "pista": "¿Por cuánto se multiplica el diámetro? El área se multiplica por ese factor al cuadrado.",
+      "pasos": [
+        "Factor de las longitudes: 30 ÷ 20 = 1,5.",
+        "Factor de las áreas: 1,5² = 2,25.",
+        "Precio: 12.000 × 2,25 = 27.000."
+      ],
+      "errores": [
+        {
+          "tipo": "regla",
+          "nota": "Aumentaste el precio en la misma proporción que el diámetro (1,5). El área crece 1,5 × 1,5 = 2,25 veces."
+        },
+        null,
+        {
+          "tipo": "calculo",
+          "nota": "Duplicaste el precio. El factor del área es 2,25."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Usaste el cubo del factor, que es para volúmenes. El grosor no cambia: solo crece el área."
+        }
+      ],
+      "explicacion": "Si solo cambian largo y ancho, el factor es k²."
+    },
+    {
+      "codigo": "L-VOL-2",
+      "categoria": "geometrico",
+      "tema": "volumen",
+      "dificultad": 2,
+      "enunciado": "Un acuario con forma de caja tiene una base de 50 cm por 20 cm. Se le agregan 6 litros de agua (1 litro = 1.000 cm³). ¿Cuántos centímetros sube el nivel del agua?",
+      "opciones": [
+        "60",
+        "120",
+        "6",
+        "300"
+      ],
+      "correcta": 2,
+      "pista": "El agua que entra forma una capa: volumen = área de la base × altura.",
+      "pasos": [
+        "6 litros son 6.000 cm³.",
+        "Área de la base: 50 × 20 = 1.000 cm².",
+        "Altura que sube: 6.000 ÷ 1.000 = 6 cm."
+      ],
+      "errores": [
+        {
+          "tipo": "calculo",
+          "nota": "Dividiste entre 100. El área de la base es 50 × 20 = 1.000 cm²."
+        },
+        {
+          "tipo": "incompleto",
+          "nota": "Dividiste solo entre el largo (50). Falta dividir entre el ancho."
+        },
+        null,
+        {
+          "tipo": "incompleto",
+          "nota": "Dividiste solo entre el ancho (20). Falta dividir entre el largo."
+        }
+      ],
+      "explicacion": "Altura = volumen ÷ área de la base."
+    },
+    {
+      "codigo": "L-VIS-2",
+      "categoria": "geometrico",
+      "tema": "vistas",
+      "dificultad": 1,
+      "enunciado": "Una hoja de papel se dobla por la mitad y luego otra vez por la mitad. Con una perforadora se le hace un agujero que atraviesa todas las capas, lejos de los bordes y de los dobleces. Al desdoblar la hoja, ¿cuántos agujeros tiene?",
+      "opciones": [
+        "4",
+        "2",
+        "1",
+        "8"
+      ],
+      "correcta": 0,
+      "pista": "¿Cuántas capas de papel hay después de cada doblez?",
+      "pasos": [
+        "Un doblez: 2 capas.",
+        "Otro doblez: 4 capas.",
+        "El agujero atraviesa las 4 capas.",
+        "Al desdoblar hay 4 agujeros."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "incompleto",
+          "nota": "Contaste un solo doblez. Con el segundo, las capas vuelven a duplicarse."
+        },
+        {
+          "tipo": "inferencia",
+          "nota": "La perforadora atraviesa todas las capas, y cada capa es una parte distinta de la hoja."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "Serían 8 con tres dobleces. Con dos dobleces hay 4 capas."
+        }
+      ],
+      "explicacion": "Cada doblez duplica las capas."
+    },
+    {
+      "codigo": "L-VIS-4",
+      "categoria": "geometrico",
+      "tema": "vistas",
+      "dificultad": 2,
+      "enunciado": "En un dado común, las caras opuestas suman 7. El dado está sobre una mesa y desde una esquina se ven tres de sus caras: el 1, el 2 y el 3. La suma de las tres caras que no se ven es:",
+      "opciones": [
+        "6",
+        "21",
+        "15",
+        "18"
+      ],
+      "correcta": 2,
+      "pista": "Cada cara que se ve tiene una opuesta que no se ve. ¿Cuánto vale la opuesta de cada una?",
+      "pasos": [
+        "La opuesta del 1 es el 6, la del 2 es el 5 y la del 3 es el 4.",
+        "Las tres caras que se ven comparten una esquina, así que ninguna es opuesta de otra: las ocultas son justo sus opuestas.",
+        "6 + 5 + 4 = 15.",
+        "Otra forma: las seis caras suman 21, y 21 − 6 = 15."
+      ],
+      "errores": [
+        {
+          "tipo": "enunciado",
+          "nota": "Esa es la suma de las caras que se ven."
+        },
+        {
+          "tipo": "enunciado",
+          "nota": "Esa es la suma de las seis caras. Hay que quitarle las que se ven."
+        },
+        null,
+        {
+          "tipo": "calculo",
+          "nota": "Las opuestas a 1, 2 y 3 son 6, 5 y 4, que suman 15."
+        }
+      ],
+      "explicacion": "Lo que no se ve se deduce de lo que sí se ve."
+    },
+    {
+      "codigo": "L-TRI-2",
+      "categoria": "geometrico",
+      "tema": "triangulos",
+      "dificultad": 2,
+      "enunciado": "A cierta hora, una persona de 1,6 m de estatura proyecta una sombra de 2 m. A la misma hora, un árbol proyecta una sombra de 7,5 m. La altura del árbol es:",
+      "opciones": [
+        "Cerca de 9,4 m",
+        "6 m",
+        "7,1 m",
+        "12 m"
+      ],
+      "correcta": 1,
+      "pista": "Altura y sombra guardan la misma razón para la persona y para el árbol.",
+      "pasos": [
+        "Persona: altura ÷ sombra = 1,6 ÷ 2 = 0,8.",
+        "La misma razón vale para el árbol a esa hora.",
+        "Altura del árbol: 0,8 × 7,5 = 6 m."
+      ],
+      "errores": [
+        {
+          "tipo": "planteamiento",
+          "nota": "Cruzaste la proporción. La sombra de la persona es más larga que su altura; con el árbol debe pasar lo mismo."
+        },
+        null,
+        {
+          "tipo": "regla",
+          "nota": "Restaste 0,4 m, la diferencia entre la sombra y la altura de la persona. En triángulos semejantes se conserva la razón, no la diferencia."
+        },
+        {
+          "tipo": "calculo",
+          "nota": "Multiplicaste 7,5 × 1,6 y te faltó dividir entre 2."
+        }
+      ],
+      "explicacion": "Altura con altura, sombra con sombra."
+    },
+    {
+      "codigo": "L-TRI-4",
+      "categoria": "geometrico",
+      "tema": "triangulos",
+      "dificultad": 3,
+      "enunciado": "En un triángulo rectángulo de catetos 6 cm y 8 cm se traza un segmento paralelo al cateto de 6 cm, a 2 cm de él, como muestra la figura. El segmento va desde el cateto de 8 cm hasta la hipotenusa. Su longitud es:",
+      "opciones": [
+        "4,5 cm",
+        "1,5 cm",
+        "4 cm",
+        "3 cm"
+      ],
+      "correcta": 0,
+      "pista": "El segmento forma un triángulo pequeño, semejante al grande. ¿Cuánto mide la base del pequeño?",
+      "pasos": [
+        "El segmento y el cateto de 6 cm son paralelos, así que el triángulo pequeño es semejante al grande.",
+        "La base del grande mide 8 cm. La del pequeño, 8 − 2 = 6 cm.",
+        "Razón entre los dos: 6/8 = 3/4.",
+        "El segmento mide 3/4 del cateto de 6 cm: 4,5 cm."
+      ],
+      "errores": [
+        null,
+        {
+          "tipo": "planteamiento",
+          "nota": "Usaste la razón 2/8. El triángulo pequeño que se forma tiene base 6 cm (8 − 2), no 2 cm."
+        },
+        {
+          "tipo": "regla",
+          "nota": "Restaste 2 cm al cateto de 6. La relación entre triángulos semejantes es de razón, no de resta."
+        },
+        {
+          "tipo": "inferencia",
+          "nota": "Supusiste que el segmento es la mitad del cateto. Lo sería si estuviera a 4 cm, no a 2 cm."
+        }
+      ],
+      "explicacion": "Una paralela a un lado forma un triángulo semejante.",
+      "figura": "<svg viewBox=\"0 0 220 212\" width=\"220\" height=\"212\"><polygon points=\"36,150 196,150 36,30\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\"/><path d=\"M 36,138 L 48,138 L 48,150\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linejoin=\"round\"/><line x1=\"76\" y1=\"150\" x2=\"76\" y2=\"60.0\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"36\" y1=\"162\" x2=\"76\" y2=\"162\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"36\" y1=\"158\" x2=\"36\" y2=\"166\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"76\" y1=\"158\" x2=\"76\" y2=\"166\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"56\" y=\"176\" font-size=\"12\" text-anchor=\"middle\" fill=\"currentColor\">2 cm</text><line x1=\"36\" y1=\"188\" x2=\"196\" y2=\"188\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"36\" y1=\"184\" x2=\"36\" y2=\"192\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"196\" y1=\"184\" x2=\"196\" y2=\"192\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\"/><text x=\"116\" y=\"204\" font-size=\"13\" text-anchor=\"middle\" fill=\"currentColor\">8 cm</text><text x=\"28\" y=\"94\" font-size=\"13\" text-anchor=\"end\" fill=\"currentColor\">6 cm</text><text x=\"84\" y=\"110\" font-size=\"16\" text-anchor=\"start\" fill=\"currentColor\" font-weight=\"700\">?</text></svg>"
+    }
+  ]
+}

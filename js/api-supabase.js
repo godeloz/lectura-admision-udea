@@ -17,6 +17,16 @@ window.LE_ApiSupabase = function (cfg) {
   };
   const ok = ({ data, error }) => { if (error) throw new Error(traducir(error.message)); return data; };
   const rpc = async (fn, args) => ok(await sb.rpc(fn, args));
+  // Si la app nueva llega antes que el SQL nuevo (02_funciones de la 1.1.0), las
+  // funciones todavía no aceptan los parámetros de componente. Para que Lectura
+  // no se quede sin funcionar mientras tanto, se reintenta con la forma anterior.
+  const rpcCompat = async (fn, args, anterior) => {
+    try { return await rpc(fn, args); }
+    catch (e) {
+      if (anterior && /Could not find the function|PGRST202|schema cache/i.test(e.message)) return rpc(fn, anterior);
+      throw e;
+    }
+  };
 
   return {
     modo: "supabase",
@@ -41,19 +51,30 @@ window.LE_ApiSupabase = function (cfg) {
       return Object.fromEntries(filas.map((f) => [f.clave, f.valor]));
     },
     async insignias() { return ok(await sb.from("insignias").select("*").eq("activo", true).order("orden")); },
+    // Fichas de la caja de herramientas (lógica). Si la base todavía no tiene la tabla, la lista queda vacía.
+    async tecnicas() {
+      const { data, error } = await sb.from("tecnicas").select("*").eq("activo", true).order("orden");
+      return error ? [] : data;
+    },
     async novedadesPendientes(ultima) { return ok(await sb.from("novedades").select("*").gt("id", ultima || 0).order("id")); },
     marcarNovedades: () => rpc("marcar_novedades_vistas"),
     actualizarPerfil: (nombre, avatar, meta) => rpc("actualizar_perfil", { p_nombre: nombre, p_avatar: avatar, p_meta: meta }),
 
     // Estudiante
-    iniciarReto: (n, categoria = null, mensajeId = null) => rpc("iniciar_reto", { p_n: n, p_categoria: categoria, p_mensaje: mensajeId }),
-    responder: (sesion, pregunta, opcion, ms) => rpc("responder", { p_sesion: sesion, p_pregunta: pregunta, p_opcion: opcion, p_tiempo_ms: Math.round(ms) }),
+    iniciarReto: (n, categoria = null, mensajeId = null, componente = null, tema = null) =>
+      rpcCompat("iniciar_reto", { p_n: n, p_categoria: categoria, p_mensaje: mensajeId, p_componente: componente, p_tema: tema },
+        componente === "logica" || tema ? null : { p_n: n, p_categoria: categoria, p_mensaje: mensajeId }),
+    responder: (sesion, pregunta, opcion, ms, pista = false) =>
+      rpcCompat("responder", { p_sesion: sesion, p_pregunta: pregunta, p_opcion: opcion, p_tiempo_ms: Math.round(ms), p_pista: !!pista },
+        { p_sesion: sesion, p_pregunta: pregunta, p_opcion: opcion, p_tiempo_ms: Math.round(ms) }),
     finalizarReto: (sesion) => rpc("finalizar_reto", { p_sesion: sesion }),
-    iniciarSimulacro: (nivel) => rpc("iniciar_simulacro", { p_nivel: nivel }),
+    iniciarSimulacro: (nivel, componente = "lectura") =>
+      rpcCompat("iniciar_simulacro", { p_nivel: nivel, p_componente: componente }, componente === "logica" ? null : { p_nivel: nivel }),
     entregarSimulacro: (sesion, respuestas) => rpc("entregar_simulacro", { p_sesion: sesion, p_respuestas: respuestas }),
     detalleSesion: (sesion) => rpc("detalle_sesion", { p_sesion: sesion }),
     registrarTiempo: (s) => rpc("registrar_tiempo", { p_segundos: s }),
     resumen: (id = null) => rpc("resumen_estudiante", { p_uid: id }),
+    cuaderno: (componente = "logica", id = null) => rpc("cuaderno_errores", { p_componente: componente, p_uid: id }),
     async mensajes(estudianteId = uid) {
       return ok(await sb.from("mensajes").select("*").eq("estudiante_id", estudianteId).order("creado", { ascending: false }).limit(60));
     },

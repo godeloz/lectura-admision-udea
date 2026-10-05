@@ -1,0 +1,757 @@
+{
+  "paquete": "logica-base",
+  "novedad": {
+    "version": "logica-1",
+    "titulo": "Llegó Lógica",
+    "cuerpo": "El examen tiene dos mitades y ahora la app también: Lectura y Lógica, cada una con sus retos, su ecualizador y sus simulacros. Tu XP, tu racha y tu rango son los mismos para las dos.\n\nEn Lógica, cada respuesta trae la solución paso a paso y te dice qué tipo de error cometiste. Lo que falles queda en tu cuaderno de errores, y en la caja de herramientas está la ficha de cada técnica. Ten papel y lápiz a la mano."
+  },
+  "config": {
+    "categorias": {
+      "literal": {
+        "nombre": "Literal",
+        "color": "cian",
+        "descripcion": "Datos explícitos, secuencias y causas que el texto dice directamente.",
+        "componente": "lectura"
+      },
+      "inferencial": {
+        "nombre": "Inferencial",
+        "color": "rosa",
+        "descripcion": "Sentido global, premisas implícitas, propósito del autor, figuras y palabras en contexto.",
+        "componente": "lectura"
+      },
+      "critico": {
+        "nombre": "Crítico",
+        "color": "amarillo",
+        "descripcion": "Solidez de los argumentos, sesgos y comparación entre textos.",
+        "componente": "lectura"
+      },
+      "cohesion": {
+        "nombre": "Cohesión",
+        "color": "menta",
+        "descripcion": "Conectores, referencias entre palabras y valor de la puntuación.",
+        "componente": "lectura"
+      },
+      "deductivo": {
+        "nombre": "Deducción",
+        "color": "violeta",
+        "componente": "logica",
+        "descripcion": "Condicionales, negaciones, quién dice la verdad, cuadros de descarte, ordenamientos y certeza."
+      },
+      "proporcional": {
+        "nombre": "Proporciones",
+        "color": "amarillo",
+        "componente": "logica",
+        "descripcion": "Fracciones, porcentajes, razones, promedios, conteo, probabilidad y lectura de cuadros."
+      },
+      "abstracto": {
+        "nombre": "Patrones",
+        "color": "rosa",
+        "componente": "logica",
+        "descripcion": "Series, operadores inventados, ciclos, claves y secuencias de figuras."
+      },
+      "geometrico": {
+        "nombre": "Geometría",
+        "color": "menta",
+        "componente": "logica",
+        "descripcion": "Áreas, perímetros, escalas, volúmenes, vistas y triángulos."
+      }
+    },
+    "distribucion_logica": {
+      "deductivo": 0.25,
+      "proporcional": 0.3,
+      "abstracto": 0.2,
+      "geometrico": 0.25
+    },
+    "retos_logica": {
+      "opciones": [
+        {
+          "n": 5,
+          "nombre": "Riff",
+          "minutos": 12,
+          "descripcion": "Cinco problemas para calentar la cabeza."
+        },
+        {
+          "n": 10,
+          "nombre": "Solo",
+          "minutos": 25,
+          "descripcion": "La sesión de lógica de todos los días."
+        },
+        {
+          "n": 15,
+          "nombre": "Jam",
+          "minutos": 38,
+          "descripcion": "Para los días con tiempo y ganas."
+        }
+      ]
+    },
+    "simulacros_logica": {
+      "inicial": {
+        "nombre": "Inicial",
+        "preguntas": 20,
+        "minutos": 50,
+        "dificultad": 1.6,
+        "descripcion": "Problemas más directos. Para medir el punto de partida."
+      },
+      "avanzado": {
+        "nombre": "Avanzado",
+        "preguntas": 40,
+        "minutos": 90,
+        "dificultad": 2.1,
+        "descripcion": "Igual al bloque de lógica del examen real: 40 preguntas."
+      },
+      "experto": {
+        "nombre": "Experto",
+        "preguntas": 40,
+        "minutos": 75,
+        "dificultad": 2.4,
+        "descripcion": "Las mismas 40 preguntas con menos tiempo y problemas más duros, para llegar con holgura."
+      }
+    },
+    "referencias_logica": [
+      {
+        "programa": "Medicina y programas de corte muy alto",
+        "porcentaje": 85,
+        "detalle": "33 a 36 aciertos de 40 en Razonamiento Lógico"
+      },
+      {
+        "programa": "Derecho, Ingeniería Civil y programas intermedios",
+        "porcentaje": 70,
+        "detalle": "28 a 33 aciertos de 40"
+      },
+      {
+        "programa": "Programas regionales",
+        "porcentaje": 55,
+        "detalle": "Referencia aproximada"
+      }
+    ],
+    "tipos_error": {
+      "enunciado": {
+        "nombre": "Leíste otra pregunta",
+        "consejo": "Antes de calcular, di con tus palabras qué te piden y en qué unidades. Al terminar, vuelve a leer la pregunta."
+      },
+      "planteamiento": {
+        "nombre": "Planteamiento",
+        "consejo": "Traduce el enunciado frase por frase antes de operar: qué es el todo, qué es la parte, qué se compara con qué."
+      },
+      "regla": {
+        "nombre": "Regla equivocada",
+        "consejo": "Antes de aplicar una regla, comprueba que el problema cumple sus condiciones. Abre la ficha de la técnica y mira su trampa típica."
+      },
+      "incompleto": {
+        "nombre": "A mitad de camino",
+        "consejo": "Tu razonamiento iba bien, pero paraste antes de tiempo. Cuando tengas un resultado, pregúntate si eso es lo que pedían."
+      },
+      "calculo": {
+        "nombre": "Cuenta",
+        "consejo": "El camino era el correcto y falló una operación. Estima el resultado antes de calcular y compara al final."
+      },
+      "inferencia": {
+        "nombre": "Salto lógico",
+        "consejo": "Concluiste más de lo que las premisas permiten. Busca un caso que cumpla todo lo dicho y haga falsa tu opción."
+      }
+    }
+  },
+  "tecnicas": [
+    {
+      "codigo": "condicional",
+      "categoria": "deductivo",
+      "nombre": "Condicional: lo que sí y lo que no se concluye",
+      "cuando": "El enunciado trae una regla del tipo «si pasa P, entonces pasa Q» y pregunta qué se puede concluir.",
+      "pasos": [
+        "Escribe la regla como P → Q. P es **suficiente** para Q; Q es **necesaria** para P.",
+        "Hay dos conclusiones válidas: si tienes P, concluyes Q; si tienes «no Q», concluyes «no P» (la contrarrecíproca).",
+        "Hay dos que no valen: de Q no sale P, y de «no P» no sale «no Q».",
+        "Para descartar una opción, busca un caso que cumpla la regla y haga falsa la opción."
+      ],
+      "ejemplo": "Regla: «Si llueve, se cancela el concierto».\n\nEl concierto no se canceló. Entonces no llovió: es la contrarrecíproca.\n\nEl concierto se canceló. ¿Llovió? No se sabe: pudo cancelarse por otra razón.",
+      "trampa": "Leer la regla al revés. «Si llueve, se cancela» no dice «si se cancela, llovió».",
+      "orden": 10
+    },
+    {
+      "codigo": "negacion",
+      "categoria": "deductivo",
+      "nombre": "Negar «todos», «algunos» y «ninguno»",
+      "cuando": "Piden la negación de una frase, o qué basta para que una afirmación general sea falsa.",
+      "pasos": [
+        "La negación de «todos son X» es «al menos uno no es X». No es «ninguno es X».",
+        "La negación de «algunos son X» es «ninguno es X».",
+        "La negación de «A y B» es «no A o no B»; la de «A o B» es «no A y no B».",
+        "Pregúntate: ¿qué es lo mínimo que tendría que pasar para que la frase fuera mentira?"
+      ],
+      "ejemplo": "«Todos los estudiantes del grupo aprobaron.»\n\nPara que sea falsa basta un estudiante que no haya aprobado. La negación es: «Al menos un estudiante del grupo no aprobó».",
+      "trampa": "Irse al extremo contrario: negar «todos» con «ninguno».",
+      "orden": 20
+    },
+    {
+      "codigo": "veraces",
+      "categoria": "deductivo",
+      "nombre": "Quién dice la verdad: suponer y comprobar",
+      "cuando": "Varias personas afirman cosas y te dicen cuántas dicen la verdad o cuántas mienten.",
+      "pasos": [
+        "Haz una lista corta de los casos posibles: quién fue, o qué valor tiene lo desconocido.",
+        "Para cada caso, marca qué afirmaciones resultan verdaderas y cuáles falsas.",
+        "Quédate con el caso que cumple la condición del enunciado (por ejemplo, «solo uno dice la verdad»).",
+        "Responde lo que piden, que no siempre es «quién miente»."
+      ],
+      "ejemplo": "Ana: «Fue Beto». Beto: «Yo no fui». Caro: «Yo no fui». Solo una de las tres dice la verdad.\n\nSi fue Ana: Beto y Caro dicen la verdad. Dos verdades, no sirve.\n\nSi fue Beto: Ana y Caro dicen la verdad. Dos, no sirve.\n\nSi fue Caro: solo Beto dice la verdad. Sirve: fue Caro.",
+      "trampa": "Decidir por intuición quién «suena» sincero. Aquí no se adivina: se prueban los casos.",
+      "orden": 30
+    },
+    {
+      "codigo": "cuadro",
+      "categoria": "deductivo",
+      "nombre": "Cuadro de doble entrada: asignar descartando",
+      "cuando": "Hay que emparejar personas con objetos, oficios, días o lugares a partir de pistas.",
+      "pasos": [
+        "Dibuja un cuadro: personas en las filas, opciones en las columnas.",
+        "Pasa cada pista al cuadro: X donde no puede ser, ✓ donde sí.",
+        "Cada ✓ tacha el resto de su fila y de su columna.",
+        "Cuando en una fila o columna quede una sola casilla libre, esa es. Repite hasta llenar."
+      ],
+      "ejemplo": "Luz, Mar y Sol tocan bajo, piano y batería, cada una un instrumento. Luz no toca piano. Sol toca batería.\n\nSol con batería tacha la batería para las otras dos. A Luz le queda solo el bajo. Entonces Mar toca piano.",
+      "trampa": "Llevar las pistas en la cabeza. Sin cuadro se pierde una negación y la respuesta sale cruzada.",
+      "orden": 40
+    },
+    {
+      "codigo": "orden",
+      "categoria": "deductivo",
+      "nombre": "Ordenamientos: quién va antes de quién",
+      "cuando": "Te dan comparaciones (más alto, llegó antes, está a la derecha de) y piden una posición.",
+      "pasos": [
+        "Traza una línea y fija qué extremo es «más» y cuál es «menos».",
+        "Ubica primero las pistas que atan dos elementos entre sí; deja para después las sueltas.",
+        "Une las cadenas: si A está antes que B y B antes que C, A está antes que C.",
+        "Si una posición no queda determinada, la respuesta puede ser justamente «no se puede asegurar»."
+      ],
+      "ejemplo": "Daniel llegó antes que Eva. Fabio llegó después que Eva. Gina llegó antes que Daniel.\n\nCadena: Gina, Daniel, Eva, Fabio. La tercera en llegar fue Eva.",
+      "trampa": "Invertir el sentido de una pista, o dar por ordenados dos elementos que ninguna pista compara.",
+      "orden": 50
+    },
+    {
+      "codigo": "certeza",
+      "categoria": "deductivo",
+      "nombre": "El peor caso: lo mínimo para estar segura",
+      "cuando": "Preguntan cuántos hay que sacar, como mínimo, para tener la certeza de algo.",
+      "pasos": [
+        "Piensa en la peor suerte posible: ¿cuántos puedes sacar sin que se cumpla lo pedido?",
+        "Cuenta ese máximo de «fracasos».",
+        "Súmale uno. Ese es el mínimo que da certeza."
+      ],
+      "ejemplo": "En un cajón hay 6 medias negras y 6 blancas. ¿Cuántas hay que sacar sin mirar para asegurar un par del mismo color?\n\nPeor caso: una negra y una blanca (2 medias, ningún par). La tercera obliga a repetir color. Respuesta: 3.",
+      "trampa": "Responder con el caso afortunado («con 2 puede salir») en lugar del caso seguro.",
+      "orden": 60
+    },
+    {
+      "codigo": "fracciones",
+      "categoria": "proporcional",
+      "nombre": "Fracción de una cantidad y fracción de lo que queda",
+      "cuando": "Se gasta, se reparte o se llena una parte, y luego otra parte «del resto».",
+      "pasos": [
+        "«De» significa multiplicar: 3/4 de 20 es 3/4 × 20 = 15.",
+        "Después de cada paso escribe cuánto queda. La fracción siguiente se toma sobre eso, no sobre el total.",
+        "Si no dan el total, usa uno cómodo (un múltiplo de los denominadores) o llámalo 1.",
+        "«¿Cuántos caben?» es dividir: dividir entre una fracción es multiplicar por la fracción invertida."
+      ],
+      "ejemplo": "Gastas 1/3 de tu plata y luego 1/2 de lo que quedó. ¿Qué fracción te queda?\n\nSupón que tenías 6. Gastas 2 y quedan 4. Gastas la mitad de 4 y quedan 2. Te queda 2/6, es decir, 1/3.",
+      "trampa": "Sumar las fracciones como si las dos fueran del total: 1/3 + 1/2 = 5/6 gastado es falso, porque la segunda es del resto.",
+      "orden": 70
+    },
+    {
+      "codigo": "porcentajes",
+      "categoria": "proporcional",
+      "nombre": "Porcentajes: la base manda",
+      "cuando": "Hay aumentos, descuentos o porcentajes encadenados.",
+      "pasos": [
+        "Pregúntate siempre: ¿este porcentaje es de qué cantidad?",
+        "Aumentar 20 % es multiplicar por 1,20; descontar 20 % es multiplicar por 0,80.",
+        "Dos cambios seguidos se multiplican, no se suman: +20 % y luego −20 % da 1,2 × 0,8 = 0,96.",
+        "Para hallar el total a partir de una parte: si 400 es el 40 %, el 100 % es 400 ÷ 0,40 = 1.000."
+      ],
+      "ejemplo": "Un pantalón de $100.000 sube 10 % y después tiene un descuento de 10 %.\n\n100.000 × 1,10 = 110.000. Luego 110.000 × 0,90 = 99.000. No vuelve al precio inicial: el descuento se calcula sobre una base más grande.",
+      "trampa": "Sumar o restar porcentajes que tienen bases distintas.",
+      "orden": 80
+    },
+    {
+      "codigo": "razones",
+      "categoria": "proporcional",
+      "nombre": "Razones y repartos: contar partes",
+      "cuando": "Dicen «por cada 2 de A hay 3 de B», «en razón 2 a 3», o piden repartir en proporción.",
+      "pasos": [
+        "Convierte la razón en partes: 2 a 3 son 2 partes y 3 partes, 5 en total.",
+        "Halla cuánto vale una parte: total ÷ número de partes.",
+        "Multiplica por las partes de lo que piden.",
+        "Si hay tres cantidades encadenadas, exprésalas todas con la misma unidad de parte."
+      ],
+      "ejemplo": "En un grupo de 40, la razón de mujeres a hombres es 3 a 5.\n\nPartes: 3 + 5 = 8. Cada parte vale 40 ÷ 8 = 5. Mujeres: 3 × 5 = 15. Hombres: 25.",
+      "trampa": "Leer «3 a 5» como «3/5 del total». Las mujeres son 3/8 del grupo, no 3/5.",
+      "orden": 90
+    },
+    {
+      "codigo": "regla3",
+      "categoria": "proporcional",
+      "nombre": "Proporcionalidad directa e inversa",
+      "cuando": "Dos cantidades cambian juntas: más horas, más producción; más obreros, menos días.",
+      "pasos": [
+        "Decide si es directa (las dos suben juntas) o inversa (una sube y la otra baja).",
+        "Directa: reduce a la unidad. ¿Cuánto por 1?",
+        "Inversa: el producto se conserva. Calcula el «trabajo total» (obreros × días) y repártelo.",
+        "Con tres magnitudes, cambia una a la vez."
+      ],
+      "ejemplo": "6 obreros hacen una obra en 10 días. ¿Cuánto tardan 4 obreros?\n\nEs inversa: menos obreros, más días. Trabajo total: 6 × 10 = 60 días de obrero. Con 4 obreros: 60 ÷ 4 = 15 días.",
+      "trampa": "Aplicar regla de tres directa a una relación inversa: daría menos días con menos gente.",
+      "orden": 100
+    },
+    {
+      "codigo": "plantear",
+      "categoria": "proporcional",
+      "nombre": "Plantear: del enunciado a la ecuación",
+      "cuando": "Hay una cantidad desconocida y varias frases que la relacionan con datos: edades, precios, tarifas.",
+      "pasos": [
+        "Ponle una letra a lo que piden.",
+        "Traduce cada frase a una igualdad o una desigualdad, una por una.",
+        "Despeja.",
+        "Vuelve al enunciado con el número que hallaste y comprueba que cumple todas las frases."
+      ],
+      "ejemplo": "Un taxi cobra $4.000 de arranque y $1.000 por kilómetro. ¿Cuántos kilómetros se recorren con $13.000?\n\n4.000 + 1.000k = 13.000. Entonces 1.000k = 9.000 y k = 9 kilómetros.",
+      "trampa": "Responder el valor de la letra cuando piden otra cosa, o leer «a partir de» como «igual a».",
+      "orden": 110
+    },
+    {
+      "codigo": "promedio",
+      "categoria": "proporcional",
+      "nombre": "Promedios: pensar en la suma total",
+      "cuando": "Dan un promedio y agregan, quitan o combinan datos.",
+      "pasos": [
+        "Promedio × cantidad de datos = suma total. Trabaja siempre con la suma.",
+        "Si entra o sale un dato, ajusta la suma y la cantidad, y vuelve a dividir.",
+        "Para juntar dos grupos, suma los totales y divide por el total de personas (promedio ponderado)."
+      ],
+      "ejemplo": "Cuatro notas promedian 3,5. ¿Qué quinta nota sube el promedio a 3,8?\n\nSuma actual: 4 × 3,5 = 14. Suma necesaria: 5 × 3,8 = 19. La quinta nota es 19 − 14 = 5,0.",
+      "trampa": "Promediar los promedios de dos grupos de distinto tamaño como si pesaran igual.",
+      "orden": 120
+    },
+    {
+      "codigo": "conteo",
+      "categoria": "proporcional",
+      "nombre": "Contar sin hacer la lista",
+      "cuando": "Preguntan de cuántas formas se puede elegir, ordenar, combinar o saludar.",
+      "pasos": [
+        "Divide la tarea en decisiones sucesivas y cuenta las opciones de cada una.",
+        "Si las decisiones se encadenan («y»), multiplica.",
+        "¿Importa el orden? Si no importa (parejas, saludos, comités), divide por las veces que cada grupo quedó repetido.",
+        "Parejas entre n elementos: n × (n − 1) ÷ 2."
+      ],
+      "ejemplo": "3 camisas, 2 pantalones y 2 pares de zapatos: 3 × 2 × 2 = 12 combinaciones.\n\n6 personas se dan la mano una vez: cada una saluda a 5, pero cada apretón se contó dos veces. 6 × 5 ÷ 2 = 15.",
+      "trampa": "Sumar donde había que multiplicar, o contar dos veces el mismo par.",
+      "orden": 130
+    },
+    {
+      "codigo": "probabilidad",
+      "categoria": "proporcional",
+      "nombre": "Probabilidad: favorables sobre posibles",
+      "cuando": "Preguntan qué tan probable es un resultado al azar.",
+      "pasos": [
+        "Cuenta todos los resultados posibles, igual de probables.",
+        "Cuenta los que cumplen lo pedido.",
+        "Divide favorables entre posibles y simplifica.",
+        "Si hay dos condiciones a la vez, cuenta solo los casos que cumplen las dos."
+      ],
+      "ejemplo": "Se lanza un dado. ¿Probabilidad de que salga un número par mayor que 2?\n\nPosibles: 6. Favorables: 4 y 6, que son 2. Probabilidad: 2/6 = 1/3.",
+      "trampa": "Contar mal el total de casos posibles, o dar por igual de probables casos que no lo son.",
+      "orden": 140
+    },
+    {
+      "codigo": "tablas",
+      "categoria": "proporcional",
+      "nombre": "Leer cuadros y gráficas",
+      "cuando": "La información viene en un cuadro o en un diagrama de barras y hay que comparar o sacar porcentajes.",
+      "pasos": [
+        "Antes de mirar las opciones, lee títulos, ejes y unidades: ¿qué cuenta cada número?",
+        "Si piden un porcentaje o una proporción, identifica el total que sirve de base: toda la tabla, una fila o una columna.",
+        "Suma lo que haga falta y escribe la fracción parte/total.",
+        "Si se trata de comparar para sacar una conclusión, fíjate qué cambia y qué se deja fijo."
+      ],
+      "ejemplo": "Notas de un grupo: 4 estudiantes sacaron 3, 10 sacaron 4 y 6 sacaron 5.\n\nTotal: 20 estudiantes. Porcentaje con 5: 6/20 = 30 %. La nota más frecuente es 4, que no es la más alta.",
+      "trampa": "Confundir cantidad con proporción, o el valor más frecuente con el más alto.",
+      "orden": 150
+    },
+    {
+      "codigo": "series",
+      "categoria": "abstracto",
+      "nombre": "Series: mirar los saltos",
+      "cuando": "Piden el término que sigue, o un término lejano, en una secuencia de números.",
+      "pasos": [
+        "Escribe debajo las diferencias entre términos vecinos.",
+        "Si las diferencias son constantes o siguen su propio patrón, continúalo.",
+        "Si no, prueba cocientes (se multiplica por algo) o dos series intercaladas: posiciones pares e impares.",
+        "Comprueba la regla con todos los términos dados antes de usarla."
+      ],
+      "ejemplo": "2, 5, 10, 17, 26, …\n\nDiferencias: 3, 5, 7, 9. Crecen de 2 en 2, así que la siguiente es 11. Término siguiente: 26 + 11 = 37.",
+      "trampa": "Quedarse con la primera regla que funciona para dos términos sin comprobarla con los demás.",
+      "orden": 160
+    },
+    {
+      "codigo": "operadores",
+      "categoria": "abstracto",
+      "nombre": "Operadores inventados: obedecer la definición",
+      "cuando": "Definen un símbolo nuevo (a ★ b = …) y piden calcular con él.",
+      "pasos": [
+        "Copia la definición y marca quién es el primero y quién el segundo.",
+        "Reemplaza con paréntesis, en el mismo orden: el orden casi nunca se puede cambiar.",
+        "Si hay operaciones anidadas, resuelve primero la de adentro.",
+        "Aplica la jerarquía normal: potencias, luego multiplicación, luego suma y resta."
+      ],
+      "ejemplo": "Si a ★ b = 2a − b, calcula (3 ★ 1) ★ 4.\n\nAdentro: 3 ★ 1 = 2·3 − 1 = 5. Luego 5 ★ 4 = 2·5 − 4 = 6.",
+      "trampa": "Tratar el símbolo como si fuera una suma: cambiar el orden o repartir sin que la definición lo permita.",
+      "orden": 170
+    },
+    {
+      "codigo": "ciclos",
+      "categoria": "abstracto",
+      "nombre": "Ciclos: lo que se repite se resuelve con el residuo",
+      "cuando": "Algo se repite en orden (días de la semana, un semáforo, un patrón de colores) y preguntan por una posición lejana.",
+      "pasos": [
+        "Halla la longitud del ciclo: cada cuántos pasos se repite.",
+        "Divide la posición pedida por esa longitud y quédate con el residuo.",
+        "El residuo dice en qué lugar del ciclo cae. Residuo 0 es el último del ciclo.",
+        "Cuidado con el punto de partida: ¿el primero cuenta como posición 1 o como 0?"
+      ],
+      "ejemplo": "Hoy es martes. ¿Qué día será dentro de 100 días?\n\nEl ciclo es de 7. 100 ÷ 7 = 14 y sobran 2. Dos días después del martes: jueves.",
+      "trampa": "Contar el punto de partida como el primer paso y quedar corrida un lugar.",
+      "orden": 180
+    },
+    {
+      "codigo": "claves",
+      "categoria": "abstracto",
+      "nombre": "Claves: encontrar la regla del código",
+      "cuando": "Las palabras se cifran con números o con otras letras y piden cifrar o descifrar.",
+      "pasos": [
+        "Compara la palabra original con su código, letra por letra.",
+        "Busca la regla más simple: posición en el abecedario, un corrimiento fijo, un orden invertido.",
+        "Comprueba la regla con todas las letras del ejemplo, no solo con la primera.",
+        "Aplícala en el sentido correcto: cifrar no es lo mismo que descifrar."
+      ],
+      "ejemplo": "Si SOL se escribe TPM, ¿cómo se escribe MAR?\n\nS→T, O→P, L→M: cada letra avanza un lugar. MAR se escribe NBS.",
+      "trampa": "Aplicar la regla al revés: retroceder cuando había que avanzar.",
+      "orden": 190
+    },
+    {
+      "codigo": "figuras",
+      "categoria": "abstracto",
+      "nombre": "Secuencias de figuras: de la posición a la fórmula",
+      "cuando": "Una figura crece paso a paso (puntos, palillos, baldosas) y preguntan por un paso lejano.",
+      "pasos": [
+        "Cuenta los elementos de las primeras figuras y ponlos en una lista junto a su número de figura.",
+        "Mira cuánto aumenta de una a la siguiente.",
+        "Si aumenta siempre lo mismo (d), la figura n tiene: primer valor + d × (n − 1). Si el aumento también crece, sigue sumando aumentos o busca un producto.",
+        "Comprueba la fórmula con la figura 2 o la 3 antes de usarla."
+      ],
+      "ejemplo": "Con palillos se arman cuadrados pegados en fila: 1 cuadrado usa 4, 2 usan 7, 3 usan 10.\n\nCada cuadrado nuevo agrega 3. Para n cuadrados: 4 + 3(n − 1) = 3n + 1. Para 20 cuadrados: 61 palillos.",
+      "trampa": "Multiplicar el primer valor por n (4 × 20 = 80), olvidando que las piezas compartidas no se repiten.",
+      "orden": 200
+    },
+    {
+      "codigo": "areas",
+      "categoria": "geometrico",
+      "nombre": "Áreas sombreadas: armar, restar o reacomodar",
+      "cuando": "Piden el área de una región que no es una figura simple.",
+      "pasos": [
+        "Busca la figura grande y lo que le falta: área pedida = total − lo que sobra.",
+        "O parte la región en rectángulos y triángulos y súmalos.",
+        "Si hay piezas que encajan en los huecos, muévelas mentalmente: el área no cambia.",
+        "Rectángulo: base × altura. Triángulo: base × altura ÷ 2. Círculo: π × r²."
+      ],
+      "ejemplo": "Un cuadrado de lado 4 tiene dentro un círculo de radio 2. ¿Cuánto mide la región fuera del círculo?\n\nCuadrado: 16. Círculo: π·2² = 4π. Región: 16 − 4π.",
+      "trampa": "Usar el diámetro donde va el radio, u olvidar dividir entre 2 en el triángulo.",
+      "orden": 210
+    },
+    {
+      "codigo": "perimetro",
+      "categoria": "geometrico",
+      "nombre": "Perímetro: el borde, no el relleno",
+      "cuando": "Preguntan por cercas, marcos, bordes o el contorno de una figura compuesta.",
+      "pasos": [
+        "Recorre el borde con el dedo y anota cada tramo una sola vez.",
+        "Los lados que quedan por dentro, donde dos piezas se tocan, no cuentan.",
+        "En figuras en escalera, los tramos horizontales suman el ancho total y los verticales el alto total.",
+        "Circunferencia: 2 × π × r, o π × diámetro."
+      ],
+      "ejemplo": "Dos cuadrados de lado 3 se pegan por un lado y forman un rectángulo de 6 por 3.\n\nPerímetro: 2 × (6 + 3) = 18. No es 24: los dos lados pegados quedaron adentro.",
+      "trampa": "Sumar los perímetros de las piezas sin descontar los lados compartidos, o confundir perímetro con área.",
+      "orden": 220
+    },
+    {
+      "codigo": "escala",
+      "categoria": "geometrico",
+      "nombre": "Escalas: longitud, área y volumen no crecen igual",
+      "cuando": "Una figura se agranda o se reduce y preguntan qué pasa con su área, su volumen, su peso o su precio.",
+      "pasos": [
+        "Halla el factor k por el que se multiplican las longitudes.",
+        "Las áreas se multiplican por k².",
+        "Los volúmenes (y los pesos, si el material es el mismo) se multiplican por k³.",
+        "Si solo cambia una dimensión, solo esa entra en la cuenta."
+      ],
+      "ejemplo": "Se duplica el lado de un cubo. El área de cada cara se multiplica por 2² = 4 y el volumen por 2³ = 8.",
+      "trampa": "Creer que si el lado se duplica, el área y el volumen también se duplican.",
+      "orden": 230
+    },
+    {
+      "codigo": "volumen",
+      "categoria": "geometrico",
+      "nombre": "Volúmenes y cubos que no se ven",
+      "cuando": "Hay cajas, tanques, vasos o arreglos de cubos.",
+      "pasos": [
+        "Caja: largo × ancho × alto. Cilindro: π × r² × altura.",
+        "En arreglos de cubos, cuenta por columnas o por capas, no por lo que se ve.",
+        "Para saber cuántos caben, divide cada dimensión por separado y multiplica los resultados.",
+        "Si entra líquido, la altura que sube es el volumen dividido por el área de la base."
+      ],
+      "ejemplo": "Una caja de 30 × 20 × 10 cm se llena con cubos de 5 cm de arista.\n\nCaben 6 a lo largo, 4 a lo ancho y 2 a lo alto: 6 × 4 × 2 = 48 cubos.",
+      "trampa": "Contar solo los cubos visibles, o sumar las dimensiones en lugar de multiplicarlas.",
+      "orden": 240
+    },
+    {
+      "codigo": "vistas",
+      "categoria": "geometrico",
+      "nombre": "Vistas, giros, reflejos y dobleces",
+      "cuando": "Piden cómo se ve un objeto desde otro lado, o cómo queda una figura al girarla, reflejarla o doblarla.",
+      "pasos": [
+        "Vista desde arriba: importa dónde hay columnas, no su altura.",
+        "Vista de frente o de lado: de cada fila se ve la columna más alta.",
+        "Giros: súmalos con signo. Los que van en sentido contrario se restan.",
+        "Reflejo en un espejo vertical: izquierda y derecha se intercambian; arriba y abajo no."
+      ],
+      "ejemplo": "Tres columnas de cubos en fila, de alturas 1, 3 y 2.\n\nDesde arriba se ven 3 cuadrados en fila. Desde un extremo de la fila se ve una sola columna de altura 3: la más alta tapa a las demás.",
+      "trampa": "Confundir un giro con un reflejo: al girar, la figura no se «voltea».",
+      "orden": 250
+    },
+    {
+      "codigo": "triangulos",
+      "categoria": "geometrico",
+      "nombre": "Triángulos: Pitágoras y semejanza",
+      "cuando": "Hay un ángulo recto y falta un lado, o dos triángulos con la misma forma y distinto tamaño (sombras, escaleras, planos).",
+      "pasos": [
+        "Triángulo rectángulo: cateto² + cateto² = hipotenusa². La hipotenusa es el lado opuesto al ángulo recto y siempre es el más largo.",
+        "Ternas que conviene reconocer: 3-4-5, 6-8-10, 9-12-15, 5-12-13.",
+        "Triángulos semejantes: los lados correspondientes guardan la misma razón.",
+        "Arma la proporción con lados que se correspondan: altura con altura, sombra con sombra."
+      ],
+      "ejemplo": "Un poste de 2 m da una sombra de 3 m. A la misma hora, un edificio da una sombra de 18 m.\n\n2/3 = h/18, así que h = 12 m.",
+      "trampa": "Sumar los catetos para hallar la hipotenusa, o cruzar la proporción: altura de uno con sombra del otro.",
+      "orden": 260
+    }
+  ],
+  "insignias": [
+    {
+      "codigo": "log-primera",
+      "nombre": "Primera pieza",
+      "descripcion": "Respondiste tu primera pregunta de lógica.",
+      "icono": "🧩",
+      "color": "cian",
+      "orden": 200,
+      "regla": {
+        "tipo": "respuestas",
+        "valor": 1,
+        "componente": "logica"
+      }
+    },
+    {
+      "codigo": "log-aciertos-50",
+      "nombre": "50 en lógica",
+      "descripcion": "Llevas 50 respuestas correctas de lógica.",
+      "icono": "🎯",
+      "color": "amarillo",
+      "orden": 201,
+      "regla": {
+        "tipo": "aciertos",
+        "valor": 50,
+        "componente": "logica"
+      }
+    },
+    {
+      "codigo": "log-aciertos-200",
+      "nombre": "200 en lógica",
+      "descripcion": "Llevas 200 respuestas correctas de lógica.",
+      "icono": "🥇",
+      "color": "amarillo",
+      "orden": 202,
+      "regla": {
+        "tipo": "aciertos",
+        "valor": 200,
+        "componente": "logica"
+      }
+    },
+    {
+      "codigo": "log-retos-10",
+      "nombre": "Diez riffs",
+      "descripcion": "Terminaste 10 retos de lógica.",
+      "icono": "🎸",
+      "color": "cian",
+      "orden": 210,
+      "regla": {
+        "tipo": "retos",
+        "valor": 10,
+        "componente": "logica"
+      }
+    },
+    {
+      "codigo": "log-solo-perfecto",
+      "nombre": "Solo limpio",
+      "descripcion": "Un reto de lógica de 10 preguntas sin un solo error.",
+      "icono": "🎼",
+      "color": "menta",
+      "orden": 211,
+      "regla": {
+        "tipo": "reto_perfecto",
+        "valor": 10,
+        "componente": "logica"
+      }
+    },
+    {
+      "codigo": "log-recuperadas-5",
+      "nombre": "Error corregido",
+      "descripcion": "Cinco preguntas de lógica que fallaste y después respondiste bien.",
+      "icono": "🔧",
+      "color": "menta",
+      "orden": 220,
+      "regla": {
+        "tipo": "recuperadas",
+        "valor": 5,
+        "componente": "logica"
+      }
+    },
+    {
+      "codigo": "log-recuperadas-25",
+      "nombre": "Taller de reparación",
+      "descripcion": "Veinticinco errores de lógica corregidos.",
+      "icono": "🛠️",
+      "color": "menta",
+      "orden": 221,
+      "regla": {
+        "tipo": "recuperadas",
+        "valor": 25,
+        "componente": "logica"
+      }
+    },
+    {
+      "codigo": "log-tecnicas-5",
+      "nombre": "Caja de herramientas",
+      "descripcion": "Cinco técnicas dominadas: tres aciertos o más en cada una.",
+      "icono": "🧰",
+      "color": "cian",
+      "orden": 230,
+      "regla": {
+        "tipo": "tecnicas",
+        "valor": 5,
+        "minimo": 3
+      }
+    },
+    {
+      "codigo": "log-tecnicas-15",
+      "nombre": "Manos expertas",
+      "descripcion": "Quince técnicas dominadas.",
+      "icono": "🪛",
+      "color": "cian",
+      "orden": 231,
+      "regla": {
+        "tipo": "tecnicas",
+        "valor": 15,
+        "minimo": 3
+      }
+    },
+    {
+      "codigo": "dominio-deductivo",
+      "nombre": "Detective",
+      "descripcion": "Dominio de 80 en deducción.",
+      "icono": "🕵️",
+      "color": "violeta",
+      "orden": 240,
+      "regla": {
+        "tipo": "dominio",
+        "categoria": "deductivo",
+        "valor": 80
+      }
+    },
+    {
+      "codigo": "dominio-proporcional",
+      "nombre": "Justa medida",
+      "descripcion": "Dominio de 80 en proporciones y conteo.",
+      "icono": "📊",
+      "color": "amarillo",
+      "orden": 241,
+      "regla": {
+        "tipo": "dominio",
+        "categoria": "proporcional",
+        "valor": 80
+      }
+    },
+    {
+      "codigo": "dominio-abstracto",
+      "nombre": "Descifradora",
+      "descripcion": "Dominio de 80 en patrones.",
+      "icono": "🔐",
+      "color": "rosa",
+      "orden": 242,
+      "regla": {
+        "tipo": "dominio",
+        "categoria": "abstracto",
+        "valor": 80
+      }
+    },
+    {
+      "codigo": "dominio-geometrico",
+      "nombre": "Ojo de arquitecta",
+      "descripcion": "Dominio de 80 en geometría.",
+      "icono": "📐",
+      "color": "menta",
+      "orden": 243,
+      "regla": {
+        "tipo": "dominio",
+        "categoria": "geometrico",
+        "valor": 80
+      }
+    },
+    {
+      "codigo": "log-sim-inicial",
+      "nombre": "Primer simulacro lógico",
+      "descripcion": "Terminaste un simulacro inicial de lógica.",
+      "icono": "🧮",
+      "color": "violeta",
+      "orden": 250,
+      "regla": {
+        "tipo": "simulacro",
+        "nivel": "inicial",
+        "valor": 0,
+        "componente": "logica"
+      }
+    },
+    {
+      "codigo": "log-sim-avanzado-70",
+      "nombre": "Lógica al 70",
+      "descripcion": "70 % o más en un simulacro avanzado de lógica.",
+      "icono": "🎛️",
+      "color": "violeta",
+      "orden": 251,
+      "regla": {
+        "tipo": "simulacro",
+        "nivel": "avanzado",
+        "valor": 70,
+        "componente": "logica"
+      }
+    },
+    {
+      "codigo": "log-sim-experto-80",
+      "nombre": "Contrarreloj",
+      "descripcion": "80 % o más en un simulacro experto de lógica.",
+      "icono": "⏳",
+      "color": "violeta",
+      "orden": 252,
+      "regla": {
+        "tipo": "simulacro",
+        "nivel": "experto",
+        "valor": 80,
+        "componente": "logica"
+      }
+    }
+  ]
+}

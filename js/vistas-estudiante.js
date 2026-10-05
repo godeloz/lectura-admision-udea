@@ -1,26 +1,37 @@
 /* =====================================================================
    ENTRELÍNEAS · VISTAS DE LA ESTUDIANTE
+   Las pantallas que comparten los dos componentes (Lectura y Lógica):
+   portada, mensajes, reto, simulacro, diagnóstico y perfil.
+   Lo propio de Lógica (caja de herramientas y cuaderno de errores)
+   está en vistas-logica.js.
    ===================================================================== */
 (function (LE) {
   const { esc, $, $$ } = LE;
   const A = LE.acciones;
+  const rutaDe = (comp) => LE.COMP[comp === "logica" ? "logica" : "lectura"].ruta;
 
   // =================================================================
-  //  INICIO
+  //  PORTADA DE UN COMPONENTE (#/inicio es Lectura; #/logica es Lógica)
   // =================================================================
-  LE.ruta("/inicio", async () => {
+  LE.portada = async (comp) => {
     LE.cargando();
-    const [r, msgs] = await Promise.all([LE.api.resumen(), LE.api.mensajes()]);
+    LE.compActual(comp);
+    const logica = comp === "logica";
+    const [r, msgs, cua] = await Promise.all([LE.api.resumen(), LE.api.mensajes(), logica ? LE.api.cuaderno("logica") : null]);
     LE.estado.perfil = r.perfil;
     LE.actualizarPunto(msgs);
     const c = LE.estado.config;
     const pendientes = msgs.filter((m) => !m.leido || (m.tipo === "mision" && !m.completado));
     const nombre = esc((r.perfil.nombre || "").split(" ")[0]);
-    const retos = c.retos?.opciones || [];
-    const debil = [...(r.dominio || [])].sort((a, b) => a.dominio - b.dominio)[0];
+    const retos = LE.cfgDe("retos", comp)?.opciones || [];
+    const dominio = (logica ? r.dominio_logica : r.dominio) || [];
+    const hechas = r.por_componente?.[comp]?.respuestas ?? (logica ? 0 : r.totales.respuestas);
+    const debil = [...dominio].sort((a, b) => a.dominio - b.dominio)[0];
+    const sims = (r.simulacros || []).filter((x) => (x.componente || "lectura") === comp);
+    const niveles = LE.cfgDe("simulacros", comp) || {};
 
     LE.montar(`
-      <div class="rejilla inicio">
+      <div class="rejilla inicio comp-${comp}">
         <div class="pila" style="--pila:1.25rem">
           <section class="panel saludo">
             <div class="fila">
@@ -45,34 +56,39 @@
           </section>` : ""}
 
           <section class="panel">
-            <div class="titulo-seccion"><h2>Reto de hoy</h2><span class="sub pequeno">Elige cuánto tiempo tienes</span></div>
+            <div class="titulo-seccion"><h2>${logica ? "Reto de lógica" : LE.logicaActiva() ? "Reto de lectura" : "Reto de hoy"}</h2><span class="sub pequeno">Elige cuánto tiempo tienes</span></div>
             <div class="tracklist">
               ${retos.map((o) => `
-                <button class="track" data-accion="reto" data-n="${o.n}">
+                <button class="track" data-accion="reto" data-n="${o.n}" data-comp="${comp}">
                   <span class="n">${o.n}<small>preguntas</small></span>
                   <span><strong>${esc(o.nombre)}</strong><span class="sub pequeno">${esc(o.descripcion)} Unos ${o.minutos} min.</span></span>
                   <span class="play" aria-hidden="true">▶</span>
                 </button>`).join("")}
             </div>
+            ${logica ? `<p class="tenue pequeno" style="margin-top:.8rem">Ten a mano papel y lápiz: en el examen no hay calculadora. Si te trabas, pide la pista.</p>` : ""}
           </section>
+
+          ${logica ? LE.panelAprender(cua) : ""}
         </div>
 
         <div class="pila" style="--pila:1.25rem">
           <section class="panel">
-            <div class="titulo-seccion"><h2>Tu ecualizador</h2><span class="sub pequeno">Dominio de 0 a 100</span></div>
-            ${LE.ecualizador(r.dominio, { vivo: true })}
-            ${debil && r.totales.respuestas >= 8 ? `
+            <div class="titulo-seccion"><h2>${logica ? "Tu ecualizador lógico" : "Tu ecualizador"}</h2><span class="sub pequeno">Dominio de 0 a 100</span></div>
+            ${LE.ecualizador(dominio, { vivo: true, cats: LE.COMP[comp].cats })}
+            ${debil && hechas >= 8 ? `
               <p class="sub pequeno" style="margin-top:1rem">Tu nivel más bajo ahora es <b style="color:var(--texto)">${esc(LE.cat(debil.categoria).nombre)}</b>: ${esc(LE.cat(debil.categoria).descripcion.toLowerCase())}</p>
-              <button class="btn sec chico" style="margin-top:.8rem" data-accion="reto" data-n="5" data-cat="${debil.categoria}">Practicar 5 de ${esc(LE.cat(debil.categoria).nombre.toLowerCase())}</button>` : ""}
+              <button class="btn sec chico" style="margin-top:.8rem" data-accion="reto" data-n="5" data-cat="${debil.categoria}" data-comp="${comp}">Practicar 5 de ${esc(LE.cat(debil.categoria).nombre.toLowerCase())}</button>` : ""}
           </section>
           <section class="panel">
-            <div class="titulo-seccion"><h2>Simulacro</h2></div>
-            <p class="sub">${r.simulacros.length ? `Último: <b style="color:var(--texto)">${r.simulacros[0].puntaje}%</b> en nivel ${esc(c.simulacros?.[r.simulacros[0].nivel]?.nombre || r.simulacros[0].nivel)}, ${esc(LE.hace(r.simulacros[0].fecha))}.` : "Todavía no has hecho ninguno. El inicial te da tu punto de partida."}</p>
+            <div class="titulo-seccion"><h2>${logica ? "Simulacro de lógica" : "Simulacro"}</h2></div>
+            <p class="sub">${sims.length ? `Último: <b style="color:var(--texto)">${sims[0].puntaje}%</b> en nivel ${esc(niveles[sims[0].nivel]?.nombre || sims[0].nivel)}, ${esc(LE.hace(sims[0].fecha))}.` : "Todavía no has hecho ninguno. El inicial te da tu punto de partida."}</p>
             <a class="btn sec" href="#/simulacro" style="margin-top:1rem">Ver niveles de simulacro</a>
           </section>
         </div>
       </div>`);
-  }, { estudiante: true });
+  };
+
+  LE.ruta("/inicio", () => LE.portada("lectura"), { estudiante: true });
 
   function saludoDia(r) {
     if (r.minutos_hoy >= 20) return "Ya cumpliste tu práctica de hoy. Todo lo que sumes es extra.";
@@ -83,7 +99,9 @@
 
   function tarjetaMensaje(m) {
     const cat = m.mision?.categoria;
+    const comp = m.mision?.componente || (cat ? LE.compDe(cat) : "lectura");
     const tipo = m.tipo === "mision" ? "Misión" : m.tipo === "comentario" ? "Sobre una pregunta" : "Mensaje";
+    const de = cat ? " de " + esc(LE.cat(cat).nombre.toLowerCase()) : comp === "logica" ? " de lógica" : "";
     return `<article class="mensaje ${m.tipo}">
       <span class="de">${tipo} · ${esc(LE.hace(m.creado))}${!m.leido ? '<span class="nuevo">nuevo</span>' : ""}</span>
       <h3>${esc(m.titulo)}</h3>
@@ -91,7 +109,7 @@
       ${m.tipo === "comentario" && m.mision?.cita ? `<div class="cita">«${esc(m.mision.cita)}»${m.mision.correcta ? `<br><span class="pequeno">Respuesta correcta: ${esc(m.mision.correcta)}</span>` : ""}</div>` : ""}
       ${m.tipo === "mision" ? (m.completado
         ? `<p class="hecho" style="margin-top:.6rem">✓ Misión cumplida</p>`
-        : `<button class="btn chico" style="margin-top:.8rem" data-accion="mision" data-id="${m.id}" data-n="${m.mision?.n || 10}" data-cat="${cat || ""}">Empezar misión: ${m.mision?.n || 10} preguntas${cat ? " de " + esc(LE.cat(cat).nombre.toLowerCase()) : ""}</button>`)
+        : `<button class="btn chico" style="margin-top:.8rem" data-accion="mision" data-id="${m.id}" data-n="${m.mision?.n || 10}" data-cat="${cat || ""}" data-comp="${comp}">Empezar misión: ${m.mision?.n || 10} preguntas${de}</button>`)
         : !m.leido ? `<button class="enlace pequeno" style="margin-top:.6rem;display:block" data-accion="leido" data-id="${m.id}">Marcar como leído</button>` : ""}
     </article>`;
   }
@@ -120,31 +138,49 @@
   }, { estudiante: true });
 
   // =================================================================
-  //  RETO (y misión)
+  //  RETO (y misión). Un reto es de un solo componente.
   // =================================================================
-  A.reto = (b) => empezarReto(+b.dataset.n, b.dataset.cat || null, null, b);
-  A.mision = (b) => { LE.api.marcarLeido(b.dataset.id).then(() => LE.actualizarPunto()); empezarReto(+b.dataset.n, b.dataset.cat || null, b.dataset.id, b); };
+  A.reto = (b) => LE.empezarReto({ n: +b.dataset.n, cat: b.dataset.cat || null, comp: b.dataset.comp || null, tema: b.dataset.tema || null, boton: b });
+  A.mision = (b) => { LE.api.marcarLeido(b.dataset.id).then(() => LE.actualizarPunto()); LE.empezarReto({ n: +b.dataset.n, cat: b.dataset.cat || null, comp: b.dataset.comp || null, mensajeId: b.dataset.id, boton: b }); };
 
-  async function empezarReto(n, cat, mensajeId, boton) {
+  LE.empezarReto = async ({ n, cat = null, comp = null, tema = null, mensajeId = null, boton = null }) => {
     if (boton) boton.disabled = true;
     try {
-      const datos = await LE.api.iniciarReto(n, cat, mensajeId);
-      LE.estado.sesion = { datos, i: 0, marcas: [], xp: 0, sel: null, respondida: null, t0: performance.now(), mision: !!mensajeId, cat };
+      const datos = await LE.api.iniciarReto(n, cat, mensajeId, comp, tema);
+      const c = datos.componente || (cat ? LE.compDe(cat) : comp) || "lectura";
+      LE.estado.sesion = { datos, i: 0, marcas: [], reg: [], xp: 0, sel: null, respondida: null, pista: false, t0: performance.now(), mision: !!mensajeId, cat, comp: c, tema, n };
       LE.ir("#/reto");
     } catch (e) { LE.error(e); if (boton) boton.disabled = false; }
-  }
+  };
 
   LE.ruta("/reto", () => {
     const s = LE.estado.sesion;
-    if (!s || !s.datos?.preguntas) return LE.ir("#/inicio");
+    if (!s || !s.datos?.preguntas) return LE.ir(LE.inicioPorRol());
     if (s.final) return pintarFinal();
     pintarPregunta();
   }, { sesion: true, estudiante: true });
 
+  // Enunciado y figura. En lógica el enunciado admite listas, cuadros y negritas.
+  const enunciadoHTML = (p) => (p.componente === "logica"
+    ? `<div class="enunciado md">${LE.md(p.enunciado)}</div>${LE.figura(p.figura)}`
+    : `<p class="enunciado">${esc(p.enunciado)}</p>`);
+
+  // Lo que aparece tras responder. En lógica: qué error fue, la solución paso
+  // a paso y la ficha de la técnica. En lectura: la explicación.
+  const retroHTML = (p, r) => `<div class="retro ${r.correcta ? "bien" : "malo"}" role="status">
+      <strong>${r.correcta ? "Correcto" : "La respuesta era la " + LE.LETRAS[r.opcion_correcta]} · +${r.xp} XP</strong>
+      ${p.componente === "logica" ? `
+        ${LE.diagnosticoError(r.error)}
+        ${LE.pasosHTML(r.pasos, { abierto: !r.correcta, titulo: r.correcta ? "Compara tu camino con la solución paso a paso" : "Solución paso a paso" })}
+        ${r.explicacion ? `<p class="idea">${esc(r.explicacion)}</p>` : ""}
+        ${LE.enlaceTecnica(r.tema)}` : `<p>${esc(r.explicacion)}</p>`}
+    </div>`;
+
   function pintarPregunta() {
     const s = LE.estado.sesion;
     const p = s.datos.preguntas[s.i];
-    const t = s.datos.textos[p.texto_id];
+    const t = p.texto_id ? s.datos.textos[p.texto_id] : null;
+    const logica = p.componente === "logica";
     const total = s.datos.preguntas.length;
     const r = s.respondida;
     const mismaLectura = s.i > 0 && s.datos.preguntas[s.i - 1].texto_id === p.texto_id;
@@ -156,11 +192,11 @@
         </div>
         <span class="xp-vivo" aria-live="polite">+${s.xp} XP</span>
       </div>
-      <div class="juego">
-        <div>${LE.lecturaHTML(t, !mismaLectura)}</div>
+      <div class="juego ${t ? "" : "solo"}">
+        ${t ? `<div>${LE.lecturaHTML(t, logica ? false : !mismaLectura)}</div>` : ""}
         <section class="pregunta cr-${p.categoria}">
           <div class="meta"><span class="etq">${esc(LE.cat(p.categoria).nombre)}</span><span class="dif" title="Dificultad ${p.dificultad} de 3">${"●".repeat(p.dificultad)}${"○".repeat(3 - p.dificultad)}</span><span class="tenue">Pregunta ${s.i + 1} de ${total}</span></div>
-          <p class="enunciado">${esc(p.enunciado)}</p>
+          ${enunciadoHTML(p)}
           <div class="opciones" role="radiogroup">
             ${p.opciones.map((o, k) => {
               let cls = "";
@@ -169,12 +205,13 @@
               return `<button class="opcion ${cls}" role="radio" aria-checked="${k === s.sel}" data-accion="elegir" data-k="${k}" ${r ? "disabled" : ""}><span class="letra">${LE.LETRAS[k]}</span><span>${esc(o)}</span></button>`;
             }).join("")}
           </div>
-          ${r ? `<div class="retro ${r.correcta ? "bien" : "malo"}" role="status">
-              <strong>${r.correcta ? "Correcto" : "La respuesta era la " + LE.LETRAS[r.opcion_correcta]} · +${r.xp} XP</strong>
-              <p>${esc(r.explicacion)}</p>
-            </div>
+          ${r ? `${retroHTML(p, r)}
             <div class="acciones"><button class="btn" data-accion="siguiente" id="btn-sig">${s.i + 1 < total ? "Siguiente pregunta" : "Ver resultado"}</button></div>`
-          : `<div class="acciones"><button class="btn" data-accion="confirmar" ${s.sel == null ? "disabled" : ""}>Confirmar respuesta</button></div>`}
+          : `${s.pista && p.pista ? `<div class="pista-caja" role="note"><b>Pista</b><p>${esc(p.pista)}</p></div>` : ""}
+            <div class="acciones ${logica && p.pista ? "entre" : ""}">
+              ${logica && p.pista ? (s.pista ? `<span class="tenue pequeno">Con pista no hay bono de ritmo; el acierto vale igual.</span>` : `<button class="btn suave chico" data-accion="pedirPista">Pedir una pista</button>`) : ""}
+              <button class="btn" data-accion="confirmar" ${s.sel == null ? "disabled" : ""}>Confirmar respuesta</button>
+            </div>`}
         </section>
       </div>`);
     if (r) $("#btn-sig")?.focus();
@@ -188,14 +225,22 @@
     $('[data-accion="confirmar"]').disabled = false;
   };
 
+  A.pedirPista = () => {
+    const s = LE.estado.sesion;
+    if (!s || s.respondida) return;
+    s.pista = true;
+    pintarPregunta();
+  };
+
   A.confirmar = async (b) => {
     const s = LE.estado.sesion;
     if (s.sel == null || s.respondida) return;
     b.disabled = true;
     try {
       const p = s.datos.preguntas[s.i];
-      const r = await LE.api.responder(s.datos.sesion_id, p.id, s.sel, performance.now() - s.t0);
+      const r = await LE.api.responder(s.datos.sesion_id, p.id, s.sel, performance.now() - s.t0, s.pista);
       s.respondida = r; s.marcas.push(r.correcta); s.xp += r.xp;
+      s.reg.push({ ok: r.correcta, tema: r.tema || null, tipo: r.error?.tipo || null });
       pintarPregunta();
       window.scrollTo({ top: document.querySelector(".retro").getBoundingClientRect().top + scrollY - 120, behavior: "smooth" });
     } catch (e) { LE.error(e); b.disabled = false; }
@@ -204,7 +249,7 @@
   A.siguiente = async (b) => {
     const s = LE.estado.sesion;
     if (s.i + 1 < s.datos.preguntas.length) {
-      s.i++; s.sel = null; s.respondida = null; s.t0 = performance.now();
+      s.i++; s.sel = null; s.respondida = null; s.pista = false; s.t0 = performance.now();
       pintarPregunta();
     } else {
       b.disabled = true;
@@ -216,7 +261,7 @@
     const s = LE.estado.sesion;
     const ok = await LE.confirmar("¿Terminar el reto ahora?", `Llevas ${s.marcas.length} de ${s.datos.preguntas.length} preguntas. Se guarda lo que respondiste, pero el bono por reto completo solo llega si terminas.`, "Terminar ahora", "Seguir");
     if (!ok) return;
-    if (!s.marcas.length) { LE.estado.sesion = null; return LE.ir("#/inicio"); }
+    if (!s.marcas.length) { LE.estado.sesion = null; return LE.ir(rutaDe(s.comp)); }
     await terminarReto();
   };
 
@@ -230,17 +275,37 @@
     } catch (e) { LE.error(e); }
   }
 
+  // En lógica, el cierre de un reto dice qué técnicas repasar y cómo fueron los errores.
+  function repasoLogica(s) {
+    const fallos = s.reg.filter((x) => !x.ok);
+    if (!fallos.length) return "";
+    const porTema = {}, porTipo = {};
+    fallos.forEach((x) => { if (x.tema) porTema[x.tema] = (porTema[x.tema] || 0) + 1; if (x.tipo) porTipo[x.tipo] = (porTipo[x.tipo] || 0) + 1; });
+    const temas = Object.entries(porTema).map(([cod, n]) => ({ t: LE.tecnica(cod), cod, n })).filter((x) => x.t).sort((a, b) => b.n - a.n);
+    return `<section class="panel pila" style="--pila:.9rem">
+      <div class="titulo-seccion" style="margin-bottom:0"><h2>Para repasar</h2><a href="#/logica/errores" class="pequeno" data-accion="soltarSesion">Abrir mi cuaderno de errores</a></div>
+      <p class="sub pequeno">Las que fallaste quedaron en tu cuaderno de errores y volverán en los próximos retos. Antes de eso, mira la técnica.</p>
+      ${temas.map((x) => `<div class="repaso-fila">
+        <span><b>${esc(x.t.nombre)}</b><span class="tenue pequeno"> · ${x.n} ${x.n === 1 ? "fallo" : "fallos"}</span></span>
+        <span class="fila"><button class="btn suave chico" data-accion="verTecnica" data-cod="${esc(x.cod)}">Ver ficha</button><button class="btn sec chico" data-accion="reto" data-n="5" data-tema="${esc(x.cod)}" data-comp="logica">Practicar</button></span>
+      </div>`).join("")}
+      ${Object.keys(porTipo).length ? `<div><p class="sub pequeno" style="margin-bottom:.5rem">Cómo fueron los errores de este reto</p>${LE.perfilErrores(porTipo)}</div>` : ""}
+    </section>`;
+  }
+
   function pintarFinal() {
     const s = LE.estado.sesion, f = s.final;
+    const logica = s.comp === "logica";
+    const repaso = s.tema === "@errores";
     const pct = f.total ? f.correctas / f.total : 0;
-    const frase = pct === 1 ? "Perfecto. Ni una sola equivocación." : pct >= 0.8 ? "Muy buen ritmo." : pct >= 0.5 ? "Vas bien. Revisa las explicaciones de las que fallaste." : "Hoy costó. Las preguntas falladas volverán en unos días para que las domines.";
+    const frase = pct === 1 ? "Perfecto. Ni una sola equivocación." : pct >= 0.8 ? "Muy buen ritmo." : pct >= 0.5 ? (logica ? "Vas bien. Repasa la solución de las que fallaste." : "Vas bien. Revisa las explicaciones de las que fallaste.") : "Hoy costó. Las preguntas falladas volverán en unos días para que las domines.";
     const porCat = {};
     s.datos.preguntas.forEach((p, k) => { if (k < s.marcas.length) { const c = (porCat[p.categoria] ||= [0, 0]); c[1]++; if (s.marcas[k]) c[0]++; } });
     LE.montar(`
-      <div class="pila" style="max-width:40rem;margin:0 auto;--pila:1.25rem">
+      <div class="pila comp-${s.comp}" style="max-width:40rem;margin:0 auto;--pila:1.25rem">
         <div class="marcador">
-          <span class="sub">${s.mision ? "Misión terminada" : "Reto terminado"}</span>
-          <span class="pct" style="color:var(--rosa)">${f.correctas}/${f.total}</span>
+          <span class="sub">${s.mision ? "Misión terminada" : repaso ? "Repaso terminado" : logica ? "Reto de lógica terminado" : "Reto terminado"}</span>
+          <span class="pct" style="color:var(--acento, var(--rosa))">${f.correctas}/${f.total}</span>
           <p class="sub">${frase}</p>
         </div>
         <div class="progreso">${s.marcas.map((m) => `<i class="${m ? "ok" : "mal"}"></i>`).join("")}</div>
@@ -248,29 +313,39 @@
           <div class="stat"><b style="color:var(--amarillo)">+${f.xp}</b><span>XP${f.bono ? ` (incluye ${f.bono} de bono)` : ""}</span></div>
           ${Object.entries(porCat).map(([c, [ok, t]]) => `<div class="stat cr-${c}"><b style="color:var(--c)">${ok}/${t}</b><span>${esc(LE.cat(c).nombre)}</span></div>`).join("")}
         </div>
+        ${logica ? repasoLogica(s) : ""}
         ${LE.pistaXP(LE.estado.perfil.xp)}
         <div class="acciones" style="justify-content:flex-start">
-          <button class="btn" data-accion="otroReto" data-n="${s.datos.preguntas.length}">Otro reto igual</button>
-          <button class="btn sec" data-accion="volverInicio">Volver al inicio</button>
+          ${repaso ? "" : `<button class="btn" data-accion="otroReto" data-n="${s.n || s.datos.preguntas.length}">Otro reto igual</button>`}
+          <button class="btn sec" data-accion="volverInicio">${logica ? "Volver a Lógica" : "Volver al inicio"}</button>
         </div>
       </div>`);
   }
 
-  A.otroReto = (b) => { const cat = LE.estado.sesion?.cat; LE.estado.sesion = null; empezarReto(+b.dataset.n, cat, null, b); };
-  A.volverInicio = () => { LE.estado.sesion = null; LE.ir("#/inicio"); };
+  A.otroReto = (b) => { const s = LE.estado.sesion || {}; LE.estado.sesion = null; LE.empezarReto({ n: +b.dataset.n, cat: s.cat, comp: s.comp, tema: s.tema, boton: b }); };
+  A.volverInicio = () => { const comp = LE.estado.sesion?.comp; LE.estado.sesion = null; LE.ir(rutaDe(comp)); };
+  A.soltarSesion = (b) => { LE.estado.sesion = null; LE.ir(b.getAttribute("href")); };
 
   // =================================================================
-  //  SIMULACRO: niveles
+  //  SIMULACRO: niveles (uno por componente)
   // =================================================================
   LE.ruta("/simulacro", async () => {
     LE.cargando();
+    const comp = LE.compActual();
+    const logica = comp === "logica";
     const r = await LE.api.resumen();
-    const niveles = LE.estado.config.simulacros || {};
+    const niveles = LE.cfgDe("simulacros", comp) || {};
+    const sims = (r.simulacros || []).filter((x) => (x.componente || "lectura") === comp);
     LE.montar(`
-      <div class="pila" style="--pila:1.5rem">
-        <div class="pila" style="--pila:.4rem">
+      <div class="pila comp-${comp}" style="--pila:1.5rem">
+        <div class="pila" style="--pila:.6rem">
           <h1>Simulacro</h1>
-          <p class="sub" style="max-width:60ch">Condiciones de examen: tiempo límite, sin explicaciones hasta el final y textos completos con todas sus preguntas. Cuando se acaba el tiempo, se entrega solo. Como en la prueba real, una respuesta vacía vale lo mismo que una incorrecta: responde todas.</p>
+          ${LE.logicaActiva() ? `<div class="segmentos" role="group" aria-label="Componente">
+            ${["lectura", "logica"].map((k) => `<button type="button" aria-pressed="${k === comp}" data-accion="cambiarComp" data-comp="${k}">${LE.COMP[k].icono} ${LE.COMP[k].nombre}</button>`).join("")}
+          </div>` : ""}
+          <p class="sub" style="max-width:62ch">${logica
+            ? "Condiciones de examen: tiempo límite, sin pistas y sin soluciones hasta el final. En Lógica rinde dar dos vueltas: en la primera resuelve lo que sale directo y marca para revisar lo que pida cuentas largas; en la segunda vuelve a lo marcado. Una respuesta vacía vale lo mismo que una incorrecta: responde todas."
+            : "Condiciones de examen: tiempo límite, sin explicaciones hasta el final y textos completos con todas sus preguntas. Cuando se acaba el tiempo, se entrega solo. Como en la prueba real, una respuesta vacía vale lo mismo que una incorrecta: responde todas."}</p>
         </div>
         <div class="niveles">
           ${Object.entries(niveles).map(([k, n]) => `
@@ -279,26 +354,29 @@
               <div class="grande">${n.preguntas}<small>preguntas</small></div>
               <p class="sub">${esc(n.descripcion || "")}</p>
               <p><b>${n.minutos} minutos</b> <span class="tenue">· ${Math.round((n.minutos * 60) / n.preguntas)} s por pregunta</span></p>
-              <button class="btn color cr-violeta" data-accion="simulacro" data-nivel="${k}">Empezar ${esc(n.nombre.toLowerCase())}</button>
-            </article>`).join("")}
+              <button class="btn color cr-violeta" data-accion="simulacro" data-nivel="${k}" data-comp="${comp}">Empezar ${esc(n.nombre.toLowerCase())}</button>
+            </article>`).join("") || `<p class="sub">Todavía no hay niveles de simulacro configurados para este componente.</p>`}
         </div>
         <section class="panel">
-          <div class="titulo-seccion"><h2>Tus simulacros</h2></div>
-          ${r.simulacros.length ? `<div class="scroll-x"><table class="tabla">
+          <div class="titulo-seccion"><h2>${logica ? "Tus simulacros de lógica" : LE.logicaActiva() ? "Tus simulacros de lectura" : "Tus simulacros"}</h2></div>
+          ${sims.length ? `<div class="scroll-x"><table class="tabla">
             <thead><tr><th>Fecha</th><th>Nivel</th><th class="num">Aciertos</th><th class="num">Puntaje</th><th></th></tr></thead>
-            <tbody>${r.simulacros.map((x) => `<tr><td>${LE.fecha(x.fecha)}</td><td>${esc(niveles[x.nivel]?.nombre || x.nivel)}</td><td class="num">${x.correctas}/${x.total}</td><td class="num"><b>${x.puntaje}%</b></td><td><a href="#/diagnostico/${x.id}">Ver diagnóstico</a></td></tr>`).join("")}</tbody>
+            <tbody>${sims.map((x) => `<tr><td>${LE.fecha(x.fecha)}</td><td>${esc(niveles[x.nivel]?.nombre || x.nivel)}</td><td class="num">${x.correctas}/${x.total}</td><td class="num"><b>${x.puntaje}%</b></td><td><a href="#/diagnostico/${x.id}">Ver diagnóstico</a></td></tr>`).join("")}</tbody>
           </table></div>` : `<p class="sub">Aquí verás tu evolución simulacro a simulacro.</p>`}
         </section>
       </div>`);
   }, { estudiante: true });
 
+  A.cambiarComp = (b) => { LE.compActual(b.dataset.comp); LE.navegar(); };
+
   A.simulacro = async (b) => {
-    const n = LE.estado.config.simulacros[b.dataset.nivel];
-    const ok = await LE.confirmar(`Simulacro ${n.nombre.toLowerCase()}`, `${n.preguntas} preguntas en ${n.minutos} minutos. El reloj arranca apenas empieces y no se detiene si cierras la app. ¿Tienes el tiempo libre ahora?`, "Empezar", "Todavía no");
+    const comp = b.dataset.comp || "lectura";
+    const n = (LE.cfgDe("simulacros", comp) || {})[b.dataset.nivel];
+    const ok = await LE.confirmar(`Simulacro ${comp === "logica" ? "de lógica " : ""}${n.nombre.toLowerCase()}`, `${n.preguntas} preguntas en ${n.minutos} minutos. El reloj arranca apenas empieces y no se detiene si cierras la app.${comp === "logica" ? " Ten papel y lápiz a la mano." : ""} ¿Tienes el tiempo libre ahora?`, "Empezar", "Todavía no");
     if (!ok) return;
     b.disabled = true;
     try {
-      const d = await LE.api.iniciarSimulacro(b.dataset.nivel);
+      const d = await LE.api.iniciarSimulacro(b.dataset.nivel, comp);
       if (!d.retomado && d.preguntas.length < n.preguntas) LE.aviso(`Por ahora el banco tiene ${d.preguntas.length} preguntas: este simulacro usa todas, con el tiempo ajustado.`);
       iniciarSimulacro(d);
     } catch (e) { LE.error(e); b.disabled = false; }
@@ -342,7 +420,8 @@
     const m = LE.estado.sim;
     const ps = m.datos.preguntas;
     const p = ps[m.i];
-    const t = m.datos.textos[p.texto_id];
+    const t = p.texto_id ? m.datos.textos[p.texto_id] : null;
+    const logica = p.componente === "logica";
     const elegida = m.resp[p.id]?.opcion;
     const nResp = Object.values(m.resp).filter((x) => x.opcion != null).length;
     const ms = restante();
@@ -354,11 +433,11 @@
         <span style="flex:1"></span>
         <button class="btn chico color cr-violeta" data-accion="entregar">Entregar</button>
       </div>
-      <div class="juego">
-        <div>${LE.lecturaHTML(t, !mismaLectura)}</div>
+      <div class="juego ${t ? "" : "solo"}">
+        ${t ? `<div>${LE.lecturaHTML(t, logica ? false : !mismaLectura)}</div>` : ""}
         <section class="pregunta">
           <div class="meta"><span class="tenue">Pregunta ${m.i + 1} de ${ps.length}</span></div>
-          <p class="enunciado">${esc(p.enunciado)}</p>
+          ${enunciadoHTML(p)}
           <div class="opciones" role="radiogroup">
             ${p.opciones.map((o, k) => `<button class="opcion ${k === elegida ? "sel" : ""}" role="radio" aria-checked="${k === elegida}" data-accion="simElegir" data-k="${k}"><span class="letra">${LE.LETRAS[k]}</span><span>${esc(o)}</span></button>`).join("")}
           </div>
@@ -416,7 +495,7 @@
     try {
       const res = await LE.api.entregarSimulacro(m.datos.sesion_id, m.resp);
       escribirLocal("sim-" + m.datos.sesion_id, null);
-      LE.estado.diag = { resultado: res, textos: m.datos.textos, nivel: m.datos.nivel, recien: true };
+      LE.estado.diag = { resultado: res, textos: m.datos.textos, nivel: m.datos.nivel, componente: m.datos.componente || "lectura", recien: true };
       LE.estado.sim = null;
       LE.ir("#/diagnostico/nuevo");
       if (automatico) LE.aviso("Se acabó el tiempo. Así te fue.");
@@ -435,37 +514,72 @@
     if (id !== "nuevo" || !LE.estado.diag) {
       LE.cargando();
       const d = await LE.api.detalleSesion(id);
-      LE.estado.diag = { resultado: d.sesion.resultado, textos: d.textos, nivel: d.sesion.nivel, fecha: d.sesion.fin };
+      LE.estado.diag = { resultado: d.sesion.resultado, textos: d.textos, nivel: d.sesion.nivel, componente: d.sesion.componente || "lectura", fecha: d.sesion.fin };
     }
     LE.montar(LE.diagnosticoHTML(LE.estado.diag));
   });
 
-  LE.diagnosticoHTML = ({ resultado: r, nivel, recien, fecha }) => {
-    const n = LE.estado.config.simulacros?.[nivel] || { nombre: nivel };
-    const refs = LE.estado.config.referencias || [];
-    const cats = LE.CATS.map((c) => { const x = r.por_categoria?.[c] || { correctas: 0, total: 0 }; return { categoria: c, dominio: x.total ? Math.round((100 * x.correctas) / x.total) : 0, respondidas: x.total, x }; });
+  const fmtTiempo = (ms) => { const s = Math.round((ms || 0) / 1000); return s >= 60 ? `${Math.floor(s / 60)} min ${String(s % 60).padStart(2, "0")} s` : `${s} s`; };
+
+  // Lo que el diagnóstico de un simulacro de lógica añade al de lectura:
+  // cómo se equivocó, qué técnicas repasar y dónde se le fue el tiempo.
+  function diagnosticoLogica(r) {
+    const tutor = LE.esTutor();
+    const errores = r.por_error || {};
+    const tipoTop = Object.entries(errores).sort((a, b) => b[1] - a[1])[0];
+    const temas = Object.entries(r.por_tema || {}).map(([cod, x]) => ({ cod, t: LE.tecnica(cod), ...x })).filter((x) => x.t && x.correctas < x.total)
+      .sort((a, b) => (b.total - b.correctas) - (a.total - a.correctas) || a.correctas / a.total - b.correctas / b.total).slice(0, 6);
+    const lentas = (r.detalle || []).map((d, k) => ({ ...d, k })).filter((d) => (d.tiempo_ms || 0) > 210000).sort((a, b) => b.tiempo_ms - a.tiempo_ms).slice(0, 4);
+    return `
+      <div class="rejilla dos">
+        <section class="panel pila" style="--pila:.8rem">
+          <div class="titulo-seccion" style="margin-bottom:0"><h2>Cómo te equivocaste</h2><span class="sub pequeno">Tipo de error de cada fallo</span></div>
+          ${tipoTop ? `${LE.perfilErrores(errores)}
+            <p class="sub pequeno">Lo que más se repitió: <b style="color:var(--texto)">${esc(LE.tipoError(tipoTop[0]).nombre)}</b>. ${esc(LE.tipoError(tipoTop[0]).consejo)}</p>` : `<p class="sub">Sin errores con diagnóstico en este simulacro.</p>`}
+        </section>
+        <section class="panel pila" style="--pila:.7rem">
+          <div class="titulo-seccion" style="margin-bottom:0"><h2>Técnicas para repasar</h2></div>
+          ${temas.length ? temas.map((x) => `<div class="repaso-fila">
+            <span><b>${esc(x.t.nombre)}</b><span class="tenue pequeno"> · ${x.correctas} de ${x.total}</span></span>
+            <span class="fila"><button class="btn suave chico" data-accion="verTecnica" data-cod="${esc(x.cod)}">Ver ficha</button>${tutor ? "" : `<button class="btn sec chico" data-accion="reto" data-n="5" data-tema="${esc(x.cod)}" data-comp="logica">Practicar</button>`}</span>
+          </div>`).join("") : `<p class="sub">No falló ninguna técnica.</p>`}
+        </section>
+      </div>
+      ${lentas.length ? `<section class="panel pila" style="--pila:.6rem">
+        <div class="titulo-seccion" style="margin-bottom:0"><h2>Dónde se fue el tiempo</h2><span class="sub pequeno">El examen da cerca de 2 min 15 s por pregunta</span></div>
+        ${lentas.map((d) => `<p class="sub">Pregunta <b style="color:var(--texto)">${d.k + 1}</b>: ${fmtTiempo(d.tiempo_ms)} ${d.acierto ? "y la acertaste" : d.elegida == null ? "y quedó en blanco" : "y la fallaste"}.</p>`).join("")}
+        <p class="tenue pequeno">Regla práctica: si a los tres minutos no sale, marca la más razonable, señálala para revisar y sigue. Vuelves al final si sobra tiempo.</p>
+      </section>` : ""}`;
+  }
+
+  LE.diagnosticoHTML = ({ resultado: r, nivel, recien, fecha, componente }) => {
+    const comp = r.componente || componente || "lectura";
+    const logica = comp === "logica";
+    const n = (LE.cfgDe("simulacros", comp) || {})[nivel] || { nombre: nivel };
+    const refs = LE.cfgDe("referencias", comp) || [];
+    const cats = LE.COMP[comp].cats.map((c) => { const x = r.por_categoria?.[c] || { correctas: 0, total: 0 }; return { categoria: c, dominio: x.total ? Math.round((100 * x.correctas) / x.total) : 0, respondidas: x.total, x }; });
     const conPreg = cats.filter((c) => c.x.total > 0).sort((a, b) => a.dominio - b.dominio);
     const debil = conPreg[0], fuerte = conPreg[conPreg.length - 1];
     const vacias = r.total - (r.respondidas ?? r.total);
     return `
-      <div class="pila" style="--pila:1.5rem">
+      <div class="pila comp-${comp}" style="--pila:1.5rem">
         <div class="fila entre">
           <div class="marcador">
-            <span class="sub">Simulacro ${esc(String(n.nombre).toLowerCase())}${fecha ? " · " + LE.fecha(fecha) : ""}</span>
+            <span class="sub">Simulacro ${logica ? "de lógica " : ""}${esc(String(n.nombre).toLowerCase())}${fecha ? " · " + LE.fecha(fecha) : ""}</span>
             <span class="pct">${r.puntaje}%</span>
             <p class="sub"><b style="color:var(--texto)">${r.correctas} de ${r.total}</b> correctas${r.minutos != null ? ` en ${r.minutos} min` : ""}${recien ? ` · +${r.xp} XP` : ""}</p>
           </div>
-          <button class="btn sec" data-accion="volverDiag">${LE.esTutor() ? "Volver" : "Volver a simulacros"}</button>
+          <button class="btn sec" data-accion="volverDiag" data-comp="${comp}">${LE.esTutor() ? "Volver" : "Volver a simulacros"}</button>
         </div>
         <div class="rejilla dos">
           <section class="panel">
-            <div class="titulo-seccion"><h2>Por nivel de lectura</h2><span class="sub pequeno">% de aciertos</span></div>
-            ${LE.ecualizador(cats, { vivo: true, detalle: false })}
+            <div class="titulo-seccion"><h2>${logica ? "Por nivel de lógica" : "Por nivel de lectura"}</h2><span class="sub pequeno">% de aciertos</span></div>
+            ${LE.ecualizador(cats, { vivo: true, detalle: false, cats: LE.COMP[comp].cats })}
             <div class="pila" style="--pila:.5rem;margin-top:1.1rem">
               ${debil && debil !== fuerte ? `<p class="sub">El punto fuerte fue <b style="color:var(--texto)">${esc(LE.cat(fuerte.categoria).nombre)}</b> (${fuerte.x.correctas}/${fuerte.x.total}). Donde más puntos se fueron: <b style="color:var(--texto)">${esc(LE.cat(debil.categoria).nombre)}</b> (${debil.x.correctas}/${debil.x.total}).</p>` : ""}
               ${vacias > 0 ? `<p class="sub">Quedaron <b style="color:var(--coral)">${vacias}</b> sin responder. En la prueba real no hay penalización por error: marcar siempre suma probabilidad.</p>` : ""}
             </div>
-            ${!LE.esTutor() && debil ? `<button class="btn sec chico" style="margin-top:1rem" data-accion="reto" data-n="10" data-cat="${debil.categoria}">Practicar 10 de ${esc(LE.cat(debil.categoria).nombre.toLowerCase())}</button>` : ""}
+            ${!LE.esTutor() && debil ? `<button class="btn sec chico" style="margin-top:1rem" data-accion="reto" data-n="10" data-cat="${debil.categoria}" data-comp="${comp}">Practicar 10 de ${esc(LE.cat(debil.categoria).nombre.toLowerCase())}</button>` : ""}
           </section>
           <section class="panel">
             <div class="titulo-seccion"><h2>Frente a los puntajes de corte</h2></div>
@@ -479,23 +593,30 @@
             <p class="tenue pequeno" style="margin-top:1rem">Referencia aproximada. En la UdeA el puntaje final se estandariza frente a todos los aspirantes de la jornada y combina Lectura con Razonamiento Lógico.</p>
           </section>
         </div>
+        ${logica ? diagnosticoLogica(r) : ""}
         ${r.detalle?.length ? `<section class="pila" style="--pila:.8rem">
-          <div class="titulo-seccion"><h2>Revisión pregunta por pregunta</h2><span class="sub pequeno">Toca una para ver la explicación</span></div>
+          <div class="titulo-seccion"><h2>Revisión pregunta por pregunta</h2><span class="sub pequeno">Toca una para ver ${logica ? "la solución" : "la explicación"}</span></div>
           <div class="revision">${r.detalle.map((d, k) => `
             <details class="${d.elegida == null ? "vacia" : d.acierto ? "ok" : ""}">
-              <summary><span class="num">${k + 1}</span><span>${d.acierto ? "✓ " : d.elegida == null ? "— " : "✗ "}${esc(d.enunciado)}</span></summary>
+              <summary><span class="num">${k + 1}</span><span>${d.acierto ? "✓ " : d.elegida == null ? "— " : "✗ "}${esc(logica ? LE.plano(d.enunciado, 170) : d.enunciado)}</span></summary>
               <div class="cuerpo">
-                <div class="fila"><span class="etq cr-${d.categoria}">${esc(LE.cat(d.categoria).nombre)}</span><button class="enlace pequeno" data-accion="verLectura" data-t="${d.texto_id}">Ver la lectura</button></div>
+                ${logica && LE.plano(d.enunciado) !== String(d.enunciado).trim() ? `<div class="enunciado md">${LE.md(d.enunciado)}</div>` : ""}
+                <div class="fila"><span class="etq cr-${d.categoria}">${esc(LE.cat(d.categoria).nombre)}</span>${d.texto_id ? `<button class="enlace pequeno" data-accion="verLectura" data-t="${d.texto_id}">${logica ? "Ver la situación" : "Ver la lectura"}</button>` : ""}${logica && d.tiempo_ms ? `<span class="tenue pequeno">${fmtTiempo(d.tiempo_ms)}</span>` : ""}</div>
+                ${logica ? LE.figura(d.figura) : ""}
                 ${d.opciones.map((o, j) => `<div class="op ${j === d.correcta ? "ok" : ""} ${j === d.elegida ? "elegida" : ""}"><b>${LE.LETRAS[j]}.</b> ${esc(o)}${j === d.correcta ? " ✓" : j === d.elegida ? " (respuesta marcada)" : ""}</div>`).join("")}
                 ${d.elegida == null ? `<p class="tenue pequeno">Sin responder.</p>` : ""}
-                <p class="sub">${esc(d.explicacion)}</p>
+                ${logica ? `${LE.diagnosticoError(d.error)}${LE.pasosHTML(d.pasos)}${d.explicacion ? `<p class="sub idea">${esc(d.explicacion)}</p>` : ""}${LE.enlaceTecnica(d.tema)}` : `<p class="sub">${esc(d.explicacion)}</p>`}
               </div>
             </details>`).join("")}</div>
         </section>` : ""}
       </div>`;
   };
 
-  A.volverDiag = () => (LE.esTutor() ? history.back() : LE.ir("#/simulacro"));
+  A.volverDiag = (b) => {
+    if (LE.esTutor()) return history.back();
+    LE.compActual(b.dataset.comp || "lectura");
+    LE.ir("#/simulacro");
+  };
   A.verLectura = (b) => {
     const t = LE.estado.diag?.textos?.[b.dataset.t];
     if (t) LE.dialogo(`${LE.lecturaHTML(t, false)}<div class="acciones" style="margin-top:1rem"><button class="btn" data-valor="ok">Cerrar</button></div>`);
@@ -513,6 +634,14 @@
     const t = r.totales;
     const precision = t.respuestas ? Math.round((100 * t.aciertos) / t.respuestas) : 0;
     const minSemana = r.dias.slice(-7).reduce((a, d) => a + d.minutos, 0);
+    const conLogica = LE.logicaActiva();
+    const deLogica = (i) => i.regla?.componente === "logica" || LE.CATS_LOGICA.includes(i.regla?.categoria) || ["recuperadas", "tecnicas"].includes(i.regla?.tipo);
+    const grilla = (lista) => `<div class="insignias">${lista.map((i) => `
+            <div class="insignia cr-${esc(i.color)} ${gan[i.codigo] ? "" : "bloq"}" title="${gan[i.codigo] ? "Obtenida el " + LE.fecha(gan[i.codigo]) : "Por desbloquear"}">
+              <span class="ico" aria-hidden="true">${esc(i.icono)}</span><b>${esc(i.nombre)}</b><span>${esc(i.descripcion)}</span>
+            </div>`).join("")}</div>`;
+    const generales = cat.filter((i) => !deLogica(i)), logicas = cat.filter(deLogica);
+    const nLog = r.por_componente?.logica?.respuestas || 0;
     LE.montar(`
       <div class="pila" style="--pila:1.5rem">
         <section class="panel saludo">
@@ -534,12 +663,27 @@
           <div class="stat"><b>${LE.minutos(r.minutos_hoy)}</b><span>de estudio hoy</span></div>
           <div class="stat"><b>${LE.minutos(minSemana)}</b><span>en los últimos 7 días</span></div>
           <div class="stat"><b>${LE.minutos(r.minutos_total)}</b><span>en total</span></div>
-          <div class="stat"><b>${t.respuestas}</b><span>preguntas respondidas</span></div>
+          <div class="stat"><b>${t.respuestas}</b><span>preguntas respondidas${conLogica ? ` (${nLog} de lógica)` : ""}</span></div>
           <div class="stat"><b>${precision}%</b><span>de aciertos</span></div>
           <div class="stat"><b>${t.segundos_promedio ?? "—"}${t.segundos_promedio != null ? " s" : ""}</b><span>por pregunta (el examen da ~2 min)</span></div>
           <div class="stat"><b>${r.retos}</b><span>retos terminados</span></div>
         </div>
 
+        ${conLogica ? `
+        <section class="panel">
+          <div class="titulo-seccion"><h2>Últimas 4 semanas</h2><span class="sub pequeno">Más intenso, más minutos</span></div>
+          ${LE.calor(r.dias)}
+        </section>
+        <div class="rejilla dos">
+          <section class="panel">
+            <div class="titulo-seccion"><h2>Dominio · Lectura</h2></div>
+            ${LE.ecualizador(r.dominio)}
+          </section>
+          <section class="panel">
+            <div class="titulo-seccion"><h2>Dominio · Lógica</h2></div>
+            ${LE.ecualizador(r.dominio_logica, { cats: LE.CATS_LOGICA })}
+          </section>
+        </div>` : `
         <div class="rejilla dos">
           <section class="panel">
             <div class="titulo-seccion"><h2>Últimas 4 semanas</h2><span class="sub pequeno">Más intenso, más minutos</span></div>
@@ -549,15 +693,16 @@
             <div class="titulo-seccion"><h2>Dominio</h2></div>
             ${LE.ecualizador(r.dominio)}
           </section>
-        </div>
+        </div>`}
 
         <section class="pila" style="--pila:.8rem">
-          <div class="titulo-seccion"><h2>Insignias</h2><span class="sub">${r.insignias.length} de ${cat.length}</span></div>
-          <div class="insignias">${cat.map((i) => `
-            <div class="insignia cr-${esc(i.color)} ${gan[i.codigo] ? "" : "bloq"}" title="${gan[i.codigo] ? "Obtenida el " + LE.fecha(gan[i.codigo]) : "Por desbloquear"}">
-              <span class="ico" aria-hidden="true">${esc(i.icono)}</span><b>${esc(i.nombre)}</b><span>${esc(i.descripcion)}</span>
-            </div>`).join("")}</div>
+          <div class="titulo-seccion"><h2>Insignias</h2><span class="sub">${generales.filter((i) => gan[i.codigo]).length} de ${generales.length}</span></div>
+          ${grilla(generales)}
         </section>
+        ${logicas.length ? `<section class="pila" style="--pila:.8rem">
+          <div class="titulo-seccion"><h2>Insignias de Lógica</h2><span class="sub">${logicas.filter((i) => gan[i.codigo]).length} de ${logicas.length}</span></div>
+          ${grilla(logicas)}
+        </section>` : ""}
 
         <div class="fila">
           <button class="btn sec" data-accion="salir">Cerrar sesión</button>
@@ -597,6 +742,7 @@
   A.reiniciarDemo = async () => {
     if (!(await LE.confirmar("¿Reiniciar el demo?", "Se borran los datos de prueba guardados en este navegador y se vuelve al estado inicial.", "Reiniciar"))) return;
     await LE.api.reiniciar();
+    try { localStorage.removeItem("le-componente"); } catch (e) { }
     location.hash = ""; location.reload();
   };
 })(window.LE);

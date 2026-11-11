@@ -25,7 +25,7 @@ El encargo original, del 26 de septiembre de 2026, en resumen:
 | Cuatro niveles de pregunta: literal, inferencial, crítico, cohesión | Son los cuatro niveles con los que el análisis del examen describe la prueba (ver `02`). |
 | Distribución 20 / 35 / 30 / 15 | El examen reciente carga más en lo inferencial y lo crítico que en lo literal. |
 | Varias estudiantes desde el modelo de datos, aunque hoy haya una | Agregar otra es crear su usuario en Supabase, no migrar nada. |
-| El avance se compara solo contra el propio historial | Decisión de Diego. No hay tabla de posiciones. |
+| El avance se compara solo contra el propio historial | Decisión de Diego. No hay tabla de posiciones. Cambió en la 1.2.0 (11-nov-2026): quien está en un grupo ve la semana de sus compañeros. Ver la sección del final. |
 | Intervención del tutor manual y automática | Decisión de Diego («ambos»): él escribe cuando quiere y además el sistema le avisa de inactividad o de caídas de rendimiento. |
 | Dificultad adaptativa en vez de que ella elija la dificultad | Ella elige cuánto tiempo tiene (5, 10 o 15 preguntas); el sistema elige qué tan difícil según su dominio en cada nivel. |
 | Repaso espaciado de las preguntas falladas | Para que el error se convierta en aprendizaje y no solo en un punto perdido. |
@@ -98,3 +98,42 @@ Agregar el otro componente del examen, con estas condiciones de Diego:
 - **Cuaderno de errores para Lectura.** La función del servidor ya acepta el componente; falta darle a las preguntas de lectura su tipo de error por opción.
 - **Figuras en tres dimensiones** (arreglos de cubos en perspectiva, dobleces). Se usan planos con alturas y descripciones.
 - **Variantes de una misma pregunta** con otros números, para practicar sin memorizar.
+
+## Cuentas, grupos y modo práctica (versión 1.2.0, 11-nov-2026)
+
+### Lo que se pidió
+
+Diego pidió, con la app ya en uso:
+
+1. Crear usuarios desde la app del celular con nombre, correo y una contraseña asignada por el sistema, que la persona cambia al entrar la primera vez.
+2. Que las instrucciones para instalar la app en el celular sean muy visibles.
+3. Que nadie vea lo que hacen los demás, salvo él, que ve todo.
+4. Poder ver el contenido y probarlo como si fuera estudiante.
+5. Crear grupos: quienes están en un grupo ven los puntajes y la actividad de los demás. «Los primeros pasos de una lógica de comunidad que iremos construyendo.»
+
+Se le propuso una lógica y eligió: en los grupos se ve **solo esfuerzo y actividad**, con los puntajes de simulacro como opción que él activa grupo por grupo; la semana del grupo va como **tabla ordenada por XP de la semana**, que se reinicia cada lunes; **tal vez después haya otros tutores**, así que el diseño queda listo para eso; y **todo de una vez** en la 1.2.0.
+
+### Decisiones tomadas y su razón
+
+| Decisión | Razón |
+|---|---|
+| Las cuentas las crea una función SQL (`crear_usuario`), no una Edge Function | Crear una cuenta exige un permiso que no puede viajar al navegador. La función corre en la base, solo acepta tutores y se monta como los demás archivos SQL, sin desplegar código aparte. Riesgo aceptado: escribe en `auth.users`, una tabla de Supabase; si Supabase la cambia, crear cuentas falla (las existentes no se afectan) y queda el camino manual. |
+| Contraseña temporal de dos palabras y tres cifras (`cometa-rio-472`) | Se dicta por teléfono y se escribe sin errores en un celular. Solo se muestra una vez y vale hasta el primer ingreso. |
+| Mensaje listo para WhatsApp | El correo no envía nada (el plan gratuito de Supabase manda muy pocos correos por hora). El tutor manda los datos por donde ya habla con sus estudiantes. |
+| Se entra con el correo | Con cuentas creadas por el tutor ya no hay un dominio inventado común. Las cuentas viejas siguen entrando con el usuario corto. |
+| Cambio de contraseña obligatorio en el primer ingreso, y libre desde el perfil | Lo pidió Diego, y así la contraseña temporal deja de servir pronto. |
+| Desactivar en vez de borrar | Bloquea la entrada (`banned_until`) y saca a la persona del panel y de los grupos sin perder su historial. |
+| Instalar: franja arriba en el celular + paso obligatorio en el primer ingreso + sección en el perfil + `#/instalar` | Que sea muy visible sin estorbar dentro de un reto: la franja se esconde en las sesiones y se puede ocultar tres días. Los pasos cambian según el teléfono (iPhone con Safari, iPhone con otro navegador, Android con instalador, Android sin él, Samsung, computador). |
+| Service worker sin caché | Android lo pide para ofrecer «Instalar». No guardar caché evita que alguien se quede con una versión vieja. |
+| Grupos: esfuerzo, no rendimiento | La comparación entre compañeros motiva a quien va adelante y puede hundir a quien va atrás. Se compara lo que depende de la voluntad (XP de la semana, días con práctica, racha) y la tabla se reinicia cada lunes. Los puntajes de simulacro solo si el tutor lo decide para ese grupo. Nunca respuestas, errores, mensajes ni alertas. |
+| La semana del grupo la entrega una función (`grupo_semana`), no las tablas | Así lo que un compañero puede ver está escrito en un solo lugar y no se amplía por accidente. |
+| El tutor practica con su propia cuenta | Es la app real y no una imitación. Su actividad nunca aparece en el panel, las alertas ni los grupos, porque esas funciones solo miran cuentas de estudiante. «Borrar mi práctica» lo deja en cero. |
+| «Explorar el banco» aparte del modo práctica | Uno sirve para revisar una pregunta concreta con la clave a la vista; el otro, para vivir la experiencia completa. |
+| Tutores por grupo, para después | Todas las funciones preguntan permisos a `es_tutor()` y `puede_ver()`; agregar un rol que vea solo sus grupos es cambiar esas dos y añadir una tabla. Está anotado en `05_usuarios_y_grupos.sql`. |
+
+### Lo que se dejó para después
+
+- **Tutores por grupo** (rol propio, panel filtrado por sus grupos).
+- **Comunidad más allá de la tabla**: metas colectivas de la semana, reacciones a la actividad de un compañero, retos de grupo.
+- **Avisos al celular** (notificaciones) cuando el tutor escribe o el grupo se mueve.
+- **Funcionamiento sin conexión** para retos ya descargados: el service worker existe, pero hoy no guarda nada.

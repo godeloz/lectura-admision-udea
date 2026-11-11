@@ -524,7 +524,7 @@
   // Lo que el diagnóstico de un simulacro de lógica añade al de lectura:
   // cómo se equivocó, qué técnicas repasar y dónde se le fue el tiempo.
   function diagnosticoLogica(r) {
-    const tutor = LE.esTutor();
+    const tutor = LE.comoTutor();
     const errores = r.por_error || {};
     const tipoTop = Object.entries(errores).sort((a, b) => b[1] - a[1])[0];
     const temas = Object.entries(r.por_tema || {}).map(([cod, x]) => ({ cod, t: LE.tecnica(cod), ...x })).filter((x) => x.t && x.correctas < x.total)
@@ -569,7 +569,7 @@
             <span class="pct">${r.puntaje}%</span>
             <p class="sub"><b style="color:var(--texto)">${r.correctas} de ${r.total}</b> correctas${r.minutos != null ? ` en ${r.minutos} min` : ""}${recien ? ` · +${r.xp} XP` : ""}</p>
           </div>
-          <button class="btn sec" data-accion="volverDiag" data-comp="${comp}">${LE.esTutor() ? "Volver" : "Volver a simulacros"}</button>
+          <button class="btn sec" data-accion="volverDiag" data-comp="${comp}">${LE.comoTutor() ? "Volver" : "Volver a simulacros"}</button>
         </div>
         <div class="rejilla dos">
           <section class="panel">
@@ -579,7 +579,7 @@
               ${debil && debil !== fuerte ? `<p class="sub">El punto fuerte fue <b style="color:var(--texto)">${esc(LE.cat(fuerte.categoria).nombre)}</b> (${fuerte.x.correctas}/${fuerte.x.total}). Donde más puntos se fueron: <b style="color:var(--texto)">${esc(LE.cat(debil.categoria).nombre)}</b> (${debil.x.correctas}/${debil.x.total}).</p>` : ""}
               ${vacias > 0 ? `<p class="sub">Quedaron <b style="color:var(--coral)">${vacias}</b> sin responder. En la prueba real no hay penalización por error: marcar siempre suma probabilidad.</p>` : ""}
             </div>
-            ${!LE.esTutor() && debil ? `<button class="btn sec chico" style="margin-top:1rem" data-accion="reto" data-n="10" data-cat="${debil.categoria}" data-comp="${comp}">Practicar 10 de ${esc(LE.cat(debil.categoria).nombre.toLowerCase())}</button>` : ""}
+            ${!LE.comoTutor() && debil ? `<button class="btn sec chico" style="margin-top:1rem" data-accion="reto" data-n="10" data-cat="${debil.categoria}" data-comp="${comp}">Practicar 10 de ${esc(LE.cat(debil.categoria).nombre.toLowerCase())}</button>` : ""}
           </section>
           <section class="panel">
             <div class="titulo-seccion"><h2>Frente a los puntajes de corte</h2></div>
@@ -613,7 +613,7 @@
   };
 
   A.volverDiag = (b) => {
-    if (LE.esTutor()) return history.back();
+    if (LE.comoTutor()) return history.back();
     LE.compActual(b.dataset.comp || "lectura");
     LE.ir("#/simulacro");
   };
@@ -702,6 +702,26 @@
         ${logicas.length ? `<section class="pila" style="--pila:.8rem">
           <div class="titulo-seccion"><h2>Insignias de Lógica</h2><span class="sub">${logicas.filter((i) => gan[i.codigo]).length} de ${logicas.length}</span></div>
           ${grilla(logicas)}
+        </section>` : ""}
+
+        <div class="rejilla dos">
+          <section class="panel pila" style="--pila:.7rem">
+            <h2>La app en tu celular</h2>
+            ${LE.instalada()
+              ? `<p class="sub">✓ Ya la estás usando instalada.</p>`
+              : `<p class="sub">Instálala y la abres con un toque desde tu pantalla de inicio, como cualquier otra app.</p>
+                <div><a class="btn chico" href="#/instalar">Ver cómo instalarla</a></div>`}
+          </section>
+          <section class="panel pila" style="--pila:.7rem">
+            <h2>Tu cuenta</h2>
+            <p class="sub">Entras con <b style="color:var(--texto)">${esc(r.perfil.correo || r.perfil.usuario || "")}</b>.</p>
+            <div><button class="btn sec chico" data-accion="cambiarClave">Cambiar mi contraseña</button></div>
+          </section>
+        </div>
+        ${LE.enPractica() ? `<section class="panel pila" style="--pila:.7rem">
+          <h2>Tu práctica de tutor</h2>
+          <p class="sub">Lo que haces en modo práctica se guarda en tu cuenta y no aparece en el panel, en las alertas ni en los grupos. Puedes borrarlo y empezar de cero cuando quieras.</p>
+          <div class="fila"><button class="btn sec chico" data-accion="borrarPractica">Borrar mi práctica</button><button class="btn suave chico" data-accion="salirPractica">Volver al panel</button></div>
         </section>` : ""}
 
         <div class="fila">

@@ -1,12 +1,12 @@
 # Entrelíneas · Examen de admisión UdeA
 
-App de práctica diaria para el examen de admisión de la Universidad de Antioquia. Cubre los dos componentes de la prueba, **Competencia Lectora** y **Razonamiento Lógico**, que dentro de la app se navegan por separado y nunca se mezclan. La estudiante entra con usuario y contraseña, hace retos de 5, 10 o 15 preguntas y simulacros cronometrados, gana XP, rangos e insignias. El tutor ve su avance, recibe alertas y le envía mensajes, misiones y comentarios.
+App de práctica diaria para el examen de admisión de la Universidad de Antioquia. Cubre los dos componentes de la prueba, **Competencia Lectora** y **Razonamiento Lógico**, que dentro de la app se navegan por separado y nunca se mezclan. Cada estudiante entra con su correo y su contraseña, hace retos de 5, 10 o 15 preguntas y simulacros cronometrados, gana XP, rangos e insignias, y puede instalar la app en su celular. El tutor crea las cuentas desde la app, ve el avance de cada estudiante, recibe alertas, envía mensajes, misiones y comentarios, arma grupos y puede usar la app como estudiante para probarla.
 
-> **¿Vienes de la versión 1.0.0 (solo Lectura)?** Ve directo a «Pasar de la 1.0.0 a la 1.1.0», más abajo. El orden de los pasos importa.
+> **¿Vienes de la versión 1.1.0?** Ve directo a «Pasar de la 1.1.0 a la 1.2.0», más abajo. **¿De la 1.0.0?** Primero «Pasar de la 1.0.0 a la 1.1.0» y después la 1.2.0. El orden de los pasos importa.
 
 - **Sitio**: archivos estáticos, se publican en GitHub Pages.
 - **Datos y usuarios**: Supabase (plan gratuito).
-- **Sin Supabase configurado**, la app arranca en *modo demo* con datos de prueba guardados solo en ese navegador. Para verla antes de montar nada, abre `demo.html` con doble clic. Usuarios: `sofia` / `demo` (estudiante) y `tutor` / `demo`.
+- **Sin Supabase configurado**, la app arranca en *modo demo* con datos de prueba guardados solo en ese navegador. Para verla antes de montar nada, abre `demo.html` con doble clic. Usuarios: `sofia` / `demo` (estudiante), `tutor` / `demo`, y `mateo` y `valentina` (compañeros de Sofía en un grupo), con la misma contraseña.
 
 ---
 
@@ -15,6 +15,7 @@ App de práctica diaria para el examen de admisión de la Universidad de Antioqu
 | Carpeta / archivo | Para qué sirve |
 |---|---|
 | `index.html` | La app. |
+| `manifest.webmanifest`, `sw.js`, `iconos/` | Lo que hace falta para instalar la app en el celular: nombre, colores, íconos y un service worker mínimo (no guarda caché; solo muestra un aviso cuando no hay conexión). |
 | `css/tema.css` | Colores, tipografías y radios. Cambiar la estética es cambiar este archivo. |
 | `css/app.css` | Componentes. |
 | `js/config.js` | **Lo único que editas al publicar**: URL y clave de Supabase, número de versión. |
@@ -37,8 +38,9 @@ App de práctica diaria para el examen de admisión de la Universidad de Antioqu
 3. Copia y ejecuta, **en este orden**, el contenido completo de:
    1. `supabase/01_esquema.sql`
    2. `supabase/04_razonamiento_logico.sql`
-   3. `supabase/02_funciones.sql`
-   4. `supabase/03_carga_inicial.sql`
+   3. `supabase/05_usuarios_y_grupos.sql`
+   4. `supabase/02_funciones.sql`
+   5. `supabase/03_carga_inicial.sql`
 
    Cada uno debe terminar con «Success». El último carga la configuración, 23 insignias y las primeras 30 preguntas de lectura. Lo demás (los otros paquetes de lectura y todo Razonamiento Lógico) se carga después desde la app, en Tutor → Contenido.
 
@@ -46,26 +48,17 @@ App de práctica diaria para el examen de admisión de la Universidad de Antioqu
 
 En **Authentication** → **Sign In / Providers** (o **Providers → Email**), desactiva **Allow new users to sign up**. Así solo existen las cuentas que tú crees.
 
-### 3. Crear las cuentas
+### 3. Crear tu cuenta de tutor
 
-En **Authentication** → **Users** → **Add user** → **Create new user**:
+Solo la tuya se crea en Supabase; a los estudiantes los creas después desde la app.
 
-- Tu cuenta de tutor: correo `diego@entrelineas.app` (el dominio es inventado, no necesita existir), una contraseña y marca **Auto Confirm User**.
-- La estudiante: `sofia@entrelineas.app` (usa su nombre real), su contraseña y **Auto Confirm User**.
-
-Después, en **SQL Editor**, conviértete en tutor:
+En **Authentication** → **Users** → **Add user** → **Create new user**: tu correo (o uno inventado como `diego@entrelineas.app`), una contraseña y marca **Auto Confirm User**. Después, en **SQL Editor**, conviértete en tutor:
 
 ```sql
-update perfiles set rol = 'tutor' where usuario = 'diego';
+update perfiles set rol = 'tutor' where correo = 'diego@entrelineas.app';
 ```
 
-Para ponerle su nombre completo a la estudiante (ella también puede editarlo desde su perfil):
-
-```sql
-update perfiles set nombre = 'Sofía Restrepo' where usuario = 'sofia';
-```
-
-La estudiante entra escribiendo solo `sofia` y su contraseña. Tú entras con `diego`.
+Con eso, entra a la app y agrega a los estudiantes en **Personas** (ver «Cuentas, grupos y modo práctica», más abajo).
 
 ### 4. Conectar la app con Supabase
 
@@ -93,6 +86,18 @@ La clave pública puede estar en un sitio web: los permisos los controla la base
 En el celular de la estudiante: abre ese enlace y usa **Agregar a pantalla de inicio**; queda como una app más.
 
 ---
+
+## Pasar de la 1.1.0 a la 1.2.0 (cuentas desde la app, grupos e instalación)
+
+Nada de esto borra ni cambia el progreso de nadie. Hazlo en este orden:
+
+1. **Supabase → SQL Editor.** Ejecuta completo `supabase/05_usuarios_y_grupos.sql` y, después, completo `supabase/02_funciones.sql`. Los dos deben terminar con «Success». La app que ya está publicada sigue funcionando igual.
+2. **GitHub.** Sube los archivos de esta carpeta. Cambiaron o son nuevos: `index.html`, `version.json`, `manifest.webmanifest`, `sw.js` (nuevo), la carpeta `iconos/` (nueva), `js/` (incluido el archivo nuevo `js/vistas-comunidad.js`), `css/app.css`, `supabase/`, `tools/`, `demo.html`, `README.md` y `_contexto/`.
+3. **Prueba con una cuenta de prueba.** En la app, como tutor: **Personas** → agrega a alguien con un correo tuyo de prueba. Abre la app en otro navegador (o en modo incógnito), entra con ese correo y la contraseña temporal, cambia la contraseña y mira que llegue al inicio. Si todo va bien, desactívala desde Personas.
+
+Si al crear una cuenta la app dice algo como «permission denied for table users» o «column … does not exist», Supabase cambió algo de su tabla de cuentas: crea esa cuenta como antes (Authentication → Users → Add user) y avísale a Claude con el mensaje exacto. Las cuentas que ya existen no se afectan.
+
+Desde esta versión **se entra con el correo completo**. Quien ya tenía cuenta puede seguir escribiendo solo su usuario (`sofia`): la app le completa el dominio de `js/config.js`.
 
 ## Pasar de la 1.0.0 a la 1.1.0 (llega Razonamiento Lógico)
 
@@ -175,12 +180,52 @@ Tipos de regla para insignias (`regla.tipo`): `racha`, `respuestas`, `aciertos`,
 ### Diseño y funciones → archivos en GitHub
 
 1. Reemplaza en el repositorio los archivos que cambien (por ejemplo `css/tema.css` o algo en `js/`).
-2. Sube el número de versión en **tres** sitios, con el mismo número: `js/config.js` (`VERSION`), `version.json` y los diez `?v=` de `index.html`.
+2. Sube el número de versión en **tres** sitios, con el mismo número: `js/config.js` (`VERSION`), `version.json` y los once `?v=` de `index.html`.
 3. Si la entrega trae un archivo SQL nuevo (por ejemplo `04_…sql`), ejecútalo en el SQL Editor. `02_funciones.sql` se puede volver a ejecutar completo sin perder datos.
 
 Quien tenga la app abierta ve un aviso «Hay una versión nueva» con un botón para actualizar. En `version.json` puedes poner una frase en `notas` que aparece en ese aviso.
 
 ---
+
+## Cuentas, grupos y modo práctica
+
+### Agregar una persona
+
+**Personas** → **Agregar una persona**: nombre, correo y, si quieres, un grupo → **Crear cuenta**. La app inventa una contraseña temporal fácil de dictar (por ejemplo `cometa-rio-472`) y te la muestra **una sola vez**, con un mensaje listo para enviar: botón **Enviar por WhatsApp** o **Copiar mensaje**. El mensaje trae el enlace de la app, el correo, la contraseña temporal y los pasos.
+
+El correo es solo el usuario para entrar: la app no le envía nada.
+
+Cuando la persona entra por primera vez, la app le pide elegir su propia contraseña (al menos 8 caracteres) y después le muestra cómo instalar la app en su celular. Mientras no la cambie, en Personas aparece «⏳ Aún no elige su contraseña».
+
+Desde la tarjeta de cada persona puedes:
+
+- **Contraseña nueva**: para quien la olvidó. Sale una temporal nueva (y su mensaje) y la app le vuelve a pedir que elija la suya.
+- **Desactivar**: no puede entrar y sale del panel, de las alertas y de sus grupos. No se borra nada; **Activar** la devuelve tal cual.
+- Tocar su nombre: abre su avance.
+
+Cada persona puede cambiar su contraseña cuando quiera desde **Perfil → Cambiar mi contraseña**. Tú, desde **Personas → Tu cuenta**.
+
+### Instalar la app en el celular
+
+Mientras alguien use la app desde el navegador del celular, ve arriba una franja verde «📲 Instala la app en tu celular» (se puede esconder tres días). «Ver cómo» muestra los pasos del teléfono que tiene en la mano: en iPhone, Safari → Compartir → Agregar a inicio; en Android, el botón **Instalar Entrelíneas** cuando Chrome lo ofrece, o el menú ⋮ → Instalar aplicación. En Personas ves quién ya la instaló («📲 App instalada»).
+
+En iPhone, la app instalada guarda su sesión aparte de Safari: la primera vez que se abre desde el ícono hay que entrar otra vez.
+
+### Grupos
+
+**Personas → Grupos → Crear un grupo**: nombre, descripción, ícono y una casilla: **Mostrar los puntajes de simulacro entre compañeros** (apagada por defecto). Después marcas quiénes están. Una persona puede estar en varios grupos.
+
+Quien está en un grupo tiene una pestaña nueva, **Grupo**, con:
+
+- **La semana del grupo**: cada compañero con el XP ganado desde el lunes, los días con práctica, la racha y los retos de la semana, ordenados por XP. Se reinicia cada lunes.
+- **Lo que está pasando**: retos terminados (sin el resultado), simulacros e insignias de los últimos 7 días.
+
+Nadie ve las respuestas, los errores, los mensajes ni las alertas de otro. Los puntajes de simulacro solo aparecen si el grupo tiene marcada la casilla. Quien no está en ningún grupo no ve la pestaña. Tú ves la semana de cualquier grupo desde Grupos → **Ver su semana**.
+
+### Probar la app como estudiante
+
+- **Contenido → Explorar el banco**: cada lectura, situación y problema tal como lo ve la estudiante, con filtros por componente, nivel, dificultad, paquete y texto. Al responder ves la clave, la explicación y, en lógica, la solución y qué error lleva a cada opción. No guarda nada.
+- **Practicar** (en la barra): la app completa como estudiante, con tu propia cuenta: retos, simulacros, pistas, cuaderno de errores, insignias. Una franja violeta te recuerda que estás en modo práctica y te devuelve al panel. Tu práctica nunca aparece en el panel, en las alertas ni en los grupos, y en tu perfil de práctica puedes **Borrar mi práctica** para empezar de cero.
 
 ## Lo que ve el tutor
 
@@ -209,13 +254,15 @@ Lo que sigue vale para los dos componentes. Cada uno tiene su portada, sus retos
 
 ## Tareas comunes
 
-**Cambiar la contraseña de una estudiante** (SQL Editor):
+**Contraseña olvidada**: Personas → su tarjeta → **Contraseña nueva**. Si fuera tu cuenta de tutor la que se olvidó, en el SQL Editor:
 
 ```sql
 update auth.users set encrypted_password = extensions.crypt('nueva-clave', extensions.gen_salt('bf'))
-where email = 'sofia@entrelineas.app';
+where email = 'diego@entrelineas.app';
 ```
 
-**Agregar otra estudiante**: repite el paso 3 con su correo. Aparece sola en tu panel.
+**Agregar otra persona**: Personas → Agregar una persona. Aparece sola en tu panel.
+
+**Otro tutor**: créale la cuenta desde Personas y conviértela en tutor en el SQL Editor (`update perfiles set rol = 'tutor' where correo = '…';`). Hoy todo tutor ve a todos los estudiantes; los tutores por grupo quedaron preparados para más adelante (ver `_contexto/03`).
 
 **Plan gratuito de Supabase**: los proyectos sin actividad durante una semana se pausan; con uso diario no pasa. Si ocurre, se reactiva desde el panel de Supabase con un clic.

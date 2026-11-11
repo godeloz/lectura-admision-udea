@@ -1,8 +1,9 @@
 """Prueba las funciones SQL de Entrelíneas contra un Postgres local.
 
 El demo no ejecuta SQL: este guion es la forma de saber que supabase/*.sql
-funciona antes de tocar la base real. Monta una base desde cero (01, 04, 02, 03),
-carga todos los paquetes de content/ y recorre lo que hacen la estudiante y el tutor.
+funciona antes de tocar la base real. Monta una base desde cero (01, 04, 05, 02, 03),
+carga todos los paquetes de content/ y recorre lo que hacen la estudiante y el tutor,
+incluidas las cuentas, las contraseñas y los grupos de la 1.2.0.
 
 Necesita un servidor Postgres local y el módulo psycopg2. Variables de entorno:
   PGHOST (por defecto /tmp) y PGPORT (por defecto 5544), con usuario postgres sin clave.
@@ -48,7 +49,7 @@ cargar=lambda f: json.load(open(f"{APP}/content/{f}.json",encoding="utf-8"))
 # ============ 1 y 2. Base desde cero, con los paquetes de lectura y datos de uso ============
 print("1. Base desde cero: 01, 04, 02, 03 y paquetes de lectura")
 nueva_db(DB)
-for f in ("01_esquema.sql","04_razonamiento_logico.sql","02_funciones.sql","03_carga_inicial.sql"): sql_file(DB, f"{APP}/supabase/{f}")
+for f in ("01_esquema.sql","04_razonamiento_logico.sql","05_usuarios_y_grupos.sql","02_funciones.sql","03_carga_inicial.sql"): sql_file(DB, f"{APP}/supabase/{f}")
 con=conectar(DB)
 tut=admin(con,"insert into auth.users(email) values('diego@entrelineas.app') returning id")[0][0]
 est=admin(con,"insert into auth.users(email) values('sofia@entrelineas.app') returning id")[0][0]
@@ -66,9 +67,9 @@ s=E.f("select iniciar_simulacro(p_nivel => 'inicial')")
 E.f("select entregar_simulacro(%s, %s::jsonb)",(s["sesion_id"], J({p["id"]:{"opcion":claves[p["id"]] if i%3 else 0,"tiempo_ms":50000} for i,p in enumerate(s["preguntas"][:25])})))
 m=T.q("insert into mensajes(estudiante_id, autor_id, tipo, titulo, mision) values(%s,%s,'mision','Misión de lectura','{\"n\":5,\"categoria\":\"critico\"}') returning id",(est,tut))[0][0]
 res_antes=E.f("select resumen_estudiante(null)")
-print("2. 04 y 02 se pueden ejecutar otra vez sin perder nada")
+print("2. 04, 05 y 02 se pueden ejecutar otra vez sin perder nada")
 antes=admin(con,"select (select count(*) from respuestas),(select count(*) from sesiones),(select xp from perfiles where usuario='sofia')")[0]
-for f in ("04_razonamiento_logico.sql","02_funciones.sql"): sql_file(DB, f"{APP}/supabase/{f}")
+for f in ("04_razonamiento_logico.sql","05_usuarios_y_grupos.sql","02_funciones.sql"): sql_file(DB, f"{APP}/supabase/{f}")
 ok(antes==admin(con,"select (select count(*) from respuestas),(select count(*) from sesiones),(select xp from perfiles where usuario='sofia')")[0], "no se perdió ni cambió ningún dato")
 ok(admin(con,"select count(*) from pg_proc where proname in ('iniciar_reto','responder','iniciar_simulacro','seleccionar_preguntas') and pronamespace='public'::regnamespace")[0][0]==4, "no quedaron funciones duplicadas")
 
@@ -228,6 +229,123 @@ for fn in ("aplicar_pregunta('{}'::jsonb, null, 'x')","seleccionar_preguntas('%s
     except Exception as ex: ok("permission denied" in str(ex), "función interna protegida: "+fn.split("(")[0])
 try: A.f("select resumen_estudiante(null)"); ok(False,"anónimo")
 except Exception as ex: ok("permission denied" in str(ex), "sin sesión no se puede ejecutar nada")
+
+
+# ============ 9. Personas, contraseñas y grupos (1.2.0) ============
+print("9. Personas, contraseñas y grupos")
+import re
+clave_ok = lambda uid, c: admin(con, "select encrypted_password = extensions.crypt(%s, encrypted_password) from auth.users where id=%s", (c, uid))[0][0]
+n_nov = admin(con, "select coalesce(max(id),0) from novedades")[0][0]
+g1 = T.f("select guardar_grupo(null, 'Artes UdeA', 'Preparación para Artes plásticas', '🎨', false)")
+ok(g1 is not None, "el tutor crea un grupo")
+nu = T.f("select crear_usuario('Ana Gómez', '  Ana.Gomez@Correo.com ', %s)", (g1,))
+ok(re.fullmatch(r"[a-z]+-[a-z]+-\d{3}", nu["clave"]) and nu["correo"] == "ana.gomez@correo.com", f"crear_usuario: correo normalizado y contraseña temporal «{nu['clave']}»")
+ana = nu["id"]
+fila = admin(con, "select aud, role, email_confirmed_at is not null, raw_app_meta_data->>'provider', confirmation_token, recovery_token, email_change_token_new, email_change from auth.users where id=%s", (ana,))[0]
+ok(fila == ("authenticated", "authenticated", True, "email", "", "", "", ""), "la cuenta queda confirmada, con proveedor email y los campos de texto vacíos que pide Supabase")
+ok(admin(con, "select count(*) from auth.identities where user_id=%s and provider='email' and provider_id=%s", (ana, ana))[0][0] == 1, "tiene su identidad de correo")
+ok(clave_ok(ana, nu["clave"]) and not clave_ok(ana, "otra-cosa-123"), "la contraseña temporal queda cifrada con bcrypt y se verifica")
+pa = admin(con, "select nombre, correo, debe_cambiar_clave, rol, usuario, ultima_novedad from perfiles where id=%s", (ana,))[0]
+ok(pa == ("Ana Gómez", "ana.gomez@correo.com", True, "estudiante", "ana.gomez", n_nov), "perfil: nombre, correo, rol estudiante, debe cambiar la clave y sin novedades viejas")
+ok(admin(con, "select count(*) from grupo_miembros where grupo_id=%s and user_id=%s", (g1, ana))[0][0] == 1, "queda en el grupo elegido")
+nu2 = T.f("select crear_usuario('Ana Ruiz', 'ana.gomez@otro.org', null)")
+ok(admin(con, "select usuario from perfiles where id=%s", (nu2["id"],))[0][0] == "ana.gomez2", "dos correos con el mismo comienzo no chocan: ana.gomez2")
+for args, msg, txt in ((("Ana", "ana.gomez@correo.com"), "correo repetido", "Ya existe"), (("Ana", "no-es-correo"), "correo inválido", "no es válido"), (("", "x@y.co"), "sin nombre", "nombre")):
+    try: T.f("select crear_usuario(%s, %s, null)", args); ok(False, msg + " rechazado")
+    except Exception as ex: ok(txt in str(ex), f"{msg}: rechazado")
+for quien, nombre in ((E, "estudiante"), (A, "sin sesión")):
+    try: quien.f("select crear_usuario('X', 'x@x.co', null)"); ok(False, nombre + " crea cuentas")
+    except Exception as ex: ok("Solo para tutores" in str(ex) or "permission denied" in str(ex), f"{nombre} no puede crear cuentas")
+try: E.f("select clave_temporal()"); ok(False, "clave_temporal expuesta")
+except Exception as ex: ok("permission denied" in str(ex), "función interna protegida: clave_temporal")
+
+AN = U(con, ana)
+try: AN.f("select cambiar_mi_clave('corta')"); ok(False, "clave corta")
+except Exception as ex: ok("al menos 8" in str(ex), "una contraseña de menos de 8 caracteres se rechaza")
+AN.f("select cambiar_mi_clave('mi-clave-propia')")
+ok(clave_ok(ana, "mi-clave-propia") and not clave_ok(ana, nu["clave"]) and not admin(con, "select debe_cambiar_clave from perfiles where id=%s", (ana,))[0][0], "cambiar_mi_clave: la nueva sirve, la temporal ya no y deja de pedir el cambio")
+ok(AN.f("select resumen_estudiante(null)")["perfil"]["debe_cambiar_clave"] is False, "el perfil que lee la app trae debe_cambiar_clave")
+rc = T.f("select restablecer_clave(%s)", (ana,))
+ok(clave_ok(ana, rc["clave"]) and admin(con, "select debe_cambiar_clave from perfiles where id=%s", (ana,))[0][0], "restablecer_clave: contraseña temporal nueva y vuelve a pedir el cambio")
+try: E.f("select restablecer_clave(%s)", (ana,)); ok(False, "estudiante restablece")
+except Exception as ex: ok("Solo para tutores" in str(ex), "una estudiante no puede restablecer contraseñas")
+try: T.f("select restablecer_clave(%s)", (tut,)); ok(False, "restablecer tutor")
+except Exception as ex: ok("estudiante" in str(ex), "no se restablece la contraseña de un tutor desde la app")
+
+T.f("select cambiar_estado_usuario(%s, false)", (nu2["id"],))
+ok(admin(con, "select banned_until > now() + interval '50 years' from auth.users where id=%s", (nu2["id"],))[0][0] and nu2["id"] not in [x["id"] for x in T.f("select panel_tutor()")], "desactivar: no puede entrar y sale del panel")
+T.f("select cambiar_estado_usuario(%s, true)", (nu2["id"],))
+ok(admin(con, "select banned_until is null from auth.users where id=%s", (nu2["id"],))[0][0] and nu2["id"] in [x["id"] for x in T.f("select panel_tutor()")], "activar: vuelve tal como estaba")
+try: T.f("select cambiar_estado_usuario(%s, false)", (tut,)); ok(False, "auto")
+except Exception as ex: ok("propia" in str(ex), "el tutor no puede desactivarse a sí mismo")
+AN.f("select marcar_instalada()"); t1 = admin(con, "select instalada from perfiles where id=%s", (ana,))[0][0]
+AN.f("select marcar_instalada()")
+ok(t1 is not None and admin(con, "select instalada from perfiles where id=%s", (ana,))[0][0] == t1, "marcar_instalada guarda la primera vez")
+ps = T.f("select personas()")
+pana = [x for x in ps if x["id"] == ana][0]
+ok(len(ps) == 5 and pana["grupos"][0]["nombre"] == "Artes UdeA" and pana["instalada"] and pana["debe_cambiar_clave"] and [x for x in ps if x["yo"]][0]["rol"] == "tutor", "personas(): todas las cuentas, con grupos, instalación y quién soy")
+try: E.f("select personas()"); ok(False, "personas estudiante")
+except Exception as ex: ok("Solo para tutores" in str(ex), "una estudiante no ve la lista de personas")
+
+# --- grupos: sofía y ana juntas; otra queda afuera ---
+n = T.f("select fijar_miembros(%s, %s::uuid[])", (g1, [est, ana, tut]))
+ok(n == 2, "fijar_miembros deja solo cuentas de estudiante (el tutor no entra)")
+try: E.f("select guardar_grupo(null, 'X')"); ok(False, "estudiante crea grupo")
+except Exception as ex: ok("Solo para tutores" in str(ex), "una estudiante no puede crear grupos")
+try: E.q("insert into grupo_miembros(grupo_id, user_id) values (%s, %s)", (g1, otra)); ok(False, "insertar directo")
+except Exception as ex: ok("row-level security" in str(ex), "nadie se mete a un grupo escribiendo directo en la tabla")
+ok(len(E.f("select mis_grupos()")) == 1 and E.f("select mis_grupos()")[0]["miembros"] is None and O.f("select mis_grupos()") == [], "mis_grupos: la estudiante ve su grupo (sin lista de miembros); quien no está, nada")
+ok(T.f("select mis_grupos()")[0]["n"] == 2 and len(T.f("select mis_grupos()")[0]["miembros"]) == 2, "el tutor ve todos los grupos con sus miembros")
+ok(E.q("select count(*) from grupo_miembros")[0][0] == 1 and E.q("select count(*) from perfiles")[0][0] == 1, "por las tablas, la estudiante solo ve su propia membresía y su propio perfil")
+# Ana practica un poco esta semana
+r = AN.f("select iniciar_reto(p_n => 5, p_categoria => null, p_mensaje => null, p_componente => 'logica')")
+for p in r["preguntas"]: AN.f("select responder(%s,%s,%s,30000)", (r["sesion_id"], p["id"], clavesL[p["id"]][0]))
+AN.f("select finalizar_reto(%s)", (r["sesion_id"],))
+gs = E.f("select grupo_semana(%s)", (g1,))
+mm = {x["id"]: x for x in gs["miembros"]}
+ok(set(mm) == {est, ana} and mm[est]["yo"] and not mm[ana]["yo"], "grupo_semana: los dos miembros, y cuál soy yo")
+ok(mm[ana]["xp_semana"] > 0 and mm[ana]["dias_semana"] == 1 and mm[ana]["retos_semana"] == 1 and mm[ana]["racha"] == 1, f"esfuerzo de la semana de Ana: {mm[ana]['xp_semana']} XP, 1 día, 1 reto, racha 1")
+ok(gs["miembros"][0]["xp_semana"] >= gs["miembros"][1]["xp_semana"], "ordenados por XP de la semana")
+ok(all(x["simulacros"] is None for x in gs["miembros"]) and all(a["puntaje"] is None for a in gs["actividad"]), "sin «mostrar simulacros», nadie ve puntajes")
+ok({"reto", "insignia"} <= {a["tipo"] for a in gs["actividad"]} and not any(k in a for a in gs["actividad"] for k in ("correctas", "respuestas", "opcion")), "actividad: retos terminados e insignias, sin resultados ni respuestas")
+ok(set(gs["miembros"][0]) == {"id", "nombre", "avatar", "yo", "xp_semana", "dias_semana", "respuestas_semana", "minutos_semana", "racha", "retos_semana", "simulacros_semana", "simulacros"}, "grupo_semana no trae más campos que los previstos")
+T.f("select guardar_grupo(%s, 'Artes UdeA', 'Preparación para Artes plásticas', '🎨', true)", (g1,))
+gs = E.f("select grupo_semana(%s)", (g1,))
+ok(any(x["simulacros"] for x in gs["miembros"]) and any(a["tipo"] == "simulacro" and a["puntaje"] is not None for a in gs["actividad"]), "con «mostrar simulacros», aparecen los puntajes de simulacro de la semana")
+try: O.f("select grupo_semana(%s)", (g1,)); ok(False, "otra ve el grupo")
+except Exception as ex: ok("Sin permiso" in str(ex), "quien no está en el grupo no puede verlo")
+ok(T.f("select grupo_semana(%s)", (g1,))["grupo"]["nombre"] == "Artes UdeA", "el tutor ve cualquier grupo")
+# privacidad entre compañeras
+ok(AN.q("select count(*) from respuestas where user_id=%s", (est,))[0][0] == 0 and AN.q("select count(*) from sesiones where user_id=%s", (est,))[0][0] == 0 and AN.q("select count(*) from mensajes where estudiante_id=%s", (est,))[0][0] == 0, "una compañera de grupo no ve respuestas, sesiones ni mensajes de la otra")
+for fn in ("resumen_estudiante(%s)", "cuaderno_errores('logica', %s)"):
+    try: AN.f("select " + fn, (est,)); ok(False, "compañera ve " + fn)
+    except Exception as ex: ok("Sin permiso" in str(ex), "una compañera de grupo no puede abrir " + fn.split("(")[0])
+ok(AN.f("select actual from rachas(%s)", (est,)) is not None, "una compañera sí puede ver la racha (es parte de la semana del grupo)")
+try: O.f("select actual from rachas(%s)", (est,)); ok(False, "rachas ajenas")
+except Exception as ex: ok("Sin permiso" in str(ex), "quien no comparte grupo ya no puede consultar la racha de otra persona")
+T.f("select cambiar_estado_usuario(%s, false)", (ana,))
+ok({x["id"] for x in E.f("select grupo_semana(%s)", (g1,))["miembros"]} == {est}, "una cuenta desactivada desaparece del grupo")
+T.f("select cambiar_estado_usuario(%s, true)", (ana,))
+
+# --- práctica del tutor ---
+r = T.f("select iniciar_reto(p_n => 5, p_categoria => null, p_mensaje => null, p_componente => 'lectura')")
+for p in r["preguntas"]: T.f("select responder(%s,%s,%s,30000)", (r["sesion_id"], p["id"], claves[p["id"]]))
+fr = T.f("select finalizar_reto(%s)", (r["sesion_id"],))
+ok(fr["correctas"] == 5 and tut not in [x["id"] for x in T.f("select panel_tutor()")], "el tutor practica como estudiante (5/5) y no aparece en el panel")
+T.f("select generar_alertas()")
+ok(admin(con, "select count(*) from alertas where estudiante_id=%s", (tut,))[0][0] == 0, "ni genera alertas")
+b = T.f("select borrar_mi_practica()")
+ok(b["respuestas"] == 5 and admin(con, "select xp from perfiles where id=%s", (tut,))[0][0] == 0 and admin(con, "select count(*) from sesiones where user_id=%s", (tut,))[0][0] == 0, "borrar_mi_practica: el tutor vuelve a cero")
+try: E.f("select borrar_mi_practica()"); ok(False, "estudiante borra")
+except Exception as ex: ok("Solo para tutores" in str(ex), "una estudiante no puede borrar su progreso")
+# eliminar grupo no toca progreso
+xp_antes = admin(con, "select xp from perfiles where id=%s", (ana,))[0][0]
+T.f("select eliminar_grupo(%s)", (g1,))
+ok(admin(con, "select count(*) from grupo_miembros where grupo_id=%s", (g1,))[0][0] == 0 and admin(con, "select xp from perfiles where id=%s", (ana,))[0][0] == xp_antes and E.f("select mis_grupos()") == [], "eliminar un grupo borra las membresías y nada más")
+# volver a ejecutar 05 y 02 no cambia nada
+antes = admin(con, "select (select count(*) from perfiles),(select count(*) from auth.users),(select count(*) from respuestas)")[0]
+for f in ("05_usuarios_y_grupos.sql", "02_funciones.sql"): sql_file(DB, f"{APP}/supabase/{f}")
+ok(antes == admin(con, "select (select count(*) from perfiles),(select count(*) from auth.users),(select count(*) from respuestas)")[0] and clave_ok(ana, rc["clave"]), "05 y 02 se pueden volver a ejecutar sin perder cuentas, contraseñas ni progreso")
 
 print("\nFALLAS:", FALLAS if FALLAS else "ninguna")
 sys.exit(1 if FALLAS else 0)

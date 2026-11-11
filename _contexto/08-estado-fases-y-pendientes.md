@@ -11,6 +11,7 @@
 | 4. Contexto | 4-oct-2026 | Se documentó la app en esta carpeta. | Hecha |
 | 5. Banco | 4-oct-2026 | Llevar el banco de 30 a 150 preguntas. Hecho en un día: paquetes 002 a 005 escritos, validados y probados en el demo; el banco tiene 25 lecturas y 150 preguntas con la matriz prevista (30 literales, 52 inferenciales, 45 críticas, 23 de cohesión). `paquete-002` cargado por Diego; faltan por confirmar las cargas de 003, 004 y 005. | Escrito. Falta cargar y que una persona revise las preguntas |
 | 6. Razonamiento Lógico | 4-oct-2026 | Versión 1.1.0: segundo componente del examen, navegable por separado. Migración de la base, funciones por componente, pantallas de Lógica (pista, qué pasó, solución paso a paso, caja de herramientas, cuaderno de errores, simulacro y diagnóstico propios), panel del tutor, 109 preguntas con su comprobación, 26 fichas de técnica y 16 insignias. Probado en el demo y contra un Postgres local. | Construida. Falta que Diego la monte: SQL en Supabase, archivos en GitHub y paquetes de lógica desde la app |
+| 6b. Cuentas, grupos e instalación | 11-nov-2026 | Versión 1.2.0: el tutor crea cuentas desde la app con contraseña temporal y mensaje para WhatsApp; cambio de contraseña en el primer ingreso y desde el perfil; desactivar sin borrar; instrucciones de instalación según el teléfono, franja visible y app instalable en Android (service worker e íconos); grupos con la semana del grupo (esfuerzo, tabla que se reinicia cada lunes, puntajes opcionales); explorar el banco y modo práctica del tutor. Probado en el demo y contra un Postgres local. | Construida. Falta que Diego la monte: `05` y `02` en Supabase, archivos en GitHub y la prueba con una cuenta de prueba |
 | 7. Uso real y ajuste | Después | Con la estudiante practicando: revisar qué muestran los datos, afinar reglas por paquete y corregir lo que aparezca. | Pendiente |
 | 8. Mejoras | Cuando haga falta | Las de la lista de abajo, según lo que pida el uso. | Abierta |
 
@@ -41,14 +42,14 @@ Salen de leer el código de la versión 1.0.0 el 4-oct-2026. No se han comprobad
 6. **Un simulacro cerrado a medias se puede perder.** Las respuestas viven solo en el navegador hasta la entrega. Si ella cierra la app y vuelve después de vencido el tiempo, el simulacro queda como abandonado: sin puntaje, sin XP y fuera del historial. Con la app abierta, la entrega automática sí funciona.
 7. **Recargar un paquete repite su novedad.**
 8. **La entrega tardía se acepta.** `entregar_simulacro` calcula `tarde`, pero no rechaza ni recorta nada y la interfaz no lo muestra. En el uso normal el navegador entrega al llegar a cero.
-9. **La estudiante no puede cambiar su contraseña.** Tampoco se pueden crear estudiantes desde la app: se hace en Supabase.
+9. ~~**La estudiante no puede cambiar su contraseña.** Tampoco se pueden crear estudiantes desde la app: se hace en Supabase.~~ Resuelto en la 1.2.0.
 10. **Los textos discontinuos son solo texto.** No hay soporte para imágenes, caricaturas ni gráficas reales, que el examen sí usa.
-11. **Sin conexión, la app no abre.** Hay manifiesto para instalarla en la pantalla de inicio, pero no service worker.
+11. **Sin conexión, la app no abre.** Desde la 1.2.0 hay service worker, pero solo muestra una página que explica que no hay conexión; no guarda retos para hacerlos sin internet.
 
 ### Menores
 
 12. La librería de Supabase se carga desde jsDelivr sin versión fija (`@supabase/supabase-js@2`). Una actualización o una caída del CDN afectaría la app.
-13. `rachas(uid)` no comprueba permisos como las demás funciones: una persona autenticada que conociera el identificador de otra podría consultar su racha. Hoy, con una estudiante, es irrelevante.
+13. ~~`rachas(uid)` no comprueba permisos como las demás funciones.~~ Resuelto en la 1.2.0: solo la propia persona, el tutor o alguien de su mismo grupo.
 14. `NOMBRE_TUTOR` está en `js/config.js` y no se usa en ninguna parte.
 15. Un reto que se abandona sin responder nada deja una sesión abierta en la base de datos. No afecta estadísticas.
 16. Varios textos de la interfaz están en femenino (ver `06-diseno-y-voz.md`).
@@ -104,7 +105,7 @@ Son ideas, no compromisos. Están ordenadas por lo que más le sirve a la prepar
 
 ### Fuera de alcance por decisión
 
-- Tabla de posiciones entre estudiantes.
+- ~~Tabla de posiciones entre estudiantes.~~ Desde la 1.2.0 existe dentro de los grupos, medida por esfuerzo y reiniciada cada lunes (decisión de Diego del 11-nov-2026). Sigue fuera de alcance una tabla general de todos los estudiantes.
 
 (Razonamiento Lógico estuvo en esta lista hasta el 4-oct-2026.)
 
@@ -153,3 +154,29 @@ Salen de construir y probar la 1.1.0. No se han visto con la estudiante usando l
 - **Tiempo por pregunta en los retos de lógica**, comparado con los 2 min 15 s del examen.
 - **Tipos de error para Lectura**, para que el cuaderno y el perfil de errores sirvan a los dos componentes.
 - **Hoja de borrador** dentro de la app para quien resuelve en el celular sin papel.
+
+## Cuentas, grupos e instalación: pendientes y observaciones (versión 1.2.0)
+
+### Para montar la 1.2.0
+
+1. Supabase: ejecutar `05_usuarios_y_grupos.sql` y después `02_funciones.sql`.
+2. GitHub: subir los archivos de la carpeta (incluye `sw.js` e `iconos/`, nuevos).
+3. Prueba: crear desde Personas una cuenta con un correo de prueba, entrar con ella en otro navegador, cambiar la contraseña e instalar la app en un celular. Después, desactivarla.
+
+### Observaciones
+
+1. **Crear cuentas depende de la tabla `auth.users` de Supabase.** Se probó contra una imitación con las mismas columnas, no contra Supabase. Es lo primero que hay que confirmar con la prueba del paso 3. Si falla, el camino manual sigue sirviendo y el mensaje de error dice qué cambió.
+2. **En iPhone, la app instalada pide entrar otra vez.** Safari y la app instalada no comparten la sesión. Las instrucciones lo avisan.
+3. **iPhone no tiene botón de instalar.** Solo Android/Chrome ofrece su instalador; en iPhone son los pasos de Compartir → Agregar a inicio, y sus nombres cambian un poco entre versiones de iOS.
+4. **La contraseña temporal viaja por WhatsApp.** Es temporal y la app obliga a cambiarla en el primer ingreso; si alguien tarda en entrar, Personas lo muestra («Aún no elige su contraseña») y se puede generar otra.
+5. **El tutor no puede crear otro tutor desde la app.** Se crea como estudiante y se cambia el rol en SQL. Todo tutor ve a todos.
+6. **La semana del grupo cuenta XP, y el XP crece con la dificultad.** Quien responde preguntas difíciles gana más por acierto. Si en algún grupo eso se siente injusto, la alternativa es ordenar por días con práctica.
+7. **«Explorar el banco» trae el banco completo con las claves** (solo el tutor puede leerlo). Con varios miles de preguntas convendría paginarlo.
+
+### Mejoras posibles
+
+- Tutores por grupo.
+- Meta colectiva de la semana («entre todos, 20 días de práctica») como alternativa o complemento a la tabla.
+- Reacciones a la actividad de un compañero (un aplauso), sin comentarios libres.
+- Notificaciones al celular: mensajes del tutor, misión nueva, racha en peligro.
+- Que el tutor vea en el detalle de cada estudiante si ya instaló la app y cuándo entró por última vez.

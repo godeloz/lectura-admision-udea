@@ -5,7 +5,7 @@
 window.LE = {
   cfg: window.LE_CONFIG,
   api: null,
-  estado: { perfil: null, config: {}, insignias: [], tecnicas: [], sesion: null },
+  estado: { perfil: null, config: {}, insignias: [], tecnicas: [], grupos: [], sesion: null },
   acciones: {},
   rutas: []
 };
@@ -154,20 +154,21 @@ window.LE = {
   };
 
   // ---------- Montaje y rutas ----------
-  LE.montar = (html) => { const v = $("#vista"); v.innerHTML = html; window.scrollTo(0, 0); return v; };
+  // Si la pantalla cambió mientras se cargaban datos (por ejemplo, se cerró la sesión), no pinta nada.
+  LE.montar = (html) => { const v = $("#vista"); if (!v) return document.createElement("div"); v.innerHTML = html; window.scrollTo(0, 0); return v; };
   LE.ondas = (n = 7) => Array.from({ length: n }, (_, i) => `<span class="cr-${["cian", "rosa", "amarillo", "menta"][i % 4]}" style="--i:${i};height:${40 + ((i * 37) % 60)}%"></span>`).join("");
   LE.cargando = (txt = "Cargando…") => LE.montar(`<div class="cargando"><div class="ondas">${LE.ondas()}</div><p>${LE.esc(txt)}</p></div>`);
 
   LE.ruta = (patron, fn, opciones = {}) => LE.rutas.push({ re: new RegExp("^" + patron.replace(/:(\w+)/g, "(?<$1>[^/]+)") + "$"), fn, ...opciones });
   LE.ir = (hash) => { if (location.hash === hash) LE.navegar(); else location.hash = hash; };
-  LE.inicioPorRol = () => (LE.esTutor() ? "#/tutor" : LE.COMP[LE.compActual()].ruta);
+  LE.inicioPorRol = () => (LE.comoTutor() ? "#/tutor" : LE.COMP[LE.compActual()].ruta);
   LE.navegar = async () => {
     const h = location.hash.replace(/^#/, "") || LE.inicioPorRol().slice(1);
     for (const r of LE.rutas) {
       const m = h.match(r.re);
       if (!m) continue;
       if (r.tutor && !LE.esTutor()) return LE.ir("#/inicio");
-      if (r.estudiante && LE.esTutor()) return LE.ir("#/tutor");
+      if (r.estudiante && LE.comoTutor()) return LE.ir("#/tutor");
       document.body.classList.toggle("en-sesion", !!r.sesion);
       LE.marcarNav(h);
       try { await r.fn(m.groups || {}); }
@@ -184,7 +185,33 @@ window.LE = {
     const mejor = links.map((a) => a.getAttribute("href").slice(1)).filter((r) => h.startsWith(r)).sort((a, b) => b.length - a.length)[0];
     links.forEach((a) => (a.getAttribute("href").slice(1) === mejor ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
   };
+  // esTutor: la cuenta tiene permisos de tutor. comoTutor: además está viendo
+  // las pantallas de tutor (no está en modo práctica usando la app como estudiante).
   LE.esTutor = () => LE.estado.perfil?.rol === "tutor";
+  LE.enPractica = () => {
+    if (!LE.esTutor()) return false;
+    try { return sessionStorage.getItem("le-practica") === "1"; } catch (e) { return !!LE.estado.practica; }
+  };
+  LE.fijarPractica = (si) => {
+    LE.estado.practica = !!si;
+    try { si ? sessionStorage.setItem("le-practica", "1") : sessionStorage.removeItem("le-practica"); } catch (e) { }
+  };
+  LE.comoTutor = () => LE.esTutor() && !LE.enPractica();
+
+  // ---------- Instalar la app en el celular ----------
+  // Android/Chrome ofrece su propio instalador; hay que guardar el evento apenas llega.
+  LE.instalador = null;
+  addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); LE.instalador = e; document.dispatchEvent(new Event("le-instalador")); });
+  addEventListener("appinstalled", () => { LE.instalador = null; LE.api?.marcarInstalada?.().catch(() => {}); });
+  // ¿Está abierta desde el ícono instalado (y no desde el navegador)?
+  LE.instalada = () => matchMedia("(display-mode: standalone)").matches || matchMedia("(display-mode: fullscreen)").matches || navigator.standalone === true;
+  LE.dispositivo = () => {
+    const ua = navigator.userAgent || "";
+    const ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    if (ios) return { so: "ios", safari: !/CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua), celular: true };
+    if (/Android/i.test(ua)) return { so: "android", samsung: /SamsungBrowser/i.test(ua), celular: true };
+    return { so: "otro", celular: false };
+  };
 
   // ---------- Acciones delegadas ----------
   document.addEventListener("click", (e) => {

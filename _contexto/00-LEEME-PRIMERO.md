@@ -4,25 +4,27 @@ Esta carpeta guarda todo lo que hace falta saber para seguir trabajando en Entre
 
 La app no la necesita para funcionar. Es documentación: se puede subir al repositorio o dejarla solo en el computador, da igual. No contiene contraseñas y no debe contenerlas nunca.
 
-Escrita el 4 de octubre de 2026 a partir de una lectura completa del código de la versión 1.0.0, de los documentos del proyecto «Simulacro Examen UdeA» en Claude y de las conversaciones en las que se diseñó y se montó la app. Ese mismo día se construyó la versión 1.1.0, que agrega Razonamiento Lógico; cada documento tiene al final una sección sobre ese componente.
+Escrita el 4 de octubre de 2026 a partir de una lectura completa del código de la versión 1.0.0, de los documentos del proyecto «Simulacro Examen UdeA» en Claude y de las conversaciones en las que se diseñó y se montó la app. Ese mismo día se construyó la versión 1.1.0, que agrega Razonamiento Lógico; cada documento tiene al final una sección sobre ese componente. El 11 de noviembre de 2026 se construyó la 1.2.0 (cuentas desde la app, grupos, instalación en el celular y modo práctica del tutor); los documentos 01, 03, 04, 06, 07 y 08 tienen una sección sobre ella.
+
+**Dónde se trabaja.** Desde el 11-nov-2026 la carpeta de trabajo es `Documents/GitHub/App-comprension-lectora/lectura-admision-udea`, conectada a GitHub Desktop (repositorio `godeloz/lectura-admision-udea`). Diego hace los commits y el push desde GitHub Desktop; Claude edita los archivos y no ejecuta git.
 
 ---
 
 ## La app en un párrafo
 
-Entrelíneas es una app web para practicar el examen de admisión de la Universidad de Antioquia. Tiene dos componentes que se navegan por separado y nunca se mezclan en una misma sesión: Lectura (Competencia Lectora) y Lógica (Razonamiento Lógico). La estudiante entra con usuario y contraseña, hace retos diarios de 5, 10 o 15 preguntas con explicación inmediata y simulacros cronometrados con diagnóstico; gana XP, rangos e insignias. En Lógica, cada respuesta trae la solución paso a paso y el tipo de error cometido, y hay una caja de herramientas con las técnicas y un cuaderno de errores. Diego, como tutor, ve su avance, recibe alertas automáticas y le envía mensajes, misiones y comentarios sobre preguntas falladas. Es un sitio estático (HTML, CSS y JavaScript sin frameworks) publicado en GitHub Pages, con Supabase para usuarios, datos y toda la lógica que no debe poder manipularse desde el navegador.
+Entrelíneas es una app web para practicar el examen de admisión de la Universidad de Antioquia. Tiene dos componentes que se navegan por separado y nunca se mezclan en una misma sesión: Lectura (Competencia Lectora) y Lógica (Razonamiento Lógico). Cada estudiante entra con su correo y su contraseña (las cuentas las crea el tutor desde la app y se pueden agrupar), hace retos diarios de 5, 10 o 15 preguntas con explicación inmediata y simulacros cronometrados con diagnóstico; gana XP, rangos e insignias. En Lógica, cada respuesta trae la solución paso a paso y el tipo de error cometido, y hay una caja de herramientas con las técnicas y un cuaderno de errores. Diego, como tutor, ve su avance, recibe alertas automáticas y le envía mensajes, misiones y comentarios sobre preguntas falladas. Es un sitio estático (HTML, CSS y JavaScript sin frameworks) publicado en GitHub Pages, con Supabase para usuarios, datos y toda la lógica que no debe poder manipularse desde el navegador.
 
 ## Estado al 4 de octubre de 2026
 
 | | |
 |---|---|
-| Versión de la app | En la carpeta: **1.1.0** (Razonamiento Lógico). Publicada en GitHub Pages: 1.0.0 hasta que Diego haga los tres pasos de «Pasar de la 1.0.0 a la 1.1.0» del `README.md` |
+| Versión de la app | En la carpeta: **1.2.0** (cuentas, grupos e instalación; 11-nov-2026). Lo publicado en GitHub Pages depende de los commits de Diego; para la 1.2.0 hay que hacer los pasos de «Pasar de la 1.1.0 a la 1.2.0» del `README.md` |
 | Supabase | Conectado: `js/config.js` ya tiene la URL y la clave pública del proyecto |
 | Base de datos | Esquema, funciones y carga inicial ejecutados el 26-sep-2026. Pendiente para la 1.1.0: ejecutar `04_razonamiento_logico.sql` y el `02_funciones.sql` nuevo |
 | Banco de preguntas | Escritas: 25 lecturas y 150 preguntas en cinco paquetes, que era la meta mínima. Cargado en la app con certeza: `paquete-001` y `paquete-002` (61 preguntas). Preparados el 4-oct-2026 y por confirmar si ya se cargaron: `paquete-003` (32), `paquete-004` (30) y `paquete-005` (27) |
 | Banco de lógica | Escrito el 4-oct-2026: 109 preguntas (27 de deducción, 36 de proporciones, 20 de patrones, 26 de geometría), 4 situaciones y 26 fichas de técnica, en `logica-base`, `logica-001` y `logica-002`. Sin cargar todavía |
 | Insignias | 23 generales y de lectura; 16 de lógica cuando se cargue `logica-base` |
-| Usuarios | Tutor `diego`; la estudiante se creó en Supabase Authentication |
+| Usuarios | Tutor `diego`; la estudiante se creó en Supabase Authentication. Desde la 1.2.0 las cuentas nuevas se crean en la app (Personas) |
 | Publicación en GitHub Pages | Al aire: https://godeloz.github.io/lectura-admision-udea/ |
 
 ## Datos por completar

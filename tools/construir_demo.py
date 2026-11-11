@@ -30,7 +30,7 @@ css = "\n".join(leer(f) for f in ["css/tema.css", "css/app.css"])
 html = re.sub(r'\s*<link rel="stylesheet" href="css/[^"]+">', "", html)
 html = html.replace("</head>", f"<style>\n{css}\n</style>\n</head>")
 
-scripts = ["js/config.js", "js/nucleo.js", "js/api-demo.js", "js/vistas-estudiante.js", "js/vistas-logica.js", "js/vistas-tutor.js", "js/app.js"]
+scripts = ["js/config.js", "js/nucleo.js", "js/api-demo.js", "js/vistas-estudiante.js", "js/vistas-logica.js", "js/vistas-tutor.js", "js/vistas-comunidad.js", "js/app.js"]
 js = "window.LE_DATOS_DEMO = " + json.dumps(datos, ensure_ascii=False) + ";\n"
 js += "\n".join(leer(f) for f in scripts)
 js = js.replace('SUPABASE_URL: "', 'SUPABASE_URL_IGNORADA: "')  # el demo nunca usa Supabase

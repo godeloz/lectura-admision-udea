@@ -1,5 +1,5 @@
 -- =====================================================================
---  ENTRELÍNEAS · 02 · FUNCIONES   (versión 1.1.0)
+--  ENTRELÍNEAS · 02 · FUNCIONES   (versión 1.2.0)
 --  La lógica que no debe poder manipularse desde el navegador
 --  (calificar, dar XP, otorgar insignias) corre aquí.
 --  Se puede volver a ejecutar completo cuando haya una versión nueva.
@@ -7,6 +7,10 @@
 --  Desde la 1.1.0 la app tiene dos componentes que nunca se mezclan en
 --  una misma sesión: 'lectura' y 'logica'. Antes de ejecutar este
 --  archivo hay que haber ejecutado 04_razonamiento_logico.sql.
+--
+--  Desde la 1.2.0 el tutor crea cuentas desde la app, cada persona cambia
+--  su contraseña en el primer ingreso y hay grupos. Antes de ejecutar este
+--  archivo hay que haber ejecutado 05_usuarios_y_grupos.sql.
 -- =====================================================================
 
 -- Funciones cuya lista de parámetros cambió en la 1.1.0. Se retiran las
@@ -33,6 +37,15 @@ $$;
 create or replace function puede_ver(p_uid uuid) returns boolean
 language sql stable security definer set search_path = public as $$
   select p_uid = auth.uid() or es_tutor()
+$$;
+
+-- ¿La persona con sesión iniciada está en un mismo grupo activo que p_uid?
+create or replace function comparte_grupo(p_uid uuid) returns boolean
+language sql stable security definer set search_path = public as $$
+  select exists (select 1 from grupo_miembros a
+                 join grupo_miembros b on b.grupo_id = a.grupo_id
+                 join grupos g on g.id = a.grupo_id and g.activo
+                 where a.user_id = auth.uid() and b.user_id = p_uid)
 $$;
 
 -- A qué componente pertenece cada categoría.
@@ -72,6 +85,8 @@ language plpgsql stable security definer set search_path = public as $$
 declare
   v_ult date;
 begin
+  -- Solo la propia persona, el tutor o alguien de su mismo grupo.
+  if not (puede_ver(p_uid) or comparte_grupo(p_uid)) then raise exception 'Sin permiso'; end if;
   with dias as (
     select distinct dia(creado) d from respuestas where user_id = p_uid
   ), grupos as (
@@ -716,6 +731,7 @@ begin
                       where user_id = p.id and creado > now() - interval '7 days'),
     'logica_7d', (select count(*) from respuestas r join preguntas q on q.id = r.pregunta_id
                   where r.user_id = p.id and q.componente = 'logica' and r.creado > now() - interval '7 days'),
+    'debe_cambiar_clave', p.debe_cambiar_clave, 'instalada', p.instalada,
     'alertas', (select count(*) from alertas where estudiante_id = p.id and estado = 'abierta'))
     order by p.nombre)
   from perfiles p where p.rol = 'estudiante' and p.activo), '[]');
@@ -815,6 +831,290 @@ language sql stable security definer set search_path = public as $$
         select paquete, count(*) n from preguntas group by paquete order by paquete) c))
   else null end
 $$;
+
+-- =====================================================================
+--  PERSONAS, CONTRASEÑAS Y GRUPOS (versión 1.2.0)
+-- =====================================================================
+-- Las cuentas viven en auth.users, la tabla de Supabase. Crear una desde el
+-- navegador exigiría la clave secreta del proyecto, que nunca puede viajar a
+-- una página web; por eso lo hace esta función, que corre en la base de
+-- datos y solo acepta llamadas de un tutor. Las contraseñas se guardan
+-- cifradas con bcrypt, igual que las que crea el panel de Supabase.
+-- (crypt, gen_salt y gen_random_bytes vienen de pgcrypto, que en Supabase
+-- vive en el esquema «extensions»; por eso está en el search_path.)
+
+-- Contraseña temporal fácil de dictar: dos palabras y tres cifras («cometa-rio-472»).
+create or replace function clave_temporal() returns text
+language plpgsql volatile set search_path = public, extensions as $$
+declare
+  w text[] := array['agua','alba','arco','arena','barco','bosque','brisa','cafe','calma','campo',
+    'canto','cielo','cobre','cometa','coral','cuento','duna','eco','faro','fuego','gota','grillo',
+    'isla','jardin','lago','lapiz','libro','lima','llave','luna','mango','mapa','mar','menta',
+    'miel','monte','musgo','nido','niebla','nube','ola','oro','palma','pan','papel','pino',
+    'playa','pluma','puente','raiz','rama','rayo','rio','roble','roca','rosa','sal','selva',
+    'sol','tierra','tinta','trigo','valle','vela','verso','viento','volcan','yuca','zafiro','tren'];
+  b bytea := gen_random_bytes(4);
+begin
+  return w[1 + get_byte(b, 0) % array_length(w, 1)] || '-' ||
+         w[1 + get_byte(b, 1) % array_length(w, 1)] || '-' ||
+         (100 + ((get_byte(b, 2) * 256 + get_byte(b, 3)) % 900))::text;
+end $$;
+
+-- Crea una cuenta de estudiante con contraseña temporal. Devuelve la
+-- contraseña una sola vez: no queda guardada en ninguna parte sin cifrar.
+create or replace function crear_usuario(p_nombre text, p_correo text, p_grupo uuid default null) returns jsonb
+language plpgsql volatile security definer set search_path = public, extensions as $$
+declare
+  v_correo text := lower(trim(coalesce(p_correo, '')));
+  v_nombre text := trim(coalesce(p_nombre, ''));
+  v_clave  text := clave_temporal();
+  v_id     uuid := gen_random_uuid();
+begin
+  if not es_tutor() then raise exception 'Solo para tutores'; end if;
+  if v_nombre = '' then raise exception 'Escribe el nombre de la persona'; end if;
+  if length(v_nombre) > 60 then raise exception 'El nombre es demasiado largo'; end if;
+  if v_correo !~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' then raise exception 'El correo «%» no es válido', v_correo; end if;
+  if exists (select 1 from auth.users where lower(email) = v_correo) then
+    raise exception 'Ya existe una cuenta con el correo %', v_correo;
+  end if;
+  if p_grupo is not null and not exists (select 1 from grupos where id = p_grupo and activo) then
+    raise exception 'Grupo no encontrado';
+  end if;
+
+  -- Los campos de texto vacíos ('') y no nulos son los que espera Supabase
+  -- para que la cuenta pueda entrar con correo y contraseña.
+  insert into auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at,
+                          raw_app_meta_data, raw_user_meta_data, created_at, updated_at,
+                          confirmation_token, recovery_token, email_change_token_new, email_change,
+                          email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+  values ('00000000-0000-0000-0000-000000000000', v_id, 'authenticated', 'authenticated', v_correo,
+          crypt(v_clave, gen_salt('bf')), now(),
+          '{"provider":"email","providers":["email"]}'::jsonb,
+          jsonb_build_object('nombre', v_nombre, 'debe_cambiar_clave', true), now(), now(),
+          '', '', '', '', '', '', '', '');
+  insert into auth.identities (id, user_id, provider_id, identity_data, provider, last_sign_in_at, created_at, updated_at)
+  values (gen_random_uuid(), v_id, v_id::text,
+          jsonb_build_object('sub', v_id::text, 'email', v_correo, 'email_verified', true, 'phone_verified', false),
+          'email', now(), now(), now());
+
+  -- El perfil lo crea el disparador crear_perfil(); aquí se completa.
+  -- Las novedades viejas no le aparecen: su bienvenida es el primer ingreso.
+  update perfiles set nombre = v_nombre, correo = v_correo, debe_cambiar_clave = true,
+                      ultima_novedad = coalesce((select max(id) from novedades), 0)
+  where id = v_id;
+  if p_grupo is not null then
+    insert into grupo_miembros (grupo_id, user_id) values (p_grupo, v_id) on conflict do nothing;
+  end if;
+
+  return jsonb_build_object('id', v_id, 'nombre', v_nombre, 'correo', v_correo,
+                            'usuario', (select usuario from perfiles where id = v_id), 'clave', v_clave);
+end $$;
+
+-- Contraseña temporal nueva para quien olvidó la suya. La sesión que tenga
+-- abierta sigue abierta; la próxima vez que entre, la app le pide cambiarla.
+create or replace function restablecer_clave(p_uid uuid) returns jsonb
+language plpgsql volatile security definer set search_path = public, extensions as $$
+declare
+  v_clave text := clave_temporal();
+  p perfiles;
+begin
+  if not es_tutor() then raise exception 'Solo para tutores'; end if;
+  select * into p from perfiles where id = p_uid;
+  if p.id is null then raise exception 'Persona no encontrada'; end if;
+  if p.rol <> 'estudiante' then raise exception 'Solo se puede restablecer la contraseña de una cuenta de estudiante'; end if;
+  update auth.users set encrypted_password = crypt(v_clave, gen_salt('bf')), updated_at = now() where id = p_uid;
+  update perfiles set debe_cambiar_clave = true where id = p_uid;
+  return jsonb_build_object('id', p.id, 'nombre', p.nombre, 'correo', p.correo, 'usuario', p.usuario, 'clave', v_clave);
+end $$;
+
+-- Cada persona cambia su propia contraseña (en el primer ingreso o desde su perfil).
+create or replace function cambiar_mi_clave(p_nueva text) returns void
+language plpgsql volatile security definer set search_path = public, extensions as $$
+begin
+  if auth.uid() is null then raise exception 'Sesión no iniciada'; end if;
+  if p_nueva is null or length(p_nueva) < 8 then raise exception 'La contraseña debe tener al menos 8 caracteres'; end if;
+  if length(p_nueva) > 72 then raise exception 'La contraseña es demasiado larga (máximo 72 caracteres)'; end if;
+  if trim(p_nueva) = '' then raise exception 'La contraseña no puede ser solo espacios'; end if;
+  update auth.users set encrypted_password = crypt(p_nueva, gen_salt('bf')), updated_at = now() where id = auth.uid();
+  update perfiles set debe_cambiar_clave = false where id = auth.uid();
+end $$;
+
+-- Desactivar no borra nada: la cuenta deja de poder entrar y sale del panel,
+-- de las alertas y de los grupos. Activarla la devuelve tal como estaba.
+create or replace function cambiar_estado_usuario(p_uid uuid, p_activo boolean) returns void
+language plpgsql volatile security definer set search_path = public as $$
+begin
+  if not es_tutor() then raise exception 'Solo para tutores'; end if;
+  if p_uid = auth.uid() then raise exception 'No puedes desactivar tu propia cuenta'; end if;
+  if not exists (select 1 from perfiles where id = p_uid) then raise exception 'Persona no encontrada'; end if;
+  update perfiles set activo = p_activo where id = p_uid;
+  update auth.users set banned_until = case when p_activo then null else now() + interval '100 years' end where id = p_uid;
+end $$;
+
+-- La app avisa cuando se abre desde el ícono instalado; el tutor lo ve en Personas.
+create or replace function marcar_instalada() returns void
+language sql volatile security definer set search_path = public as $$
+  update perfiles set instalada = coalesce(instalada, now()) where id = auth.uid()
+$$;
+
+-- Todas las cuentas, para la pantalla Personas del tutor.
+create or replace function personas() returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if not es_tutor() then raise exception 'Solo para tutores'; end if;
+  return coalesce((select jsonb_agg(jsonb_build_object(
+    'id', p.id, 'nombre', p.nombre, 'usuario', p.usuario, 'correo', p.correo, 'rol', p.rol,
+    'avatar', p.avatar, 'activo', p.activo, 'debe_cambiar_clave', p.debe_cambiar_clave,
+    'instalada', p.instalada, 'creado', p.creado, 'xp', p.xp, 'yo', p.id = auth.uid(),
+    'ultima_actividad', (select max(creado) from respuestas where user_id = p.id),
+    'grupos', coalesce((select jsonb_agg(jsonb_build_object('id', g.id, 'nombre', g.nombre, 'emoji', g.emoji) order by g.nombre)
+                        from grupo_miembros m join grupos g on g.id = m.grupo_id and g.activo where m.user_id = p.id), '[]'))
+    order by p.rol desc, p.activo desc, p.nombre)
+  from perfiles p), '[]');
+end $$;
+
+-- ---------- Grupos ----------------------------------------------------
+-- Crea (p_id nulo) o edita un grupo. Devuelve su id.
+create or replace function guardar_grupo(p_id uuid, p_nombre text, p_descripcion text default '',
+                                         p_emoji text default '👥', p_ver_simulacros boolean default false) returns uuid
+language plpgsql volatile security definer set search_path = public as $$
+declare v_id uuid;
+begin
+  if not es_tutor() then raise exception 'Solo para tutores'; end if;
+  if trim(coalesce(p_nombre, '')) = '' then raise exception 'Escribe el nombre del grupo'; end if;
+  if p_id is null then
+    insert into grupos (nombre, descripcion, emoji, ver_simulacros, creado_por)
+    values (trim(p_nombre), coalesce(trim(p_descripcion), ''), coalesce(nullif(p_emoji, ''), '👥'), coalesce(p_ver_simulacros, false), auth.uid())
+    returning id into v_id;
+  else
+    update grupos set nombre = trim(p_nombre), descripcion = coalesce(trim(p_descripcion), ''),
+                      emoji = coalesce(nullif(p_emoji, ''), emoji), ver_simulacros = coalesce(p_ver_simulacros, false)
+    where id = p_id and activo returning id into v_id;
+    if v_id is null then raise exception 'Grupo no encontrado'; end if;
+  end if;
+  return v_id;
+end $$;
+
+-- Borra el grupo y sus membresías. El progreso de cada persona no se toca.
+create or replace function eliminar_grupo(p_id uuid) returns void
+language plpgsql volatile security definer set search_path = public as $$
+begin
+  if not es_tutor() then raise exception 'Solo para tutores'; end if;
+  delete from grupos where id = p_id;
+end $$;
+
+-- Deja en el grupo exactamente a estas personas (solo cuentas de estudiante).
+create or replace function fijar_miembros(p_grupo uuid, p_ids uuid[]) returns integer
+language plpgsql volatile security definer set search_path = public as $$
+begin
+  if not es_tutor() then raise exception 'Solo para tutores'; end if;
+  if not exists (select 1 from grupos where id = p_grupo and activo) then raise exception 'Grupo no encontrado'; end if;
+  delete from grupo_miembros where grupo_id = p_grupo and not (user_id = any(coalesce(p_ids, '{}')));
+  insert into grupo_miembros (grupo_id, user_id)
+  select p_grupo, id from perfiles where id = any(coalesce(p_ids, '{}')) and rol = 'estudiante'
+  on conflict do nothing;
+  return (select count(*) from grupo_miembros where grupo_id = p_grupo);
+end $$;
+
+-- Para el tutor: todos los grupos con sus miembros.
+-- Para una estudiante: los grupos donde está (sin la lista de miembros).
+create or replace function mis_grupos() returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if auth.uid() is null then raise exception 'Sesión no iniciada'; end if;
+  return coalesce((select jsonb_agg(jsonb_build_object(
+      'id', g.id, 'nombre', g.nombre, 'descripcion', g.descripcion, 'emoji', g.emoji, 'ver_simulacros', g.ver_simulacros,
+      'n', (select count(*) from grupo_miembros m join perfiles p on p.id = m.user_id and p.activo where m.grupo_id = g.id),
+      'miembros', case when es_tutor() then coalesce((select jsonb_agg(m.user_id) from grupo_miembros m where m.grupo_id = g.id), '[]') end)
+      order by g.nombre)
+    from grupos g
+    where g.activo and (case when es_tutor() then true
+                             else exists (select 1 from grupo_miembros m where m.grupo_id = g.id and m.user_id = auth.uid()) end)), '[]');
+end $$;
+
+-- La semana de un grupo, tal como la ven sus miembros.
+--   miembros   por persona: XP ganado desde el lunes, días con práctica, racha,
+--              retos y simulacros de la semana. Ordenados por XP de la semana.
+--              Puntajes de simulacro solo si el grupo los muestra.
+--   actividad  los últimos 7 días: retos terminados (sin resultado), simulacros
+--              (con puntaje solo si el grupo los muestra) e insignias nuevas.
+-- Nunca entrega respuestas, preguntas falladas, mensajes ni alertas.
+create or replace function grupo_semana(p_grupo uuid) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+declare
+  g        grupos;
+  v_lunes  date := date_trunc('week', hoy())::date;
+  v_ver    boolean;
+begin
+  select * into g from grupos where id = p_grupo and activo;
+  if g.id is null then raise exception 'Grupo no encontrado'; end if;
+  if not (es_tutor() or exists (select 1 from grupo_miembros where grupo_id = p_grupo and user_id = auth.uid())) then
+    raise exception 'Sin permiso';
+  end if;
+  v_ver := g.ver_simulacros;
+  return jsonb_build_object(
+    'grupo', jsonb_build_object('id', g.id, 'nombre', g.nombre, 'descripcion', g.descripcion, 'emoji', g.emoji, 'ver_simulacros', g.ver_simulacros),
+    'semana', v_lunes,
+    'miembros', coalesce((select jsonb_agg(z order by z.xp_semana desc, z.dias_semana desc, z.nombre) from (
+        select p.id, p.nombre, p.avatar, p.id = auth.uid() as yo,
+               (select coalesce(sum(s.xp), 0) from sesiones s
+                 where s.user_id = p.id and dia(coalesce(s.fin, s.inicio)) >= v_lunes)::int as xp_semana,
+               (select count(distinct dia(r.creado)) from respuestas r where r.user_id = p.id and dia(r.creado) >= v_lunes)::int as dias_semana,
+               (select count(*) from respuestas r where r.user_id = p.id and dia(r.creado) >= v_lunes)::int as respuestas_semana,
+               (select coalesce(sum(a.segundos), 0) / 60 from actividad_diaria a where a.user_id = p.id and a.fecha >= v_lunes)::int as minutos_semana,
+               (select actual from rachas(p.id)) as racha,
+               (select count(*) from sesiones s where s.user_id = p.id and s.tipo in ('reto','mision') and s.fin is not null
+                  and dia(s.fin) >= v_lunes)::int as retos_semana,
+               (select count(*) from sesiones s where s.user_id = p.id and s.tipo = 'simulacro' and s.fin is not null
+                  and not coalesce((s.resultado->>'abandonado')::boolean, false) and dia(s.fin) >= v_lunes)::int as simulacros_semana,
+               case when v_ver then (select jsonb_agg(jsonb_build_object('componente', s.componente, 'nivel', s.nivel,
+                                                                        'puntaje', s.resultado->'puntaje', 'fecha', s.fin) order by s.fin desc)
+                                     from sesiones s where s.user_id = p.id and s.tipo = 'simulacro' and s.fin is not null
+                                       and not coalesce((s.resultado->>'abandonado')::boolean, false) and dia(s.fin) >= v_lunes) end as simulacros
+        from grupo_miembros m join perfiles p on p.id = m.user_id and p.activo and p.rol = 'estudiante'
+        where m.grupo_id = p_grupo) z), '[]'),
+    'actividad', coalesce((select jsonb_agg(a order by a.fecha desc) from (
+        select * from (
+          select 'reto' tipo, s.fin fecha, p.id user_id, p.nombre, p.avatar, s.componente, s.total, null::text nivel,
+                 null::jsonb puntaje, null::text insignia, null::text icono
+          from sesiones s join grupo_miembros m on m.user_id = s.user_id and m.grupo_id = p_grupo
+          join perfiles p on p.id = s.user_id and p.activo
+          where s.tipo in ('reto','mision') and s.fin is not null and s.fin > now() - interval '7 days'
+            and (select count(*) from respuestas r where r.sesion_id = s.id) > 0
+          union all
+          select 'simulacro', s.fin, p.id, p.nombre, p.avatar, s.componente, s.total, s.nivel,
+                 case when v_ver then s.resultado->'puntaje' end, null, null
+          from sesiones s join grupo_miembros m on m.user_id = s.user_id and m.grupo_id = p_grupo
+          join perfiles p on p.id = s.user_id and p.activo
+          where s.tipo = 'simulacro' and s.fin is not null and s.fin > now() - interval '7 days'
+            and not coalesce((s.resultado->>'abandonado')::boolean, false)
+          union all
+          select 'insignia', iu.obtenida, p.id, p.nombre, p.avatar, null, null, null, null, i.nombre, i.icono
+          from insignias_usuario iu join insignias i on i.codigo = iu.codigo
+          join grupo_miembros m on m.user_id = iu.user_id and m.grupo_id = p_grupo
+          join perfiles p on p.id = iu.user_id and p.activo
+          where iu.obtenida > now() - interval '7 days'
+        ) u order by fecha desc limit 30) a), '[]'));
+end $$;
+
+-- ---------- Práctica del tutor ----------------------------------------
+-- El tutor puede usar la app como estudiante con su propia cuenta: nunca
+-- aparece en el panel, en las alertas ni en los grupos. Esto le deja empezar
+-- de cero cuando quiera. Solo funciona con una cuenta de tutor.
+create or replace function borrar_mi_practica() returns jsonb
+language plpgsql volatile security definer set search_path = public as $$
+declare v_r integer; v_s integer;
+begin
+  if not es_tutor() then raise exception 'Solo para tutores'; end if;
+  delete from respuestas where user_id = auth.uid();
+  get diagnostics v_r = row_count;
+  delete from sesiones where user_id = auth.uid();
+  get diagnostics v_s = row_count;
+  delete from insignias_usuario where user_id = auth.uid();
+  delete from actividad_diaria where user_id = auth.uid();
+  update perfiles set xp = 0 where id = auth.uid();
+  return jsonb_build_object('respuestas', v_r, 'sesiones', v_s);
+end $$;
 
 -- ---------- Paquetes de actualización --------------------------------
 -- Un paquete JSON puede traer: textos con preguntas, preguntas sueltas
@@ -929,6 +1229,8 @@ revoke execute on function aplicar_paquete(jsonb) from authenticated;
 revoke execute on function aplicar_pregunta(jsonb, uuid, text) from authenticated;
 revoke execute on function evaluar_insignias(uuid) from authenticated;
 revoke execute on function seleccionar_preguntas(uuid, integer, text, text, text) from authenticated;
+revoke execute on function clave_temporal() from authenticated;
+revoke execute on function comparte_grupo(uuid) from authenticated;
 
 -- Avisa a la API de Supabase que relea las funciones y tablas (por si no lo hace sola).
 notify pgrst, 'reload schema';

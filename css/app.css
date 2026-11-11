@@ -366,6 +366,7 @@ input, select, textarea {
 textarea { min-height: 6rem; resize: vertical; line-height: 1.45; }
 input:focus, select:focus, textarea:focus { outline: none; border-color: var(--cian); }
 .dos-campos { display: grid; gap: .8rem; grid-template-columns: 1fr 1fr; }
+@media (max-width: 520px) { .dos-campos { grid-template-columns: 1fr; } }
 .error { color: var(--coral); font-weight: 600; }
 
 /* ---------- Ingreso ---------- */
@@ -434,3 +435,95 @@ dialog::backdrop { background: rgba(10, 6, 30, .7); backdrop-filter: blur(3px); 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* =====================================================================
+   1.2.0 · Cuentas, instalación, grupos, modo práctica y banco
+   ===================================================================== */
+/* Navegación del celular con seis entradas (estudiante en un grupo) */
+@media (max-width: 720px) {
+  .nav.seis { padding-left: .2rem; padding-right: .2rem; gap: 0; }
+  .nav.seis a { flex: 1; min-width: 0; padding: .35rem .1rem; font-size: .66rem; }
+}
+
+/* Franjas de aviso */
+.banda.practica { background: var(--violeta); color: var(--noche); display: flex; gap: .8rem; justify-content: center; align-items: center; flex-wrap: wrap; }
+.banda.practica button { background: var(--noche); color: var(--texto); border: 0; border-radius: var(--r-pill); padding: .3rem .9rem; font-weight: 700; cursor: pointer; }
+.banda.instalar { background: var(--menta); color: var(--noche); display: flex; gap: .6rem; justify-content: center; align-items: center; padding: .35rem .8rem; }
+.banda.instalar a { color: var(--noche); background: rgba(255, 255, 255, .55); border-radius: var(--r-pill); padding: .2rem .75rem; text-decoration: none; white-space: nowrap; }
+.banda.instalar button { background: none; border: 0; color: var(--noche); font-weight: 800; cursor: pointer; padding: .2rem .4rem; }
+.en-sesion .banda.instalar { display: none; }
+
+/* Casillas */
+label.check { display: flex; align-items: center; gap: .55rem; font-weight: 500; font-size: .92rem; cursor: pointer; }
+label.check input { width: 1.15rem; height: 1.15rem; accent-color: var(--rosa); flex: none; padding: 0; }
+.lista-check { display: grid; gap: .55rem; max-height: 50vh; overflow: auto; padding: .2rem; }
+
+/* Segmentos que son enlaces (Personas / Grupos, grupos de la estudiante) */
+.segmentos a { padding: .4rem .9rem; border-radius: var(--r-pill); font-weight: 600; color: var(--texto-2); text-decoration: none; }
+.segmentos a[aria-current="page"] { background: var(--texto); color: var(--noche); }
+
+/* Instalar */
+.btn.grande { padding: 1rem 1.2rem; font-size: 1.05rem; }
+.pasos-instalar { counter-reset: paso; list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem; }
+.pasos-instalar li { counter-increment: paso; display: grid; grid-template-columns: 2rem 1fr; gap: .7rem; align-items: start; line-height: 1.45; }
+.pasos-instalar li::before { content: counter(paso); width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; background: var(--menta); color: var(--noche); font-family: var(--f-display); font-weight: 700; }
+.ico-ui { display: inline-block; width: 1.35em; height: 1.35em; vertical-align: -.3em; padding: .1em; border-radius: 6px; background: var(--superficie-2); color: var(--cian); }
+.ico-ui.texto { width: auto; height: auto; padding: 0 .45em; font-weight: 800; line-height: 1.35; vertical-align: baseline; }
+.enlace-app { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; background: var(--noche); border: 1px dashed var(--borde); border-radius: var(--r-m); padding: .6rem .8rem; margin: .8rem 0; }
+.enlace-app code { font-size: .85rem; word-break: break-all; color: var(--texto-2); flex: 1; }
+.otros-pasos { margin-top: .8rem; }
+.otros-pasos summary { cursor: pointer; font-weight: 600; color: var(--cian); margin-bottom: .7rem; }
+.instalada-ok b { color: var(--menta); }
+.paso-etq { display: inline-block; font-size: .78rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--menta); }
+#caja-instalar > * + * { margin-top: .8rem; }
+
+/* Personas */
+.personas, .grupos { display: grid; gap: .75rem; }
+.persona, .grupo-tarjeta { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; padding: 1rem; border-radius: var(--r-m); background: var(--superficie); }
+.persona .av, .grupo-tarjeta .av { font-size: 1.8rem; line-height: 1; }
+.persona a { color: var(--texto); }
+.persona.inactiva { opacity: .62; }
+.estados { font-size: .82rem; }
+.estado { display: inline-flex; align-items: center; gap: .3rem; padding: .15rem .6rem; border-radius: var(--r-pill); background: var(--noche-2); color: var(--texto-2); font-weight: 600; font-size: .8rem; }
+.estado.ok { color: var(--menta); }
+.estado.pendiente { color: var(--amarillo); }
+.estado.apagado { color: var(--coral); }
+.estado.grupo { color: var(--texto); background: var(--superficie-2); }
+.credenciales { display: grid; gap: .6rem; background: var(--noche); border-radius: var(--r-m); padding: 1rem; border: 1px solid var(--borde); }
+.credenciales > div { display: grid; gap: .1rem; }
+.credenciales b { font-size: 1.05rem; word-break: break-all; }
+.credenciales .clave { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 1.35rem; color: var(--amarillo); letter-spacing: .02em; }
+.mensaje-listo { min-height: 9rem; font-size: .88rem; }
+
+/* La semana del grupo */
+.semana { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.semana li { display: grid; grid-template-columns: 1.6rem auto 1fr auto; gap: .75rem; align-items: center; padding: .75rem .9rem; border-radius: var(--r-m); background: var(--superficie); }
+.semana li.yo { box-shadow: inset 0 0 0 2px var(--rosa); }
+.semana .pos { font-family: var(--f-display); font-weight: 700; color: var(--texto-2); text-align: center; }
+.semana li:first-child .pos { color: var(--amarillo); }
+.semana .av { font-size: 1.6rem; line-height: 1; }
+.semana .quien { display: grid; gap: .2rem; min-width: 0; }
+.semana .dias { display: flex; align-items: center; gap: 3px; }
+.semana .dias i { width: 9px; height: 9px; border-radius: 50%; background: var(--borde); }
+.semana .dias i.on { background: var(--menta); }
+.semana .dias .tenue { margin-left: .4rem; }
+.semana .sims { display: flex; flex-wrap: wrap; gap: .3rem; }
+.semana .xp { text-align: right; display: grid; line-height: 1.05; }
+.semana .xp b { font-family: var(--f-display); font-size: 1.25rem; color: var(--amarillo); }
+.semana .xp small { color: var(--texto-2); font-size: .72rem; font-weight: 700; }
+.actividad { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.actividad li { display: grid; grid-template-columns: auto 1fr; gap: .7rem; align-items: center; }
+.actividad .av { font-size: 1.3rem; }
+
+/* Contenido y banco */
+.panel.destacado { border-color: var(--cian); }
+.filtros { display: grid; gap: .9rem; }
+.filtros-campos { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); }
+.banco { display: grid; gap: .6rem; }
+.bloque-banco { background: var(--noche-2); border: 1px solid var(--borde); border-radius: var(--r-m); }
+.bloque-banco > summary { cursor: pointer; padding: .9rem 1rem; display: flex; flex-wrap: wrap; gap: .3rem .7rem; align-items: center; }
+.bloque-banco[open] > summary { border-bottom: 1px solid var(--borde); }
+.bloque-banco .cuerpo { padding: 1rem; display: grid; gap: 1rem; }
+.lectura-banco .lectura { max-height: 26rem; overflow: auto; }
+.pregunta.probar { border: 1px solid var(--borde); background: var(--noche); border-radius: var(--r-m); padding: 1rem; }
+.errores-opciones { margin: .4rem 0 0; padding-left: 1.1rem; display: grid; gap: .3rem; font-size: .9rem; color: var(--texto-2); }

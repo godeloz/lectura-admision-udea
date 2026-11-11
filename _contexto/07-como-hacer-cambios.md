@@ -204,11 +204,7 @@ Si se sube `version.json` y se olvida `config.js`, el aviso «Hay una versión n
 
 ## Tareas de administración
 
-**Agregar una estudiante.** Supabase → Authentication → Users → Add user → Create new user: correo `nombre@entrelineas.app`, contraseña y «Auto Confirm User». El perfil se crea solo y aparece en el panel del tutor. Para ponerle nombre completo:
-
-```sql
-update perfiles set nombre = 'Nombre Apellido' where usuario = 'nombre';
-```
+**Agregar una persona.** Desde la 1.2.0, en la app: Personas → Agregar una persona (nombre, correo, grupo). La app muestra la contraseña temporal una vez, con el mensaje para WhatsApp. Si crear cuentas fallara (Supabase cambió su tabla de cuentas), el camino viejo sigue sirviendo: Supabase → Authentication → Users → Add user, con «Auto Confirm User»; el perfil se crea solo.
 
 **Convertir a alguien en tutor.**
 
@@ -216,18 +212,14 @@ update perfiles set nombre = 'Nombre Apellido' where usuario = 'nombre';
 update perfiles set rol = 'tutor' where usuario = 'diego';
 ```
 
-**Cambiar una contraseña.** La estudiante no puede hacerlo desde la app.
+**Cambiar una contraseña.** Desde la 1.2.0 cada persona la cambia en su perfil y el tutor le da una temporal nueva desde Personas. Para la cuenta del propio tutor, si la olvidó:
 
 ```sql
 update auth.users set encrypted_password = extensions.crypt('nueva-clave', extensions.gen_salt('bf'))
 where email = 'nombre@entrelineas.app';
 ```
 
-**Sacar a una estudiante del panel sin borrar su historial.**
-
-```sql
-update perfiles set activo = false where usuario = 'nombre';
-```
+**Sacar a alguien del panel sin borrar su historial.** Personas → Desactivar. Además de sacarla del panel, le impide entrar (`auth.users.banned_until`). Activar la devuelve tal cual.
 
 **Ver la configuración vigente.**
 

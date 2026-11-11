@@ -7,7 +7,7 @@
 window.LE_CONFIG = {
   // Súbelo cada vez que publiques cambios de diseño o de funciones
   // (y el mismo número en version.json): así la app avisa que hay versión nueva.
-  VERSION: "1.1.0",
+  VERSION: "1.2.0",
 
   SUPABASE_URL: "https://bwzrpnierwehfbcbclqm.supabase.co",
   SUPABASE_ANON_KEY: "sb_publishable_DJo2TvIGPBidj8J9qN0_lg__Jk39y73",

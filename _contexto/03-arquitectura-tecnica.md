@@ -330,3 +330,58 @@ Funciones:
 ### El demo
 
 La clave de almacenamiento pasó a `entrelineas-demo-v2`. `demo.html` trae incrustados `base.json`, los cinco paquetes de lectura y los tres de lógica. Siembra además cuatro días de retos de lógica con fallos, para que el cuaderno, el perfil de errores y la caja de herramientas tengan qué mostrar.
+
+## Cuentas, grupos y modo práctica (versión 1.2.0)
+
+### Archivos nuevos y archivos que cambiaron
+
+| Archivo | Qué es |
+|---|---|
+| `supabase/05_usuarios_y_grupos.sql` | Migración: columnas `correo`, `debe_cambiar_clave` e `instalada` en `perfiles`; tablas `grupos` y `grupo_miembros` con sus permisos; disparador `crear_perfil` que guarda el correo y evita choques de usuario (`ana`, `ana2`). Se ejecuta antes de `02`. |
+| `supabase/02_funciones.sql` | Sección «Personas, contraseñas y grupos» con las funciones nuevas; `rachas` ahora comprueba permisos; `panel_tutor` trae `debe_cambiar_clave` e `instalada`. |
+| `js/vistas-comunidad.js` | Primer ingreso, instrucciones de instalación (`#/instalar`), Personas (`#/tutor/personas`), Grupos (`#/tutor/personas/grupos`), la semana de un grupo (`#/grupo`, `#/grupo/:id`) y el modo práctica (`#/practicar`). |
+| `js/vistas-tutor.js` | Explorar el banco (`#/tutor/contenido/banco`) y los accesos desde Contenido. |
+| `js/app.js` | `LE.pintarEstructura()` (barra, navegación y franjas; se repinta al entrar o salir del modo práctica), flujo del primer ingreso, registro del service worker. |
+| `js/nucleo.js` | `LE.comoTutor()`, `LE.enPractica()`, `LE.fijarPractica()`, `LE.instalada()`, `LE.dispositivo()`, captura de `beforeinstallprompt`. `LE.montar` no falla si la pantalla cambió mientras cargaba. |
+| `sw.js`, `iconos/`, `manifest.webmanifest` | Instalación: service worker sin caché (solo una página de «sin conexión») e íconos PNG de 192, 512, 512 «maskable» y 180 para iPhone. |
+
+### Roles en el front
+
+- `LE.esTutor()`: la cuenta tiene rol de tutor (permisos).
+- `LE.enPractica()`: el tutor activó el modo práctica (se guarda en `sessionStorage`, así que cerrar la pestaña lo apaga).
+- `LE.comoTutor()`: tutor y no en práctica. Es lo que decide qué navegación y qué pantallas se muestran. Las rutas `{ estudiante: true }` redirigen al panel solo si `comoTutor()`.
+
+### Cambios en la API
+
+Métodos nuevos, iguales en `api-supabase.js` y `api-demo.js`: `cambiarMiClave`, `marcarInstalada`, `personas`, `crearUsuario`, `restablecerClave`, `cambiarEstadoUsuario`, `borrarMiPractica`, `misGrupos`, `grupoSemana`, `guardarGrupo`, `eliminarGrupo`, `fijarMiembros` y `banco` (lee `textos` y `preguntas` completas, por páginas de 1.000; solo funciona para el tutor por RLS). `misGrupos` devuelve una lista vacía si la base no tiene todavía el SQL de la 1.2.0.
+
+El demo guarda sus datos en `entrelineas-demo-v3` (antes `v2`) y trae dos compañeros de Sofía, Mateo y Valentina, en el grupo «Artes UdeA».
+
+### Base de datos
+
+| Tabla | Qué guarda | Permisos |
+|---|---|---|
+| `grupos` | `nombre`, `descripcion`, `emoji`, `ver_simulacros`, `activo`, `creado_por` | Tutor: todo. Estudiante: lee los grupos donde está. |
+| `grupo_miembros` | `grupo_id`, `user_id`, `desde` | Tutor: todo. Estudiante: lee solo su propia fila. A sus compañeros los ve a través de `grupo_semana`. |
+
+| Función | Devuelve | Quién |
+|---|---|---|
+| `clave_temporal()` | Texto (`palabra-palabra-123`) | interna |
+| `comparte_grupo(uid)` | Verdadero si quien llama está en un grupo activo con `uid` | interna |
+| `crear_usuario(nombre, correo, grupo)` | `id`, `nombre`, `correo`, `usuario`, `clave` | tutor |
+| `restablecer_clave(uid)` | Lo mismo, con una contraseña temporal nueva | tutor (solo cuentas de estudiante) |
+| `cambiar_mi_clave(nueva)` | | cualquiera, sobre su cuenta |
+| `cambiar_estado_usuario(uid, activo)` | | tutor (no sobre sí mismo) |
+| `marcar_instalada()` | | cualquiera, sobre su cuenta |
+| `personas()` | Todas las cuentas con correo, rol, estado, grupos e instalación | tutor |
+| `guardar_grupo(id, nombre, descripcion, emoji, ver_simulacros)` | id | tutor |
+| `eliminar_grupo(id)`, `fijar_miembros(grupo, ids)` | | tutor |
+| `mis_grupos()` | Grupos (con miembros si es tutor) | cualquiera |
+| `grupo_semana(grupo)` | `grupo`, `semana`, `miembros`, `actividad` | miembros del grupo y tutor |
+| `borrar_mi_practica()` | Conteo de lo borrado | tutor, sobre su cuenta |
+
+`crear_usuario` inserta en `auth.users` y `auth.identities` con los campos que pide Supabase para entrar con correo (los textos vacíos `''` en vez de nulos importan). La contraseña se cifra con `crypt(…, gen_salt('bf'))`, la misma que usa Supabase. pgcrypto vive en el esquema `extensions`, por eso esas funciones tienen `search_path = public, extensions`.
+
+### Compatibilidad entre versiones
+
+La app 1.1.0 publicada funciona igual sobre la base de la 1.2.0: no usa las funciones nuevas y las que cambiaron (`rachas`, `panel_tutor`) mantienen su forma. La app 1.2.0 sobre una base sin el SQL nuevo: Lectura y Lógica funcionan, no aparece Grupo, y Personas falla con un mensaje de función no encontrada.

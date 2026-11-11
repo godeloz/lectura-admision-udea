@@ -2,9 +2,10 @@
    ENTRELÍNEAS · API DEMO
    Replica en el navegador la lógica de las funciones SQL para poder
    probar la app sin Supabase. Usuarios: sofia / demo  ·  tutor / demo
+   (y mateo / demo, valentina / demo: compañeros de Sofía en un grupo)
    ===================================================================== */
 window.LE_ApiDemo = function () {
-  const CLAVE = "entrelineas-demo-v2";
+  const CLAVE = "entrelineas-demo-v3";
   const LECTURA = ["literal", "inferencial", "critico", "cohesion"];
   const LOGICA = ["deductivo", "proporcional", "abstracto", "geometrico"];
   const compDe = (cat) => (LOGICA.includes(cat) ? "logica" : "lectura");
@@ -262,6 +263,46 @@ window.LE_ApiDemo = function () {
 
   function sumarXP(uid, n) { db.usuarios.find((u) => u.id === uid).xp += n; }
 
+  // ---------- cuentas y grupos (espejo de la sección «Personas» de 02_funciones.sql) ----------
+  const PALABRAS = ["agua", "alba", "arco", "barco", "bosque", "brisa", "cielo", "cometa", "coral", "faro", "isla", "lago", "libro", "luna", "mango", "mar", "miel", "nube", "ola", "pino", "puente", "rio", "roble", "sol", "trigo", "valle", "vela", "verso", "viento", "volcan"];
+  const azar = (n) => Math.floor(Math.random() * n);
+  const claveTemporal = () => `${PALABRAS[azar(PALABRAS.length)]}-${PALABRAS[azar(PALABRAS.length)]}-${100 + azar(900)}`;
+  const lunes = () => { const d = new Date(hoy() + "T12:00:00"); return restarDias(hoy(), (d.getDay() + 6) % 7); };
+  const usuarioLibre = (correo) => {
+    const base = correo.split("@")[0].toLowerCase().replace(/[^a-z0-9._-]/g, "") || "usuario";
+    let u = base, n = 1;
+    while (db.usuarios.some((x) => x.usuario === u)) u = base + ++n;
+    return u;
+  };
+  function grupoSemana(gid) {
+    const g = db.grupos.find((x) => x.id === gid);
+    const l = lunes(), ver = g.ver_simulacros;
+    const hace7 = new Date(Date.now() - 7 * 86400e3).toISOString();
+    const ids = db.miembros.filter((m) => m.grupo_id === gid).map((m) => m.user_id);
+    const gente = db.usuarios.filter((u) => ids.includes(u.id) && u.activo && u.rol === "estudiante");
+    const sims = (uid) => db.sesiones.filter((s) => s.user_id === uid && s.tipo === "simulacro" && s.fin && !s.resultado?.abandonado && dia(s.fin) >= l);
+    const miembros = gente.map((u) => {
+      const rs = db.respuestas.filter((r) => r.user_id === u.id && dia(r.creado) >= l);
+      return {
+        id: u.id, nombre: u.nombre, avatar: u.avatar, yo: u.id === db.actual,
+        xp_semana: db.sesiones.filter((s) => s.user_id === u.id && dia(s.fin || s.inicio) >= l).reduce((a, s) => a + (s.xp || 0), 0),
+        dias_semana: new Set(rs.map((r) => dia(r.creado))).size, respuestas_semana: rs.length,
+        minutos_semana: Math.floor(Object.entries(db.actividad[u.id] || {}).filter(([f]) => f >= l).reduce((a, [, x]) => a + x, 0) / 60),
+        racha: rachas(u.id).actual,
+        retos_semana: db.sesiones.filter((s) => s.user_id === u.id && s.tipo !== "simulacro" && s.fin && dia(s.fin) >= l).length,
+        simulacros_semana: sims(u.id).length,
+        simulacros: ver ? sims(u.id).sort((a, b) => b.fin.localeCompare(a.fin)).map((s) => ({ componente: s.componente || "lectura", nivel: s.nivel, puntaje: s.resultado.puntaje, fecha: s.fin })) : null
+      };
+    }).sort((a, b) => b.xp_semana - a.xp_semana || b.dias_semana - a.dias_semana || a.nombre.localeCompare(b.nombre));
+    const quien = (uid) => gente.find((u) => u.id === uid);
+    const actividad = [
+      ...db.sesiones.filter((s) => quien(s.user_id) && s.fin && s.fin > hace7 && (s.tipo === "simulacro" ? !s.resultado?.abandonado : db.respuestas.some((r) => r.sesion_id === s.id)))
+        .map((s) => ({ tipo: s.tipo === "simulacro" ? "simulacro" : "reto", fecha: s.fin, user_id: s.user_id, nombre: quien(s.user_id).nombre, avatar: quien(s.user_id).avatar, componente: s.componente || "lectura", total: s.total, nivel: s.tipo === "simulacro" ? s.nivel : null, puntaje: s.tipo === "simulacro" && ver ? s.resultado.puntaje : null, insignia: null, icono: null })),
+      ...db.iu.filter((x) => quien(x.user_id) && x.obtenida > hace7).map((x) => { const i = db.insignias.find((k) => k.codigo === x.codigo) || {}; return { tipo: "insignia", fecha: x.obtenida, user_id: x.user_id, nombre: quien(x.user_id).nombre, avatar: quien(x.user_id).avatar, componente: null, total: null, nivel: null, puntaje: null, insignia: i.nombre, icono: i.icono }; })
+    ].sort((a, b) => b.fecha.localeCompare(a.fecha)).slice(0, 30);
+    return { grupo: { id: g.id, nombre: g.nombre, descripcion: g.descripcion, emoji: g.emoji, ver_simulacros: g.ver_simulacros }, semana: l, miembros, actividad };
+  }
+
   // ---------- historial de muestra para que el demo no arranque vacío ----------
   function sembrar() {
     const est = db.usuarios.find((u) => u.usuario === "sofia");
@@ -315,6 +356,31 @@ window.LE_ApiDemo = function () {
       });
     }
 
+    // Dos compañeros de grupo con práctica esta semana (para ver la pestaña Grupo).
+    const lectura2 = db.preguntas.filter((p) => p.activo);
+    for (const [nombre, dias, prob] of [["mateo", [6, 4, 3, 1, 0], 0.62], ["valentina", [5, 2, 1], 0.74]]) {
+      const u = db.usuarios.find((x) => x.usuario === nombre);
+      for (const d of dias) {
+        const f = restarDias(hoy(), d);
+        const comp = d % 2 ? "logica" : "lectura";
+        const lote = barajar(lectura2.filter((p) => p.componente === comp)).slice(0, 10);
+        if (!lote.length) continue;
+        const s = { id: uuid(), user_id: u.id, tipo: "reto", componente: comp, nivel: "10", total: lote.length, preguntas: [], inicio: f + "T15:00:00.000Z", fin: f + "T15:20:00.000Z", xp: 0, correctas: 0 };
+        lote.forEach((p, k) => {
+          const ok = Math.random() < prob;
+          db.respuestas.push({ id: db.respuestas.length + 1, user_id: u.id, pregunta_id: p.id, sesion_id: s.id, opcion: ok ? p.correcta : (p.correcta + 1) % 4, correcta: ok, tiempo_ms: 50000 + Math.random() * 60000, contexto: "reto", pista: false, creado: `${f}T15:${String(k * 2).padStart(2, "0")}:00.000Z` });
+          s.xp += ok ? 10 * p.dificultad + 5 : 2; s.correctas += ok ? 1 : 0; s.preguntas.push(p.id);
+        });
+        s.xp += 20; s.resultado = { correctas: s.correctas, total: s.total, respondidas: s.total, xp: s.xp, componente: comp };
+        db.sesiones.push(s); u.xp += s.xp;
+        (db.actividad[u.id] ||= {})[f] = (15 + azar(20)) * 60;
+      }
+      evaluarInsignias(u.id);
+    }
+    const g = { id: uuid(), nombre: "Artes UdeA", descripcion: "Nos preparamos juntos para Artes plásticas.", emoji: "🎨", ver_simulacros: false, activo: true, creado: ahora() };
+    db.grupos.push(g);
+    ["sofia", "mateo", "valentina"].forEach((n) => db.miembros.push({ grupo_id: g.id, user_id: db.usuarios.find((x) => x.usuario === n).id, desde: ahora() }));
+
     db.actual = est.id; evaluarInsignias(est.id); db.actual = null;
     db.mensajes.push({ id: uuid(), estudiante_id: est.id, autor_id: tut.id, tipo: "mision", titulo: "Misión: nivel crítico", cuerpo: "Vi tu simulacro: el nivel crítico es donde más puntos se te escapan. Te dejé 10 preguntas solo de ese nivel. Antes de elegir, pregúntate qué necesitaría el autor para que su argumento se cayera.", mision: { categoria: "critico", n: 10, componente: "lectura" }, leido: false, completado: false, creado: new Date(Date.now() - 86400e3).toISOString() });
     db.mensajes.push({ id: uuid(), estudiante_id: est.id, autor_id: tut.id, tipo: "mensaje", titulo: "¡Buena semana!", cuerpo: "Doce días de práctica en tres semanas. Así se construye. Sigue con los EP diarios.", leido: true, completado: false, creado: new Date(Date.now() - 4 * 86400e3).toISOString() });
@@ -325,12 +391,15 @@ window.LE_ApiDemo = function () {
     try { if (!forzar) db = JSON.parse(localStorage.getItem(CLAVE)); } catch (e) { db = null; }
     if (db) return;
     const datos = await cargarDatos();
-    db = { usuarios: [], textos: [], preguntas: [], tecnicas: [], respuestas: [], sesiones: [], actividad: {}, insignias: [], iu: [], config: {}, novedades: [], mensajes: [], alertas: [], actual: null };
+    db = { usuarios: [], textos: [], preguntas: [], tecnicas: [], respuestas: [], sesiones: [], actividad: {}, insignias: [], iu: [], config: {}, novedades: [], mensajes: [], alertas: [], grupos: [], miembros: [], actual: null };
     aplicar(datos.base);
     datos.paquetes.forEach(aplicar);
     const t0 = new Date(Date.now() - 20 * 86400e3).toISOString();
-    db.usuarios.push({ id: uuid(), usuario: "sofia", clave: "demo", rol: "estudiante", nombre: "Sofía", avatar: "🎧", xp: 0, meta_programa: "Medicina", ultima_novedad: 0, activo: true, creado: t0 });
-    db.usuarios.push({ id: uuid(), usuario: "tutor", clave: "demo", rol: "tutor", nombre: "Tutor", avatar: "🎓", xp: 0, meta_programa: null, ultima_novedad: 99, activo: true, creado: t0 });
+    const cuenta = (usuario, rol, nombre, avatar, meta) => ({ id: uuid(), usuario, correo: usuario + "@entrelineas.app", clave: "demo", rol, nombre, avatar, xp: 0, meta_programa: meta, ultima_novedad: 0, activo: true, debe_cambiar_clave: false, instalada: null, creado: t0 });
+    db.usuarios.push(cuenta("sofia", "estudiante", "Sofía", "🎧", "Artes plásticas"));
+    db.usuarios.push(cuenta("tutor", "tutor", "Tutor", "🎓", null));
+    db.usuarios.push(cuenta("mateo", "estudiante", "Mateo", "🦊", "Artes plásticas"));
+    db.usuarios.push(cuenta("valentina", "estudiante", "Valentina", "🌙", "Música"));
     sembrar();
     db.usuarios.forEach((u) => (u.ultima_novedad = db.novedades.length));
     guardar();
@@ -344,8 +413,10 @@ window.LE_ApiDemo = function () {
     async sesionActual() { await iniciarBD(); return db.actual ? espera(sinClave(yo())) : null; },
     async entrar(usuario, clave) {
       await iniciarBD();
-      const u = db.usuarios.find((x) => x.usuario === usuario.trim().toLowerCase() && x.clave === clave);
-      if (!u) throw new Error("Usuario o contraseña incorrectos.");
+      const t = usuario.trim().toLowerCase();
+      const u = db.usuarios.find((x) => (x.usuario === t || x.correo === t) && x.clave === clave);
+      if (!u) throw new Error("Correo o contraseña incorrectos.");
+      if (!u.activo) throw new Error("Esta cuenta está desactivada. Habla con tu tutor.");
       db.actual = u.id; guardar();
       return espera(sinClave(u));
     },
@@ -493,6 +564,7 @@ window.LE_ApiDemo = function () {
           minutos_7d: Math.floor(Object.entries(act).filter(([f]) => f > restarDias(hoy(), 7)).reduce((a, [, s]) => a + s, 0) / 60),
           respuestas_7d: r7.length, precision_7d: r7.length ? Math.round((100 * r7.filter((r) => r.correcta).length) / r7.length) : null,
           logica_7d: r7.filter((r) => pregunta(r.pregunta_id)?.componente === "logica").length,
+          debe_cambiar_clave: !!u.debe_cambiar_clave, instalada: u.instalada || null,
           alertas: db.alertas.filter((a) => a.estudiante_id === u.id && a.estado === "abierta").length };
       }));
     },
@@ -557,6 +629,93 @@ window.LE_ApiDemo = function () {
         matriz, paquetes: Object.entries(paq).sort().map(([paquete, preguntas]) => ({ paquete, preguntas }))
       });
     },
-    async importarPaquete(p) { soloTutor(); const r = aplicar(p); guardar(); return espera(r); }
+    async importarPaquete(p) { soloTutor(); const r = aplicar(p); guardar(); return espera(r); },
+    async banco() {
+      soloTutor();
+      const orden = (a, b) => a.codigo.localeCompare(b.codigo);
+      return espera({ textos: [...db.textos].sort(orden), preguntas: [...db.preguntas].sort(orden) });
+    },
+
+    // Cuentas y contraseñas
+    async cambiarMiClave(nueva) {
+      if (!nueva || nueva.length < 8) throw new Error("La contraseña debe tener al menos 8 caracteres");
+      const u = yo(); u.clave = nueva; u.debe_cambiar_clave = false; guardar();
+    },
+    async marcarInstalada() { const u = yo(); if (u && !u.instalada) { u.instalada = ahora(); guardar(); } },
+    async personas() {
+      soloTutor();
+      const ult = (id) => db.respuestas.filter((r) => r.user_id === id).map((r) => r.creado).sort().pop() || null;
+      const orden = (a, b) => (b.rol.localeCompare(a.rol)) || (b.activo - a.activo) || a.nombre.localeCompare(b.nombre);
+      return espera([...db.usuarios].sort(orden).map((u) => ({ id: u.id, nombre: u.nombre, usuario: u.usuario, correo: u.correo, rol: u.rol, avatar: u.avatar, activo: u.activo,
+        debe_cambiar_clave: !!u.debe_cambiar_clave, instalada: u.instalada || null, creado: u.creado, xp: u.xp, yo: u.id === db.actual, ultima_actividad: ult(u.id),
+        grupos: db.miembros.filter((m) => m.user_id === u.id).map((m) => db.grupos.find((g) => g.id === m.grupo_id)).filter(Boolean).map((g) => ({ id: g.id, nombre: g.nombre, emoji: g.emoji })) })));
+    },
+    async crearUsuario(nombre, correo, grupo = null) {
+      soloTutor();
+      const c = (correo || "").trim().toLowerCase(), n = (nombre || "").trim();
+      if (!n) throw new Error("Escribe el nombre de la persona");
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c)) throw new Error(`El correo «${c}» no es válido`);
+      if (db.usuarios.some((u) => u.correo === c)) throw new Error("Ya existe una cuenta con el correo " + c);
+      const u = { id: uuid(), usuario: usuarioLibre(c), correo: c, clave: claveTemporal(), rol: "estudiante", nombre: n, avatar: "🎧", xp: 0, meta_programa: null, ultima_novedad: db.novedades.length, activo: true, debe_cambiar_clave: true, instalada: null, creado: ahora() };
+      db.usuarios.push(u);
+      if (grupo) db.miembros.push({ grupo_id: grupo, user_id: u.id, desde: ahora() });
+      guardar();
+      return espera({ id: u.id, nombre: u.nombre, correo: u.correo, usuario: u.usuario, clave: u.clave });
+    },
+    async restablecerClave(id) {
+      soloTutor();
+      const u = db.usuarios.find((x) => x.id === id);
+      if (!u) throw new Error("Persona no encontrada");
+      if (u.rol !== "estudiante") throw new Error("Solo se puede restablecer la contraseña de una cuenta de estudiante");
+      u.clave = claveTemporal(); u.debe_cambiar_clave = true; guardar();
+      return espera({ id: u.id, nombre: u.nombre, correo: u.correo, usuario: u.usuario, clave: u.clave });
+    },
+    async cambiarEstadoUsuario(id, activo) {
+      soloTutor();
+      if (id === db.actual) throw new Error("No puedes desactivar tu propia cuenta");
+      db.usuarios.find((x) => x.id === id).activo = !!activo; guardar();
+    },
+    async borrarMiPractica() {
+      soloTutor();
+      const n = db.respuestas.filter((r) => r.user_id === db.actual).length;
+      db.respuestas = db.respuestas.filter((r) => r.user_id !== db.actual);
+      db.sesiones = db.sesiones.filter((s) => s.user_id !== db.actual);
+      db.iu = db.iu.filter((x) => x.user_id !== db.actual);
+      delete db.actividad[db.actual];
+      yo().xp = 0; guardar();
+      return espera({ respuestas: n });
+    },
+
+    // Grupos
+    async misGrupos() {
+      const tutor = yo()?.rol === "tutor";
+      return espera(db.grupos.filter((g) => tutor || db.miembros.some((m) => m.grupo_id === g.id && m.user_id === db.actual))
+        .sort((a, b) => a.nombre.localeCompare(b.nombre))
+        .map((g) => ({ id: g.id, nombre: g.nombre, descripcion: g.descripcion, emoji: g.emoji, ver_simulacros: g.ver_simulacros,
+          n: db.miembros.filter((m) => m.grupo_id === g.id && db.usuarios.find((u) => u.id === m.user_id)?.activo).length,
+          miembros: tutor ? db.miembros.filter((m) => m.grupo_id === g.id).map((m) => m.user_id) : null })));
+    },
+    async grupoSemana(id) {
+      if (!db.grupos.some((g) => g.id === id)) throw new Error("Grupo no encontrado");
+      if (yo().rol !== "tutor" && !db.miembros.some((m) => m.grupo_id === id && m.user_id === db.actual)) throw new Error("Sin permiso");
+      return espera(grupoSemana(id));
+    },
+    async guardarGrupo(g) {
+      soloTutor();
+      if (!(g.nombre || "").trim()) throw new Error("Escribe el nombre del grupo");
+      let x = g.id && db.grupos.find((k) => k.id === g.id);
+      if (!x) { x = { id: uuid(), activo: true, creado: ahora() }; db.grupos.push(x); }
+      Object.assign(x, { nombre: g.nombre.trim(), descripcion: (g.descripcion || "").trim(), emoji: g.emoji || "👥", ver_simulacros: !!g.ver_simulacros });
+      guardar();
+      return espera(x.id);
+    },
+    async eliminarGrupo(id) { soloTutor(); db.grupos = db.grupos.filter((g) => g.id !== id); db.miembros = db.miembros.filter((m) => m.grupo_id !== id); guardar(); },
+    async fijarMiembros(id, ids) {
+      soloTutor();
+      const validos = ids.filter((u) => db.usuarios.find((x) => x.id === u)?.rol === "estudiante");
+      db.miembros = db.miembros.filter((m) => m.grupo_id !== id).concat(validos.map((u) => ({ grupo_id: id, user_id: u, desde: ahora() })));
+      guardar();
+      return espera(validos.length);
+    }
   };
 };

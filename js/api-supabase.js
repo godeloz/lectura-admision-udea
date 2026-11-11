@@ -10,7 +10,8 @@ window.LE_ApiSupabase = function (cfg) {
   let uid = null;
 
   const traducir = (m) => {
-    if (/Invalid login credentials/i.test(m)) return "Usuario o contraseña incorrectos.";
+    if (/Invalid login credentials/i.test(m)) return "Correo o contraseña incorrectos.";
+    if (/banned/i.test(m)) return "Esta cuenta está desactivada. Habla con tu tutor.";
     if (/JWT|expired/i.test(m)) return "Tu sesión expiró. Vuelve a entrar.";
     if (/Failed to fetch|NetworkError|Load failed/i.test(m)) return "No hay conexión con el servidor. Revisa tu internet.";
     return m;
@@ -91,6 +92,43 @@ window.LE_ApiSupabase = function (cfg) {
     async borrarMensaje(id) { ok(await sb.from("mensajes").delete().eq("id", id)); },
     preguntasFalladas: (id) => rpc("preguntas_falladas", { p_uid: id }),
     resumenContenido: () => rpc("resumen_contenido"),
-    importarPaquete: (p) => rpc("importar_paquete", { p })
+    importarPaquete: (p) => rpc("importar_paquete", { p }),
+
+    // Banco completo, con claves, para explorar y probar preguntas (solo tutor).
+    async banco() {
+      const todas = async (tabla, campos) => {
+        let filas = [], desde = 0;
+        for (;;) {
+          const lote = ok(await sb.from(tabla).select(campos).order("codigo").range(desde, desde + 999));
+          filas = filas.concat(lote);
+          if (lote.length < 1000) return filas;
+          desde += 1000;
+        }
+      };
+      const [textos, preguntas] = await Promise.all([
+        todas("textos", "id, codigo, titulo, tipologia, contenido, fuente, figura, componente, paquete, activo"),
+        todas("preguntas", "id, codigo, texto_id, categoria, componente, tema, dificultad, enunciado, opciones, correcta, explicacion, pista, pasos, errores, figura, paquete, activo")
+      ]);
+      return { textos, preguntas };
+    },
+
+    // Cuentas y contraseñas (1.2.0)
+    cambiarMiClave: (nueva) => rpc("cambiar_mi_clave", { p_nueva: nueva }),
+    marcarInstalada: () => rpc("marcar_instalada"),
+    personas: () => rpc("personas"),
+    crearUsuario: (nombre, correo, grupo = null) => rpc("crear_usuario", { p_nombre: nombre, p_correo: correo, p_grupo: grupo }),
+    restablecerClave: (id) => rpc("restablecer_clave", { p_uid: id }),
+    cambiarEstadoUsuario: (id, activo) => rpc("cambiar_estado_usuario", { p_uid: id, p_activo: activo }),
+    borrarMiPractica: () => rpc("borrar_mi_practica"),
+
+    // Grupos (1.2.0). Si la base todavía no tiene el SQL de la 1.2.0, no hay grupos.
+    async misGrupos() {
+      try { return await rpc("mis_grupos"); }
+      catch (e) { if (/Could not find the function|PGRST202|schema cache/i.test(e.message)) return []; throw e; }
+    },
+    grupoSemana: (id) => rpc("grupo_semana", { p_grupo: id }),
+    guardarGrupo: (g) => rpc("guardar_grupo", { p_id: g.id || null, p_nombre: g.nombre, p_descripcion: g.descripcion || "", p_emoji: g.emoji || "👥", p_ver_simulacros: !!g.ver_simulacros }),
+    eliminarGrupo: (id) => rpc("eliminar_grupo", { p_id: id }),
+    fijarMiembros: (id, ids) => rpc("fijar_miembros", { p_grupo: id, p_ids: ids })
   };
 };

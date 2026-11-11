@@ -55,13 +55,22 @@ S["cuaderno"]=como(est,"select cuaderno_errores('logica',null)")
 S["panel"]=como(tut,"select panel_tutor()")
 S["preguntasFalladas"]=como(tut,"select preguntas_falladas(%s)",(est,))
 S["resumenContenido"]=como(tut,"select resumen_contenido()")
+# 1.2.0: cuentas y grupos
+g=como(tut,"select guardar_grupo(null,'Comparar','',  '👥', true)")
+nu=como(tut,"select crear_usuario('Persona Nueva','nueva@comparar.co',%s)",(g,)); S["crearUsuario"]=nu
+como(tut,"select fijar_miembros(%s,%s::uuid[])",(g,[est,nu["id"]]))
+S["restablecerClave"]=como(tut,"select restablecer_clave(%s)",(nu["id"],))
+S["personas"]=como(tut,"select personas()")
+S["misGrupos_tutor"]=como(tut,"select mis_grupos()")
+S["misGrupos"]=como(est,"select mis_grupos()")
+S["grupoSemana"]=como(est,"select grupo_semana(%s)",(g,))
 r=como(est,"select iniciar_reto(5)"); S["iniciarReto_lectura"]=r
 S["responder_lectura"]=como(est,"select responder(%s,%s,%s,30000)",(r["sesion_id"],r["preguntas"][0]["id"],(claves[r["preguntas"][0]["id"]]+1)%4))
 
 JS="""async () => {
   const a = LE.api, D = {};
   let r = await a.iniciarReto(5, null, null, 'logica', null); D.iniciarReto = r;
-  const db = JSON.parse(localStorage.getItem('entrelineas-demo-v2'));
+  const db = JSON.parse(localStorage.getItem('entrelineas-demo-v3'));
   const clave = Object.fromEntries(db.preguntas.map(p => [p.id, p.correcta]));
   D.responder_mal = await a.responder(r.sesion_id, r.preguntas[0].id, (clave[r.preguntas[0].id]+1)%4, 30000, false);
   D.responder_bien = await a.responder(r.sesion_id, r.preguntas[1].id, clave[r.preguntas[1].id], 30000, true);
@@ -76,6 +85,13 @@ JS="""async () => {
   const est = db.usuarios.find(u => u.usuario==='sofia').id;
   await a.salir(); await a.entrar('tutor','demo');
   D.panel = await a.panel(); D.preguntasFalladas = await a.preguntasFalladas(est); D.resumenContenido = await a.resumenContenido();
+  const g = await a.guardarGrupo({ nombre: 'Comparar', emoji: '👥', ver_simulacros: true });
+  D.crearUsuario = await a.crearUsuario('Persona Nueva', 'nueva@comparar.co', g);
+  await a.fijarMiembros(g, [est, D.crearUsuario.id]);
+  D.restablecerClave = await a.restablecerClave(D.crearUsuario.id);
+  D.personas = await a.personas(); D.misGrupos_tutor = await a.misGrupos();
+  await a.salir(); await a.entrar('sofia','demo');
+  D.misGrupos = await a.misGrupos(); D.grupoSemana = await a.grupoSemana(g);
   return D;
 }"""
 async def demo():

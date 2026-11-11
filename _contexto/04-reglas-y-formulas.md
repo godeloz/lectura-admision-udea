@@ -247,3 +247,22 @@ Las 16 insignias de lógica: Primera pieza; 50 y 200 aciertos en lógica; Diez r
 ### Lo que ve el tutor de más
 
 En el detalle: dominio de lógica, evolución semanal de lógica, simulacros de lógica, el perfil de errores de lógica y las técnicas con fallos (las seis de menor porcentaje con al menos dos intentos). En «Preguntas que más falla», cada pregunta de lógica muestra su técnica y el tipo de error de su última respuesta.
+
+## Cuentas y grupos (versión 1.2.0)
+
+### Contraseñas
+
+- Temporal: dos palabras de una lista de 70 y un número de 100 a 999, con bytes aleatorios de pgcrypto (unos 4,4 millones de combinaciones). Solo vale hasta que la persona elige la suya.
+- Propia: de 8 a 72 caracteres (72 es el límite de bcrypt), no solo espacios.
+- `debe_cambiar_clave` se enciende al crear la cuenta y al restablecerla; se apaga al cambiarla.
+
+### La semana del grupo
+
+- La semana empieza el lunes a las 00:00 de Bogotá (`date_trunc('week', hoy())`).
+- **XP de la semana**: suma del XP de las sesiones cuya fecha de cierre (o de inicio, si no se cerró) cae desde el lunes. Incluye bonos de reto, misión y simulacro.
+- **Días**: días distintos con al menos una respuesta desde el lunes.
+- **Racha**: la misma de siempre.
+- **Orden**: XP de la semana, después días, después nombre. Quien tiene 0 XP no recibe número de puesto.
+- Solo cuentan cuentas de estudiante activas. El tutor no entra a los grupos.
+- **Actividad**: últimos 7 días; retos terminados con al menos una respuesta (sin resultado), simulacros entregados (con puntaje solo si el grupo tiene `ver_simulacros`) e insignias. Máximo 30. La app junta en una línea las insignias que la misma persona ganó con menos de tres horas de diferencia.
+- La frase de arriba de la tabla le dice a cada quien en qué puesto va y cuánto XP le falta para pasar al de adelante.

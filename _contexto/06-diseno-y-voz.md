@@ -175,3 +175,13 @@ Las mismas reglas, con dos cuidados más:
 - **Los nombres de los tipos de error son llanos**: «Leíste otra pregunta», «A mitad de camino», «Cuenta», «Salto lógico». Nada de «error procedimental».
 - La pista pregunta o sugiere; no ordena la solución.
 - Los números se escriben como en Colombia: punto para miles, coma para decimales, signo de pesos sin espacio ($36.000), porcentaje con espacio (20 %).
+
+## Cuentas, instalación y grupos (versión 1.2.0)
+
+- **Franjas de arriba**: amarilla para el demo, cian para la versión nueva, violeta para el modo práctica del tutor y menta para «Instala la app en tu celular». La de instalar se esconde dentro de un reto o simulacro.
+- **Pasos de instalación**: lista numerada con círculos menta, el ícono de Compartir de Safari dibujado y los nombres exactos de los botones entre comillas.
+- **Contraseña temporal**: en letra monoespaciada amarilla, para que se lea sin confundir letras.
+- **Personas**: tarjetas con etiquetas de estado (amarillo: aún no elige su contraseña; menta: app instalada; coral: desactivada).
+- **La semana del grupo**: una fila por persona con puesto, avatar, siete puntos para los días (menta los que practicó) y el XP en amarillo; la propia fila con borde rosa.
+- **Navegación de seis entradas** (estudiante en un grupo): en el celular las entradas se reparten el ancho y la letra baja a .66rem; cabe en 320 px.
+- **Voz**: los textos nuevos están escritos sin marcar género («Hola, Laura», «Te faltan 40 XP»), porque ya no hay una sola estudiante. Los textos viejos en femenino siguen pendientes (observación 16 de `08`).

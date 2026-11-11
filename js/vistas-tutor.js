@@ -28,12 +28,12 @@
         </section>` : ""}
 
         <section class="pila" style="--pila:.8rem">
-          <div class="titulo-seccion"><h2>Estudiantes</h2><span class="sub pequeno">Últimos 7 días</span></div>
+          <div class="titulo-seccion"><h2>Estudiantes</h2><span class="sub pequeno">Últimos 7 días · <a href="#/tutor/personas">Agregar personas</a></span></div>
           ${ests.length ? `<div class="estudiantes">${ests.map((e) => `
             <a class="est" href="#/tutor/estudiante/${e.id}">
               <span class="av" aria-hidden="true">${esc(e.avatar)}</span>
               <span>
-                <b>${esc(e.nombre)}</b> <span class="tenue pequeno">@${esc(e.usuario || "")}${e.meta_programa ? " · " + esc(e.meta_programa) : ""}</span>
+                <b>${esc(e.nombre)}</b> <span class="tenue pequeno">@${esc(e.usuario || "")}${e.meta_programa ? " · " + esc(e.meta_programa) : ""}${e.debe_cambiar_clave ? " · aún no entra por primera vez" : ""}</span>
                 <span class="datos">
                   <span>🔥 <b>${e.racha}</b> días</span>
                   <span>⏱️ <b>${LE.minutos(e.minutos_7d)}</b></span>
@@ -44,7 +44,7 @@
               </span>
               <span>${e.alertas ? `<span class="nuevo">${e.alertas}</span>` : ""} <span aria-hidden="true">›</span></span>
             </a>`).join("")}</div>`
-          : `<div class="panel vacio"><p>Todavía no hay estudiantes. Créalos en Supabase (Authentication → Users → Add user) con un correo del tipo <b>nombre@${esc(LE.cfg.DOMINIO_USUARIOS)}</b>; aparecerán aquí solos.</p></div>`}
+          : `<div class="panel vacio"><p>Todavía no hay estudiantes.</p><a class="btn" href="#/tutor/personas">Agregar personas</a></div>`}
         </section>
       </div>`);
   }, { tutor: true });
@@ -352,6 +352,12 @@
           <p class="sub">Lectura: ${c.textos} lecturas y ${c.preguntas} preguntas activas.${nLog || LE.logicaActiva() ? ` Lógica: ${nLog} preguntas, ${c.situaciones || 0} situaciones y ${c.tecnicas || 0} fichas de técnica.` : ""}</p>
         </div>
 
+        <section class="panel pila destacado" style="--pila:.8rem">
+          <h2>Ver y probar el contenido</h2>
+          <p class="sub">Revisa cualquier lectura o problema tal como lo ve la estudiante y respóndelo para ver la clave, la explicación y lo que dice cada opción. O usa la app completa como estudiante, con tu cuenta: retos, simulacros, pistas, cuaderno de errores e insignias.</p>
+          <div class="fila"><a class="btn" href="#/tutor/contenido/banco">Explorar el banco</a><a class="btn sec" href="#/practicar">Practicar como estudiante</a></div>
+        </section>
+
         <div class="rejilla dos">
           <section class="panel">
             <div class="titulo-seccion"><h2>Banco de lectura</h2><span class="sub pequeno">Por nivel y dificultad</span></div>
@@ -397,6 +403,120 @@
       A.revisarPaquete();
     });
   }, { tutor: true });
+
+  // =================================================================
+  //  EXPLORAR EL BANCO: cada lectura y pregunta como la ve la estudiante,
+  //  con la clave a la vista después de responder. No guarda nada.
+  // =================================================================
+  LE.ruta("/tutor/contenido/banco", async () => {
+    LE.cargando("Trayendo el banco de preguntas…");
+    LE.estado.banco = await LE.api.banco();
+    LE.estado.filtroBanco ||= { comp: "lectura", cat: "", dif: "", paquete: "", q: "", inactivas: false };
+    pintarBanco();
+  }, { tutor: true });
+
+  function pintarBanco() {
+    const { textos, preguntas } = LE.estado.banco;
+    const f = LE.estado.filtroBanco;
+    const comp = f.comp === "logica" && !preguntas.some((p) => p.componente === "logica") ? "lectura" : f.comp;
+    const paquetes = [...new Set(preguntas.filter((p) => p.componente === comp).map((p) => p.paquete))].filter(Boolean).sort();
+    const q = f.q.trim().toLowerCase();
+    const porTexto = Object.fromEntries(textos.map((t) => [t.id, t]));
+    const lista = preguntas.filter((p) => p.componente === comp && (f.inactivas || p.activo) && (!f.cat || p.categoria === f.cat)
+      && (!f.dif || p.dificultad === +f.dif) && (!f.paquete || p.paquete === f.paquete)
+      && (!q || [p.codigo, p.enunciado, porTexto[p.texto_id]?.titulo, LE.tecnica(p.tema)?.nombre].some((x) => String(x || "").toLowerCase().includes(q))));
+    // Bloques: una lectura o situación con sus preguntas; los problemas sueltos, por técnica.
+    const bloques = [];
+    const idx = {};
+    for (const p of lista) {
+      const llave = p.texto_id || "tema:" + (p.tema || "otros");
+      if (!idx[llave]) {
+        const t = p.texto_id ? porTexto[p.texto_id] : null;
+        idx[llave] = { llave, t, titulo: t ? t.titulo : "Problemas sueltos · " + (LE.tecnica(p.tema)?.nombre || "sin técnica"), tipo: t ? LE.TIPOS[t.tipologia] || "Lectura" : "Técnica", codigo: t?.codigo || "", paquete: t?.paquete || p.paquete, preguntas: [] };
+        bloques.push(idx[llave]);
+      }
+      idx[llave].preguntas.push(p);
+    }
+    LE.estado.bloquesBanco = idx;
+    const cats = LE.COMP[comp].cats;
+    LE.montar(`
+      <div class="pila" style="--pila:1.25rem">
+        <a href="#/tutor/contenido" class="pequeno">‹ Contenido</a>
+        <div class="fila entre">
+          <div class="pila" style="--pila:.3rem">
+            <h1>Explorar el banco</h1>
+            <p class="sub">Así ve cada pregunta la estudiante. Responde para ver la clave y la explicación. Aquí no se guarda nada.</p>
+          </div>
+          <a class="btn sec chico" href="#/practicar">Practicar como estudiante</a>
+        </div>
+        <section class="panel filtros" id="filtros-banco">
+          ${LE.logicaActiva() || preguntas.some((p) => p.componente === "logica") ? `<div class="segmentos" role="group" aria-label="Componente">
+            ${["lectura", "logica"].map((k) => `<button type="button" data-comp="${k}" aria-pressed="${k === comp}">${LE.COMP[k].icono} ${LE.COMP[k].nombre}</button>`).join("")}
+          </div>` : ""}
+          <div class="filtros-campos">
+            <label class="campo">Nivel<select name="cat"><option value="">Todos</option>${cats.map((c) => `<option value="${c}" ${f.cat === c ? "selected" : ""}>${esc(LE.cat(c).nombre)}</option>`).join("")}</select></label>
+            <label class="campo">Dificultad<select name="dif"><option value="">Todas</option>${[1, 2, 3].map((d) => `<option value="${d}" ${+f.dif === d ? "selected" : ""}>${["", "Fácil", "Media", "Difícil"][d]}</option>`).join("")}</select></label>
+            <label class="campo">Paquete<select name="paquete"><option value="">Todos</option>${paquetes.map((x) => `<option ${f.paquete === x ? "selected" : ""}>${esc(x)}</option>`).join("")}</select></label>
+            <label class="campo">Buscar<input name="q" value="${esc(f.q)}" placeholder="Código, palabra del enunciado o título"></label>
+          </div>
+          <label class="check"><input type="checkbox" name="inactivas" ${f.inactivas ? "checked" : ""}> Incluir las desactivadas</label>
+        </section>
+        <p class="sub pequeno">${bloques.length} ${comp === "logica" ? "bloques" : bloques.length === 1 ? "lectura" : "lecturas"} · ${lista.length} ${lista.length === 1 ? "pregunta" : "preguntas"}</p>
+        <div class="banco">${bloques.map((b) => `
+          <details class="bloque-banco" data-bloque="${esc(b.llave)}">
+            <summary>
+              <span class="etq cr-${b.t ? (comp === "logica" ? "cian" : "rosa") : "violeta"}">${esc(b.tipo)}</span>
+              <b>${esc(b.titulo)}</b>
+              <span class="tenue pequeno">${[b.codigo, b.paquete, b.preguntas.length + (b.preguntas.length === 1 ? " pregunta" : " preguntas")].filter(Boolean).map(esc).join(" · ")}</span>
+            </summary>
+            <div class="cuerpo"></div>
+          </details>`).join("") || `<div class="panel vacio"><p>Ninguna pregunta cumple esos filtros.</p></div>`}</div>
+      </div>`);
+    const caja = $("#filtros-banco");
+    caja.addEventListener("click", (e) => { const b = e.target.closest("[data-comp]"); if (!b) return; Object.assign(f, { comp: b.dataset.comp, cat: "", paquete: "" }); pintarBanco(); });
+    caja.addEventListener("change", (e) => { const x = e.target; if (!x.name) return; f[x.name] = x.type === "checkbox" ? x.checked : x.value; if (x.name !== "q") pintarBanco(); });
+    let espera = null;
+    caja.querySelector("[name=q]").addEventListener("input", (e) => { clearTimeout(espera); espera = setTimeout(() => { f.q = e.target.value; pintarBanco(); const i = $("#filtros-banco [name=q]"); i.focus(); i.setSelectionRange(i.value.length, i.value.length); }, 350); });
+    // El contenido de cada bloque se pinta al abrirlo.
+    $$(".bloque-banco").forEach((d) => d.addEventListener("toggle", () => {
+      const cuerpo = d.querySelector(".cuerpo");
+      if (!d.open || cuerpo.dataset.listo) return;
+      const b = LE.estado.bloquesBanco[d.dataset.bloque];
+      cuerpo.innerHTML = `${b.t ? `<div class="lectura-banco">${LE.lecturaHTML(b.t, false)}</div>` : ""}${b.preguntas.map((p) => preguntaBanco(p)).join("")}`;
+      cuerpo.dataset.listo = "1";
+    }));
+  }
+
+  const buscarPregunta = (id) => LE.estado.banco.preguntas.find((p) => p.id === id);
+
+  function preguntaBanco(p, respuesta = null, pista = false) {
+    const logica = p.componente === "logica";
+    const r = respuesta;
+    return `<section class="pregunta probar cr-${p.categoria}" data-q="${p.id}">
+      <div class="meta"><span class="etq">${esc(LE.cat(p.categoria).nombre)}</span><span class="dif" title="Dificultad ${p.dificultad} de 3">${"●".repeat(p.dificultad)}${"○".repeat(3 - p.dificultad)}</span>
+        <span class="tenue">${esc(p.codigo)}${p.tema && LE.tecnica(p.tema) ? " · " + esc(LE.tecnica(p.tema).nombre) : ""}</span>${p.activo ? "" : `<span class="estado apagado">Desactivada</span>`}</div>
+      ${logica ? `<div class="enunciado md">${LE.md(p.enunciado)}</div>${LE.figura(p.figura)}` : `<p class="enunciado">${esc(p.enunciado)}</p>`}
+      <div class="opciones">${p.opciones.map((o, k) => {
+        const cls = r == null ? "" : k === p.correcta ? "bien" : k === r ? "malo" : "";
+        return `<button class="opcion ${cls}" data-accion="probarOpcion" data-q="${p.id}" data-k="${k}" ${r != null ? "disabled" : ""}><span class="letra">${LE.LETRAS[k]}</span><span>${esc(o)}</span></button>`;
+      }).join("")}</div>
+      ${r == null
+        ? (p.pista ? (pista ? `<div class="pista-caja" role="note"><b>Pista</b><p>${esc(p.pista)}</p></div>` : `<div><button class="btn suave chico" data-accion="probarPista" data-q="${p.id}">Ver la pista</button></div>`) : "")
+        : `<div class="retro ${r === p.correcta ? "bien" : "malo"}" role="status">
+            <strong>${r === p.correcta ? "Correcto" : "La respuesta era la " + LE.LETRAS[p.correcta]}</strong>
+            ${logica ? `${r === p.correcta ? "" : LE.diagnosticoError((p.errores || [])[r])}${LE.pasosHTML(p.pasos, { abierto: r !== p.correcta })}${p.explicacion ? `<p class="idea">${esc(p.explicacion)}</p>` : ""}${LE.enlaceTecnica(p.tema)}` : `<p>${esc(p.explicacion)}</p>`}
+            ${logica && Array.isArray(p.errores) && p.errores.some(Boolean) ? `<details class="solucion"><summary>Qué error lleva a cada opción incorrecta</summary><ul class="errores-opciones">${p.errores.map((e, k) => e ? `<li><b>${LE.LETRAS[k]}.</b> ${esc(LE.tipoError(e.tipo).nombre)}${e.nota ? ": " + esc(e.nota) : ""}</li>` : "").join("")}</ul></details>` : ""}
+          </div>
+          <div><button class="btn suave chico" data-accion="probarOtraVez" data-q="${p.id}">Responder otra vez</button></div>`}
+    </section>`;
+  }
+  const repintarPregunta = (id, r = null, pista = false) => {
+    const el = $(`.pregunta.probar[data-q="${id}"]`);
+    if (el) el.outerHTML = preguntaBanco(buscarPregunta(id), r, pista);
+  };
+  A.probarOpcion = (b) => repintarPregunta(b.dataset.q, +b.dataset.k);
+  A.probarPista = (b) => repintarPregunta(b.dataset.q, null, true);
+  A.probarOtraVez = (b) => repintarPregunta(b.dataset.q);
 
   LE.validarPaquete = (p) => {
     const err = [];

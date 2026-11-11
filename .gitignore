@@ -1,0 +1,12 @@
+# Archivos que crea macOS en cada carpeta
+.DS_Store
+._*
+
+# Cachés de Python (aparecen al correr los scripts de tools/)
+__pycache__/
+*.pyc
+
+# Configuración local de editores
+.vscode/
+.idea/
+*.swp
